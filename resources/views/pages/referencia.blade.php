@@ -172,7 +172,7 @@ function actualizar(){
                         <h3>REFERENCIA</h3>
                         <hr>
       
-                    <div class="row" id="seccion1">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" id="dept" name="id_departamento" required="required">
@@ -214,7 +214,7 @@ function actualizar(){
                     <div class="row" id="seccion1.1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required" id="sec1">
                                     <option value="">REGIMEN</option>
                                     @foreach($regimen as $reg)
                                     <option value="{{ $reg->id_regimen }}">{{ $reg->name_regimen }}</option>
@@ -224,7 +224,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="id_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required">
+                                <input type="text" name="id_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2">
                             </div>
                         </div>
                     </div>
@@ -242,10 +242,10 @@ function actualizar(){
                         </div>
                     </div> -->
 
-                    <div class="row" id="seccion2" style="display: none;">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" id="secc1" style="display: none;">
                                     <option value="">TIPO IDENTIFICACIÓN</option>
                                     @foreach($tipo_identificacion as $ti)
                                     <option value="{{ $ti->id_tipo_ident }}">{{ $ti->alias_tipo_ident }}</option>
@@ -255,41 +255,22 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required">
+                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2" style="display: none;">
                             </div>
                         </div>
                     </div>
 
-                    <div class="row" id="seccion2.1" style="display: none;">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required">
+                                <label>FECHA DE NACIMIENTO</label>
+                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="seccion2.2" style="display: none;">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="seccion2.3" style="display: none;">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required">
+                                <label></label>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="secc4" style="display: none;">
                                     <option value="">GENERO</option>
                                     @foreach($genero as $sex)
                                     <option value="{{ $sex->id_sexo }}">{{ $sex->alias_sexo }}</option>
@@ -297,9 +278,38 @@ function actualizar(){
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required">
+                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" id="secci1" style="display: none;">
                                     <option value="">EPS QUE SE ENCUENTRA AFILIADO</option>
                                     @foreach($regimen_eps as $eps)
                                     <option value="{{ $eps->id_eps }}">{{ $eps->name_eps }}</option>
@@ -307,29 +317,9 @@ function actualizar(){
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row" id="seccion2.4" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label>FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="seccion3" style="display: none;">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required" id="secci2" style="display: none;">
                                     <option value="">CODIGO DIAGNOSTICO</option>
                                     @foreach($diagnostico as $diag)
                                     <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
@@ -339,15 +329,15 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row" id="seccion3.1" style="display: none;">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="16" required="required">
+                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="16" required="required" id="secci3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" style="display: none;">
                                     <option value="">SERVICIO</option>
                                     @foreach($servicio as $ser)
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
@@ -360,7 +350,7 @@ function actualizar(){
                     <div class="row" id="seccion3.2" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required" id="secci5" style="display: none;">
                                     <option value="">IPS REMITENTE</option>
                                     @foreach($regimen_ips as $ips)
                                     <option value="{{ $ips->id_ips }}">{{ $ips->name_ips }}</option>
@@ -370,7 +360,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required" id="secci6" style="display: none;">
                                     <option value="">MUNICIPIO REMITENTE</option>
                                     @foreach($municipio_remitente as $mpio)
                                     <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
@@ -685,63 +675,85 @@ function actualizar(){
         })
         function next(section){
             // console.log(section);
-            if (section = 'section2') {
+            if (section === 'section2') {
+                // Botones de secciones
                 document.getElementById("inicio1").style.display = "none";
                 document.getElementById("inicio2").style.display = "none";
                 document.getElementById("medio1").style.display = "block";
                 document.getElementById("medio2").style.display = "block";
 
-                document.getElementById("seccion1").style.display = "none";
-                document.getElementById("seccion1.1").style.display = "none";
-                document.getElementById("seccion2").style.display = "block";
-                document.getElementById("seccion2.1").style.display = "block";
-                document.getElementById("seccion2.2").style.display = "block";
-                document.getElementById("seccion2.3").style.display = "block";
-                document.getElementById("seccion2.4").style.display = "block";
+                // Elementos Seccion1
+                document.getElementById("dept").style.display = "none";
+                document.getElementById("mpio").style.display = "none";
+
+                for (let i = 1; i < 3; i++) {
+                    document.getElementById("sec"+i).style.display = "none";
+                    
+                }
+
+                // Elementos Seccion2
+                for (let j = 1; j < 9; j++) {
+                    document.getElementById("secc"+j).style.display = "block";
+                    
+                }
             }else {
                 document.getElementById("medio1").style.display = "none";
                 document.getElementById("medio2").style.display = "none";
                 document.getElementById("fin1").style.display = "block";
                 document.getElementById("fin2").style.display = "block";
 
-                document.getElementById("seccion2").style.display = "none";
-                document.getElementById("seccion2.1").style.display = "none";
-                document.getElementById("seccion2.2").style.display = "none";
-                document.getElementById("seccion2.3").style.display = "none";
-                document.getElementById("seccion2.4").style.display = "none";
-                document.getElementById("seccion3").style.display = "block";
-                document.getElementById("seccion3.1").style.display = "block";
-                document.getElementById("seccion3.2").style.display = "block";
+                // Elementos Seccion2
+                for (let i = 1; i < 9; i++) {
+                    document.getElementById("secc"+i).style.display = "none";
+                    
+                }
+
+                // Elementos Seccion3
+                for (let j = 1; j < 7; j++) {
+                    document.getElementById("secci"+j).style.display = "block";
+                    
+                }
             }
         }
         function back(section){
-            if (section = 'section1') {
+            if (section === 'section1') {
+                // Botones de secciones
                 document.getElementById("medio1").style.display = "none";
                 document.getElementById("medio2").style.display = "none";
                 document.getElementById("inicio1").style.display = "block";
                 document.getElementById("inicio2").style.display = "block";
-                
-                document.getElementById("seccion1").style.display = "block";
-                document.getElementById("seccion1.1").style.display = "block";
-                document.getElementById("seccion2").style.display = "none";
-                document.getElementById("seccion2.1").style.display = "none";
-                document.getElementById("seccion2.2").style.display = "none";
-                document.getElementById("seccion2.3").style.display = "none";
-                document.getElementById("seccion2.4").style.display = "none";
+
+                // Elementos Seccion1
+                document.getElementById("dept").style.display = "block";
+                document.getElementById("mpio").style.display = "block";
+
+                for (let i = 1; i < 3; i++) {
+                    document.getElementById("sec"+i).style.display = "block";
+                    
+                }
+
+                // Elementos Seccion2
+                for (let j = 1; j < 9; j++) {
+                    document.getElementById("secc"+j).style.display = "none";
+                    
+                }
             }else {
                 document.getElementById("fin1").style.display = "none";
                 document.getElementById("fin2").style.display = "none";
                 document.getElementById("medio1").style.display = "block";
                 document.getElementById("medio2").style.display = "block";
-                
-                document.getElementById("seccion2").style.display = "block";
-                document.getElementById("seccion2.1").style.display = "block";
-                document.getElementById("seccion2.2").style.display = "block";
-                document.getElementById("seccion2.3").style.display = "block";
-                document.getElementById("seccion2.4").style.display = "block";
-                document.getElementById("seccion3").style.display = "none";
-                document.getElementById("seccion3.1").style.display = "none";
-                document.getElementById("seccion3.2").style.display = "none";
+
+                // Elementos Seccion2
+                for (let i = 1; i < 9; i++) {
+                    document.getElementById("secc"+i).style.display = "block";
+                    
+                }
+
+                // Elementos Seccion3
+                for (let j = 1; j < 7; j++) {
+                    document.getElementById("secci"+j).style.display = "none";
+                    
+                }
             }
         }
 	</script>
