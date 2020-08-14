@@ -427,7 +427,7 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" id="dept" name="id_departamento" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" name="id_departamento" required="required">
                                     <option value="">DEPARTAMENTO</option>
                                     @foreach($departamento as $dept)
                                     <option value="{{ $dept->id_departamento }}">{{ $dept->name_departamento }}</option>
@@ -437,7 +437,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" id="mpio" name="id_municipio" required="required">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" name="id_municipio" required="required">
                                     <option value="">MUNICIPIO</option>
                                 </select>
                                 <script type="text/javascript">
