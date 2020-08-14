@@ -684,7 +684,7 @@ function actualizar(){
 	 		$(this).parent().addClass("focus");
         })
         function next(section){
-            console.log(section);
+            // console.log(section);
             if (section = 'section2') {
                 document.getElementById("inicio1").style.display = "none";
                 document.getElementById("inicio2").style.display = "none";
@@ -698,7 +698,7 @@ function actualizar(){
                 document.getElementById("seccion2.2").style.display = "block";
                 document.getElementById("seccion2.3").style.display = "block";
                 document.getElementById("seccion2.4").style.display = "block";
-            }else if (section = 'section3') {
+            }else {
                 document.getElementById("medio1").style.display = "none";
                 document.getElementById("medio2").style.display = "none";
                 document.getElementById("fin1").style.display = "block";
@@ -728,7 +728,7 @@ function actualizar(){
                 document.getElementById("seccion2.2").style.display = "none";
                 document.getElementById("seccion2.3").style.display = "none";
                 document.getElementById("seccion2.4").style.display = "none";
-            }else if (section = 'section2') {
+            }else {
                 document.getElementById("fin1").style.display = "none";
                 document.getElementById("fin2").style.display = "none";
                 document.getElementById("medio1").style.display = "block";
