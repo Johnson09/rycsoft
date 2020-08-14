@@ -31,7 +31,7 @@ class LoginController extends Controller
                 $servicio = DB::select("SELECT * FROM tipo_servicio ");
                 $regimen_ips = DB::select("SELECT * FROM entidad_ips ");
                 $municipio_remitente = DB::select("SELECT * FROM municipios ");
-                $date = DB::select("SELECT CURRENT_DATE ");
+                $date = date("Y/m/d");
     
                 // Datos de llenado tabla de referencia
                 $referencias = '';
