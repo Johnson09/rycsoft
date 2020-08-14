@@ -1,8 +1,13 @@
 <script type="text/javascript">
+$( function() {
+    $( "#secc3" ).datepicker();
+});
+
 function pad(input, length, padding) { 
   var str = input + "";
   return (length <= str.length) ? str : pad(padding+str, length, padding);
 }
+
 function actualizar(){
     document.getElementById("form").action = "regprod/";
 
@@ -248,14 +253,14 @@ function actualizar(){
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" id="secc1" style="display: none;">
                                     <option value="">TIPO IDENTIFICACIÓN</option>
                                     @foreach($tipo_identificacion as $ti)
-                                    <option value="{{ $ti->id_tipo_ident }}">{{ $ti->alias_tipo_ident }}</option>
+                                    <option value="{{ $ti->id_tipo_ident }}">{{ $ti->name_tipo_ident }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2" style="display: none;">
+                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" pattern="[0-9]+" tabindex="11" required="required" id="secc2" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -263,17 +268,15 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label id="title_birth" style="display: none;">FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
+                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" autocomplete="off" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label id="title_sex" style="display: none;"></label>
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="secc4" style="display: none;">
                                     <option value="">GENERO</option>
                                     @foreach($genero as $sex)
-                                    <option value="{{ $sex->id_sexo }}">{{ $sex->alias_sexo }}</option>
+                                    <option value="{{ $sex->id_sexo }}">{{ $sex->name_sexo }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -283,12 +286,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
+                                <input type="text" name="first_lastname" onkeyup="mayus(this);" placeholder="PRIMER APELLIDO" pattern="[A-Za-z]" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
+                                <input type="text" name="second_lastname" onkeyup="mayus(this);" placeholder="SEGUNDO APELLIDO" pattern="[A-Za-z]" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -296,12 +299,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
+                                <input type="text" name="first_name" onkeyup="mayus(this);" placeholder="PRIMER NOMBRE" pattern="[A-Za-z]" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
+                                <input type="text" name="second_name" onkeyup="mayus(this);" placeholder="SEGUNDO NOMBRE" pattern="[A-Za-z]" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -670,9 +673,15 @@ function actualizar(){
 </style>
 <!-- <script src="https://code.jquery.pro/jquery-3.2.1.js"></script> -->
 	<script type="text/javascript">
+
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
         })
+
+        function mayus(e) {
+            e.value = e.value.toUpperCase();
+        }
+
         function next(section){
             // console.log(section);
             if (section === 'section2') {
@@ -693,7 +702,6 @@ function actualizar(){
 
                 // Elementos Seccion2
                 document.getElementById("title_birth").style.display = "block";
-                document.getElementById("title_sex").style.display = "block";
 
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "block";
@@ -707,7 +715,6 @@ function actualizar(){
 
                 // Elementos Seccion2
                 document.getElementById("title_birth").style.display = "none";
-                document.getElementById("title_sex").style.display = "none";
 
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "none";
@@ -740,7 +747,6 @@ function actualizar(){
 
                 // Elementos Seccion2
                 document.getElementById("title_birth").style.display = "none";
-                document.getElementById("title_sex").style.display = "none";
 
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "none";
@@ -754,7 +760,6 @@ function actualizar(){
 
                 // Elementos Seccion2
                 document.getElementById("title_birth").style.display = "block";
-                document.getElementById("title_sex").style.display = "block";
 
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "block";
