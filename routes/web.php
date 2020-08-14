@@ -28,4 +28,8 @@ Route::get('/logout', function () {
     return view('welcome');
 });
 
+Route::resource('/gestion_referencia', 'ReferenciaController');
+
+Route::get('/obtener_municipio', 'MunicipioController@getMunicipios');
+
 Route::get('/layout/{any}', 'RoutesController@index')->where('any', '.*');

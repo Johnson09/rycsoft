@@ -7,11 +7,53 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         session_start();
-        $set = $_SESSION['id'];
-        $name = $_SESSION['nombre'];
-        return view('layout.app', compact('set', 'name'));
+
+        // dd($pagina);
+        if (!isset($_SESSION['id'])) {
+            return redirect('/logout');
+        }else{
+            $set = $_SESSION['id'];
+            $name = $_SESSION['nombre'];
+    
+            $pagina = '';
+            $pagina = $request->input('p');
+            if ($pagina == 'referencia') {
+
+                // Datos requeridos en los formularios de referencia
+                $departamento = DB::select("SELECT * FROM departamentos ");
+                $regimen = DB::select("SELECT * FROM tipo_regimen ");
+                $tipo_identificacion = DB::select("SELECT * FROM tipo_identificacion ");
+                $regimen_eps = DB::select("SELECT * FROM entidad_eps ");
+                $genero = DB::select("SELECT * FROM tipo_sexo ");
+                $diagnostico = DB::select("SELECT * FROM tipo_diagnostico ");
+                $servicio = DB::select("SELECT * FROM tipo_servicio ");
+                $regimen_ips = DB::select("SELECT * FROM entidad_ips ");
+                $municipio_remitente = DB::select("SELECT * FROM municipios ");
+    
+                // Datos de llenado tabla de referencia
+                $referencias = '';
+    
+                return view('layout.app', 
+                            compact(    
+                                'set', 
+                                'name', 
+                                'departamento', 
+                                'regimen', 
+                                'tipo_identificacion', 
+                                'regimen_eps', 
+                                'genero', 
+                                'diagnostico', 
+                                'servicio', 
+                                'regimen_ips', 
+                                'municipio_remitente'
+                            ));
+            }else{
+                return view('layout.app', compact('set', 'name'));
+            }
+        }
+
     }
 
     public function store(Request $request)
