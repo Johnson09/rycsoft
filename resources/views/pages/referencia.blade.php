@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $( function() {
-    $( "#secc3" ).datepicker();
+    $("#secc3").Datepicker();
 });
 
 function pad(input, length, padding) { 
@@ -260,7 +260,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" pattern="[0-9]+" tabindex="11" required="required" id="secc2" style="display: none;">
+                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -286,12 +286,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" onkeyup="mayus(this);" placeholder="PRIMER APELLIDO" pattern="[A-Za-z]" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
+                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="mayus(this);" placeholder="SEGUNDO APELLIDO" pattern="[A-Za-z]" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -299,12 +299,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_name" onkeyup="mayus(this);" placeholder="PRIMER NOMBRE" pattern="[A-Za-z]" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
+                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="mayus(this);" placeholder="SEGUNDO NOMBRE" pattern="[A-Za-z]" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -677,9 +677,31 @@ function actualizar(){
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
         })
+        
+        function Numeros(string){//Solo numeros
+            var out = '';
+            var filtro = '1234567890';//Caracteres validos
+            
+            //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+            for (var i=0; i<string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1) 
+                    //Se añaden a la salida los caracteres validos
+                out += string.charAt(i);
+            
+            //Retornar valor filtrado
+            return out;
+        }
 
-        function mayus(e) {
-            e.value = e.value.toUpperCase();
+        function Textos(e){//solo letras y numeros
+            var string = e.value;
+            var out = '';
+            //Se añaden las letras validas
+            var filtro = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';//Caracteres validos
+            
+            for (var i=0; i<string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1) 
+                out += string.charAt(i);
+            e.value = out.toUpperCase();
         }
 
         function next(section){
