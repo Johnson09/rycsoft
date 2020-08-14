@@ -1,3 +1,9 @@
+
+  <!-- Files required Datepicker -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript">
 
 function pad(input, length, padding) { 
@@ -265,7 +271,7 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg datepicker" tabindex="13" required="required" id="secc3" style="display: none;">
+                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="datepicker form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
