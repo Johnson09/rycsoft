@@ -172,7 +172,7 @@ function actualizar(){
                         <h3>REFERENCIA</h3>
                         <hr>
       
-                    <div class="row">
+                    <div class="row" id="seccion1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" id="dept" name="id_departamento" required="required">
@@ -211,7 +211,7 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="seccion1.1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required">
@@ -224,11 +224,12 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
+                                <input type="text" name="id_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required">
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="text" name="nit_prestador_servic" placeholder="NIT PRESTADOR SERVICIO" class="form-control input-lg" tabindex="4" required="required">
@@ -239,35 +240,9 @@ function actualizar(){
                                 <input type="text" name="cod_hab_prestador" placeholder="CODIGO HABILITACIÓN PRESTADOR" class="form-control input-lg" tabindex="5" required="required">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
+                    <div class="row" id="seccion2" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required">
@@ -285,7 +260,43 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="seccion2.1" style="display: none;">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="seccion2.2" style="display: none;">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="seccion2.3" style="display: none;">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required">
+                                    <option value="">GENERO</option>
+                                    @foreach($genero as $sex)
+                                    <option value="{{ $sex->id_sexo }}">{{ $sex->alias_sexo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required">
@@ -296,23 +307,24 @@ function actualizar(){
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row" id="seccion2.4" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <label>FECHA DE NACIMIENTO</label>
                                 <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required">
-                                    <option value="">GENERO</option>
-                                    @foreach($genero as $sex)
-                                    <option value="{{ $sex->id_sexo }}">{{ $sex->alias_sexo }}</option>
-                                    @endforeach
-                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="seccion3" style="display: none;">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -327,7 +339,7 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="seccion3.1" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="16" required="required">
@@ -345,7 +357,7 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" id="seccion3.2" style="display: none;">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required">
@@ -370,11 +382,22 @@ function actualizar(){
       
                     <hr>
                     <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                        <input type="submit" class="btn btn-info btn-block btn-lg" title="Guardar" tabindex="20" value="FINALIZAR REGISTRO">
+                        <div class="col-xs-6 col-md-6" id="inicio1">
                         </div>
-                        <div class="col-xs-6 col-md-6">
-                        <!-- <input type="reset" value="Restaurar" class="btn btn-warning btn-block btn-lg" tabindex="14"> -->
+                        <div class="col-xs-6 col-md-6" id="inicio2">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio3" style="display: none;">
+                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section1')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio2" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section3')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="fin1" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="REGRESAR" onclick="back('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="fin2" style="display: none;">
+                            <input type="submit" class="btn btn-info btn-block btn-lg" tabindex="20" value="GUARDAR REGISTRO">
                         </div>
                     </div>
                     </form>
@@ -659,5 +682,65 @@ function actualizar(){
 	<script type="text/javascript">
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
-	 	})
+        })
+        function next(section){
+            if (section = 'section2') {
+                document.getElementById("inicio1").style.display = "none";
+                document.getElementById("inicio2").style.display = "none";
+                document.getElementById("medio1").style.display = "block";
+                document.getElementById("medio2").style.display = "block";
+
+                document.getElementById("seccion1").style.display = "none";
+                document.getElementById("seccion1.1").style.display = "none";
+                document.getElementById("seccion2").style.display = "block";
+                document.getElementById("seccion2.1").style.display = "block";
+                document.getElementById("seccion2.2").style.display = "block";
+                document.getElementById("seccion2.3").style.display = "block";
+                document.getElementById("seccion2.4").style.display = "block";
+            }else if (section = 'section3') {
+                document.getElementById("medio1").style.display = "none";
+                document.getElementById("medio2").style.display = "none";
+                document.getElementById("fin1").style.display = "block";
+                document.getElementById("fin2").style.display = "block";
+
+                document.getElementById("seccion2").style.display = "none";
+                document.getElementById("seccion2.1").style.display = "none";
+                document.getElementById("seccion2.2").style.display = "none";
+                document.getElementById("seccion2.3").style.display = "none";
+                document.getElementById("seccion2.4").style.display = "none";
+                document.getElementById("seccion3").style.display = "block";
+                document.getElementById("seccion3.1").style.display = "block";
+                document.getElementById("seccion3.2").style.display = "block";
+            }
+        }
+        function back(section){
+            if (section = 'section1') {
+                document.getElementById("medio1").style.display = "none";
+                document.getElementById("medio2").style.display = "none";
+                document.getElementById("inicio1").style.display = "block";
+                document.getElementById("inicio2").style.display = "block";
+                
+                document.getElementById("seccion1").style.display = "block";
+                document.getElementById("seccion1.1").style.display = "block";
+                document.getElementById("seccion2").style.display = "none";
+                document.getElementById("seccion2.1").style.display = "none";
+                document.getElementById("seccion2.2").style.display = "none";
+                document.getElementById("seccion2.3").style.display = "none";
+                document.getElementById("seccion2.4").style.display = "none";
+            }else if (section = 'section2') {
+                document.getElementById("fin1").style.display = "none";
+                document.getElementById("fin2").style.display = "none";
+                document.getElementById("medio1").style.display = "block";
+                document.getElementById("medio2").style.display = "block";
+                
+                document.getElementById("seccion2").style.display = "block";
+                document.getElementById("seccion2.1").style.display = "block";
+                document.getElementById("seccion2.2").style.display = "block";
+                document.getElementById("seccion2.3").style.display = "block";
+                document.getElementById("seccion2.4").style.display = "block";
+                document.getElementById("seccion3").style.display = "none";
+                document.getElementById("seccion3.1").style.display = "none";
+                document.getElementById("seccion3.2").style.display = "none";
+            }
+        }
 	</script>

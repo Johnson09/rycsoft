@@ -118,9 +118,9 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Directivas:</h6>
-            <a class="collapse-item <?php echo $pagina == 'referencia'; ?>" href="?p=referencia">Referencia</a>
+            <a class="collapse-item <?php echo $pagina == 'referencia'; ?>" href="?p=referencia">Registro Referencia</a>
             <a class="collapse-item <?php echo $pagina == 'seguimiento'; ?>" href="?p=seguimiento">Seguimiento</a>
-            <a class="collapse-item" href="#">Reporte</a>
+            <!-- <a class="collapse-item" href="#">Reporte</a> -->
             <!-- <a class="collapse-item" href="register.html">Register</a>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             <div class="collapse-divider"></div>
