@@ -263,13 +263,13 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label>FECHA DE NACIMIENTO</label>
+                                <label id="title_birth" style="display: none;">FECHA DE NACIMIENTO</label>
                                 <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label></label>
+                                <label id="title_sex" style="display: none;"></label>
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="secc4" style="display: none;">
                                     <option value="">GENERO</option>
                                     @foreach($genero as $sex)
@@ -692,6 +692,9 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("title_birth").style.display = "block";
+                document.getElementById("title_sex").style.display = "block";
+
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "block";
                     
@@ -703,6 +706,9 @@ function actualizar(){
                 document.getElementById("fin2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("title_birth").style.display = "none";
+                document.getElementById("title_sex").style.display = "none";
+
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "none";
                     
@@ -733,6 +739,9 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("title_birth").style.display = "none";
+                document.getElementById("title_sex").style.display = "none";
+
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "none";
                     
@@ -744,6 +753,9 @@ function actualizar(){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("title_birth").style.display = "block";
+                document.getElementById("title_sex").style.display = "block";
+
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "block";
                     
