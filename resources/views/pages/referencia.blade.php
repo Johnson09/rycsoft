@@ -321,13 +321,13 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required" id="secci2" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci21.value=this.value" tabindex="15" name="id_diagnostico" required="required" id="secci2" style="display: none;">
                                     <option value="">COD DIAGNOSTICO</option>
                                     @foreach($diagnostico as $diag)
                                     <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
                                     @endforeach
                                 </select>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="15" name="id_diagnostico" required="required" id="secci2.1" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="15" name="id_diagnostico" required="required" id="secci21" style="display: none;">
                                     <option value="">DIAGNOSTICO</option>
                                     @foreach($diagnostico as $diag)
                                     <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
@@ -523,7 +523,7 @@ function actualizar(){
                 }
 
                 // Elementos Seccion3
-                document.getElementById("secci2.1").style.display = "block";
+                document.getElementById("secci21").style.display = "block";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "block";
@@ -572,7 +572,7 @@ function actualizar(){
                 }
 
                 // Elementos Seccion3
-                document.getElementById("secci2.1").style.display = "none";
+                document.getElementById("secci21").style.display = "none";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "none";
