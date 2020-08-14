@@ -5,13 +5,13 @@
             <br>
             <img src="public/images/logopag.png" id="logo">
             <br>
-            <h4>E.S.E HOSPITAL DIVINO NIÑO</h4>
+            <h5>REFERENCIA Y CONTRAREFERENCIA</h5>
         </div>
     </div>
 </div>
 <style type="text/css">
 	#logo {
-		width: 40%;
+		width: 35%;
 		display: block;
 		margin: auto;
 	}

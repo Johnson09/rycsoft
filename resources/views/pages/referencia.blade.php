@@ -168,7 +168,7 @@ function actualizar(){
                     <!-- Formulario de registro de referencia -->
                     <form role="form" action="{{ url('gestion_referencia') }}" method="post">
                     @csrf
-                        <h2>NUEVA</h2>
+                        <h2>REGISTRO</h2>
                         <h3>REFERENCIA</h3>
                         <hr>
       
