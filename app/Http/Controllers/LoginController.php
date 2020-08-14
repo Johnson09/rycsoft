@@ -48,7 +48,8 @@ class LoginController extends Controller
                                 'diagnostico', 
                                 'servicio', 
                                 'regimen_ips', 
-                                'municipio_remitente'
+                                'municipio_remitente',
+                                'date'
                             ));
             }else{
                 return view('layout.app', compact('set', 'name'));
