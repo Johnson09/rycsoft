@@ -29,7 +29,7 @@
 
 <body id="page-top">
     <?php 
-        $pagina = isset($_GET['p']) ? strtolower($_GET['p']) : 'referencia';
+        $pagina = isset($_GET['p']) ? strtolower($_GET['p']) : 'home';
     ?>
   <!-- Page Wrapper -->
   <div id="wrapper">
