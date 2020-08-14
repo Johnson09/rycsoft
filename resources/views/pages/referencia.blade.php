@@ -677,7 +677,7 @@ function actualizar(){
         });
 
         $(function() {
-            $(".datepicker").datepicker();
+            $(".datepicker").datetimepicker();
         });
         
         function Numeros(string){//Solo numeros
