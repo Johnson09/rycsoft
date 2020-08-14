@@ -701,8 +701,6 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
-                document.getElementById("title_birth").style.display = "block";
-
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "block";
                     
@@ -714,8 +712,6 @@ function actualizar(){
                 document.getElementById("fin2").style.display = "block";
 
                 // Elementos Seccion2
-                document.getElementById("title_birth").style.display = "none";
-
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "none";
                     
@@ -746,8 +742,6 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
-                document.getElementById("title_birth").style.display = "none";
-
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "none";
                     
@@ -759,8 +753,6 @@ function actualizar(){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion2
-                document.getElementById("title_birth").style.display = "block";
-
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "block";
                     
