@@ -265,7 +265,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="datepicker form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
+                                <div class='input-group date' id='datetimepicker1'>
+                                    <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
+                                    <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -677,7 +682,7 @@ function actualizar(){
         });
 
         $(function() {
-            $(".datepicker").datetimepicker();
+            $("#datetimepicker1").datetimepicker();
         });
         
         function Numeros(string){//Solo numeros
