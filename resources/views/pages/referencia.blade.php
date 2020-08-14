@@ -684,6 +684,7 @@ function actualizar(){
 	 		$(this).parent().addClass("focus");
         })
         function next(section){
+            console.log(section);
             if (section = 'section2') {
                 document.getElementById("inicio1").style.display = "none";
                 document.getElementById("inicio2").style.display = "none";
