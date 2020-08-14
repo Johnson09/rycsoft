@@ -682,7 +682,7 @@ function actualizar(){
         });
 
         $(function() {
-            $("#datetimepicker1").datetimepicker();
+            $("#datetimepicker1").datepicker();
         });
         
         function Numeros(string){//Solo numeros
