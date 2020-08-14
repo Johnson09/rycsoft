@@ -231,18 +231,18 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="nit_prestador_servic" placeholder="NIT PRESTADOR SERVICIO" class="form-control input-lg" tabindex="4" required="required">
+                                <label id="date_now">FECHA ACTUAL</label>
+                                <input type="date" class="form-control input-lg" disabled tabindex="13" required="required" id="now">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="cod_hab_prestador" placeholder="CODIGO HABILITACIÓN PRESTADOR" class="form-control input-lg" tabindex="5" required="required">
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -265,16 +265,13 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
-                                    <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
+                                <label id="birth" style="display: none;">FECHA DE NACIMIENTO</label>
+                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
+                                <label></label>
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="secc4" style="display: none;">
                                     <option value="">GENERO</option>
                                     @foreach($genero as $sex)
@@ -325,6 +322,12 @@ function actualizar(){
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required" id="secci2" style="display: none;">
+                                    <option value="">CODIGO DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required" id="secci2.1" style="display: none;">
                                     <option value="">CODIGO DIAGNOSTICO</option>
                                     @foreach($diagnostico as $diag)
                                     <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
@@ -404,235 +407,6 @@ function actualizar(){
 </div>
 <!-- Final del modal de registro de referencia -->
 
-<!-- Inicio modal actualizacion referencia -->
-<div id="actModal" class="modal fade">
-    <div class="modal-dialog modal-lg">
-
-        <!-- Modal content-->
-        <div class="modal-content" style="background:;">
-            <div class="modal-body" style="font-size: 14px">
-                <div style="text-align: center;">
-                    <!-- Inicio formulario de actualizacion de referencia -->
-                    <form role="form" action="" method="post">
-                    @csrf
-                        <h2>ACTUALIZACIÓN</h2>
-                        <h3>REFERENCIA</h3>
-                        <hr>
-      
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" name="id_departamento" required="required">
-                                    <option value="">DEPARTAMENTO</option>
-                                    @foreach($departamento as $dept)
-                                    <option value="{{ $dept->id_departamento }}">{{ $dept->name_departamento }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" name="id_municipio" required="required">
-                                    <option value="">MUNICIPIO</option>
-                                </select>
-                                <script type="text/javascript">
-                                    $('#dept').on('change', function(e){
-                                        var dept = e.target.value;
-                                        $.get('{{ action('MunicipioController@getMunicipios') }}?id_dept=' + dept, function(data) {
-                                            // console.log(data);
-                                            $('#mpio').empty();
-
-                                            if (data == "") {
-                                                $('#mpio').append("<option value=''>MUNICIPIO</option>");
-                                            }else{
-                                                $('#mpio').append("<option value=''>MUNICIPIO</option>");
-                                                $.each(data, function(index, ClassObj){
-                                                    $('#mpio').append("<option value='"+ClassObj.id_municipio+"'>"+ClassObj.name_municipio+"</option>");
-                                                    // $('#ciudad').selectpicker("refresh");
-                                                })
-                                            }
-                                        });
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required">
-                                    <option value="">REGIMEN</option>
-                                    @foreach($regimen as $reg)
-                                    <option value="{{ $reg->id_regimen }}">{{ $reg->name_regimen }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="nit_prestador_servic" placeholder="NIT PRESTADOR SERVICIO" class="form-control input-lg" tabindex="4" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="cod_hab_prestador" placeholder="CODIGO HABILITACIÓN PRESTADOR" class="form-control input-lg" tabindex="5" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_lastname" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_lastname" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_name" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_name" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required">
-                                    <option value="">TIPO IDENTIFICACIÓN</option>
-                                    @foreach($tipo_identificacion as $ti)
-                                    <option value="{{ $ti->id_tipo_ident }}">{{ $ti->alias_tipo_ident }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="identification_number" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required">
-                                    <option value="">EPS QUE SE ENCUENTRA AFILIADO</option>
-                                    @foreach($regimen_eps as $eps)
-                                    <option value="{{ $eps->id_eps }}">{{ $eps->name_eps }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label>FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required">
-                                    <option value="">GENERO</option>
-                                    @foreach($genero as $sex)
-                                    <option value="{{ $sex->id_sexo }}">{{ $sex->alias_sexo }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="15" name="id_diagnostico" required="required">
-                                    <option value="">CODIGO DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="16" required="required">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required">
-                                    <option value="">SERVICIO</option>
-                                    @foreach($servicio as $ser)
-                                    <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required">
-                                    <option value="">IPS REMITENTE</option>
-                                    @foreach($regimen_ips as $ips)
-                                    <option value="{{ $ips->id_ips }}">{{ $ips->name_ips }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required">
-                                    <option value="">MUNICIPIO REMITENTE</option>
-                                    @foreach($municipio_remitente as $mpio)
-                                    <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-      
-                    <hr>
-                    <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                        <input type="submit" class="btn btn-info btn-block btn-lg" title="Guardar" tabindex="20" value="FINALIZAR REGISTRO">
-                        </div>
-                        <div class="col-xs-6 col-md-6">
-                        <!-- <input type="reset" value="Restaurar" class="btn btn-warning btn-block btn-lg" tabindex="14"> -->
-                        </div>
-                    </div>
-                    </form>
-                    <!-- Final formulario actualizacion de referencia -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Final modal de actualizacion de referencia -->
-
 <style>
 .inputBox{
 	position: relative;
@@ -680,10 +454,6 @@ function actualizar(){
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
         });
-
-        $(function() {
-            $("#datetimepicker1").datepicker();
-        });
         
         function Numeros(string){//Solo numeros
             var out = '';
@@ -723,6 +493,8 @@ function actualizar(){
                 // Elementos Seccion1
                 document.getElementById("dept").style.display = "none";
                 document.getElementById("mpio").style.display = "none";
+                document.getElementById("now").style.display = "none";
+                document.getElementById("date_now").style.display = "none";
 
                 for (let i = 1; i < 3; i++) {
                     document.getElementById("sec"+i).style.display = "none";
@@ -730,6 +502,8 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("birth").style.display = "block";
+
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "block";
                     
@@ -741,12 +515,16 @@ function actualizar(){
                 document.getElementById("fin2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("birth").style.display = "none";
+
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "none";
                     
                 }
 
                 // Elementos Seccion3
+                document.getElementById("secci2.1").style.display = "block";
+
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "block";
                     
@@ -764,6 +542,8 @@ function actualizar(){
                 // Elementos Seccion1
                 document.getElementById("dept").style.display = "block";
                 document.getElementById("mpio").style.display = "block";
+                document.getElementById("now").style.display = "block";
+                document.getElementById("date_now").style.display = "block";
 
                 for (let i = 1; i < 3; i++) {
                     document.getElementById("sec"+i).style.display = "block";
@@ -771,6 +551,8 @@ function actualizar(){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("birth").style.display = "none";
+
                 for (let j = 1; j < 9; j++) {
                     document.getElementById("secc"+j).style.display = "none";
                     
@@ -782,6 +564,8 @@ function actualizar(){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("birth").style.display = "block";
+
                 for (let i = 1; i < 9; i++) {
                     document.getElementById("secc"+i).style.display = "block";
                     
