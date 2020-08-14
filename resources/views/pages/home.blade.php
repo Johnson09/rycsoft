@@ -9,7 +9,7 @@
 </div>
 <style type="text/css">
 	#logo {
-		width: 60%;
+		width: 40%;
 		display: block;
 		margin: auto;
 	}
