@@ -265,7 +265,7 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
+                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg datepicker" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -674,9 +674,9 @@ function actualizar(){
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
         });
-        
+
         $(function() {
-            $("#secc3").datepicker();
+            $(".datepicker").datepicker();
         });
         
         function Numeros(string){//Solo numeros
