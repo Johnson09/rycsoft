@@ -1,7 +1,4 @@
 <script type="text/javascript">
-$( function() {
-    $("#secc3").Datepicker();
-});
 
 function pad(input, length, padding) { 
   var str = input + "";
@@ -268,7 +265,7 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" autocomplete="off" id="secc3" style="display: none;">
+                                <input type="text" name="birthday" placeholder="FECHA DE NACIMIENTO" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -286,12 +283,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" id="secc5" style="display: none;">
+                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" autocomplete="off"  id="secc5" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="secc6" style="display: none;">
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" autocomplete="off"  id="secc6" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -299,12 +296,12 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="secc7" style="display: none;">
+                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" autocomplete="off"  id="secc7" style="display: none;">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" id="secc8" style="display: none;">
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" autocomplete="off"  id="secc8" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -676,7 +673,11 @@ function actualizar(){
 
 	 	$(".input").focus(function() {
 	 		$(this).parent().addClass("focus");
-        })
+        });
+        
+        $(function() {
+            $("#secc3").datepicker();
+        });
         
         function Numeros(string){//Solo numeros
             var out = '';
