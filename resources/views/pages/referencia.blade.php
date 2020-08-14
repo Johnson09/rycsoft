@@ -387,7 +387,7 @@ function actualizar(){
                         <div class="col-xs-6 col-md-6" id="inicio2">
                             <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section2')">
                         </div>
-                        <div class="col-xs-6 col-md-6" id="medio3" style="display: none;">
+                        <div class="col-xs-6 col-md-6" id="medio1" style="display: none;">
                             <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section1')">
                         </div>
                         <div class="col-xs-6 col-md-6" id="medio2" style="display: none;">
