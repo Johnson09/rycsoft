@@ -70,7 +70,7 @@ function actualizar(){
         <div class="container-fluid text-center">
             <h1 style="color: #2c53c5; margin-top: -0.8em;"><b>Referencia y Contrareferencia</b></h1>
         </div>
-        <button class="btn btn-info" data-toggle="modal" data-target="#newModal" onclick="clear()">Añadir Referencia</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#newModal">Añadir Referencia</button>
         <hr>
 
         <div class="table-responsive" style="background: #f9f9f9;">
@@ -582,32 +582,4 @@ function actualizar(){
             }
         }
 
-        function clear(){
-            // Elementos Seccion1
-            document.getElementById("dept").value = "";
-            document.getElementById("mpio").value = "";
-            document.getElementById("now").value = "";
-            document.getElementById("date_now").value = "";
-
-            for (let i = 1; i < 3; i++) {
-                document.getElementById("sec"+i).value = "";        
-            }
-
-            // Elementos Seccion2
-            document.getElementById("birth").value = "";
-
-            for (let j = 1; j < 9; j++) {
-                document.getElementById("secc"+j).value = "";        
-            }
-            
-            // Elementos Seccion3
-            document.getElementById("secci21").value = "";
-
-            for (let j = 1; j < 7; j++) {
-                document.getElementById("secci"+j).value = "";  
-            }
-
-            back('section1');
-            back();
-        }
 	</script>
