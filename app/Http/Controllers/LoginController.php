@@ -67,7 +67,8 @@ class LoginController extends Controller
                                 'servicio', 
                                 'regimen_ips', 
                                 'municipio_remitente',
-                                'date'
+                                'date',
+                                'referencias'
                             ));
             }else{
                 return view('layout.app', compact('set', 'name'));
