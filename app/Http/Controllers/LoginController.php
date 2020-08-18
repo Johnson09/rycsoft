@@ -41,16 +41,16 @@ class LoginController extends Controller
                                     tse.alias_servicio, ei.name_ips, tse.name_servicio, 
                                     mu.name_municipio as municipio_rem, r.created_at, r.updated_at 
                                     FROM registro_referencia AS r 
-                                    INNER JOIN municipios AS m ON r.id_municipio = m.id_municipio 
-                                    INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
-                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
-                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
-                                    INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
-                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
-                                    INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
-                                    INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
-                                    INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
-                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio');
+                                    LEFT JOIN municipios AS m ON r.id_municipio = m.id_municipio 
+                                    LEFT JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
+                                    LEFT JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
+                                    LEFT JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    LEFT JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
+                                    LEFT JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    LEFT JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
+                                    LEFT JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
+                                    LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
+                                    LEFT JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio');
 
                 // dd($referencias);
     
