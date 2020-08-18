@@ -50,8 +50,7 @@ class LoginController extends Controller
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
-                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio
-                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen');
+                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio');
 
                 // dd($referencias);
     
