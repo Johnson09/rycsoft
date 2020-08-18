@@ -30,6 +30,8 @@ class ReferenciaController extends Controller
                 'id_ips' => $request->id_ips,
                 'id_municipio_rem' => $request->id_municipio_rem,
                 'id_estado' => '1',
+                'created_at' => now(),
+                'updated_at' => now()
             ]
         );
 
