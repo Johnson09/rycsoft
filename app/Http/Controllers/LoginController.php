@@ -53,6 +53,8 @@ class LoginController extends Controller
                                     INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
                                     INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen';
+
+                dd($referencias);
     
                 return view('layout.app', 
                             compact(    
