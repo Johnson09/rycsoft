@@ -356,7 +356,7 @@ function actualizar(){
                         </div>
                     </div>
 
-                    <div class="row" id="seccion3.2" style="display: none;">
+                    <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required" id="secci5" style="display: none;">
