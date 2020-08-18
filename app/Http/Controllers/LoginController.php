@@ -34,7 +34,25 @@ class LoginController extends Controller
                 $date = date("Y-m-d");
     
                 // Datos de llenado tabla de referencia
-                $referencias = '';
+                $referencias = 'SELECT r.id_orden, d.name_departamento, m.name_municipio, 
+                                    tr.name_regimen, r.first_lastname, r.second_lastname, 
+                                    r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
+                                    ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, td.name_diagnostico,
+                                    tse.alias_servicio, ei.name_ips, tse.name_servicio, 
+                                    mu.name_municipio as municipio_rem, r.created_at, r.updated_at 
+                                    FROM registro_referencia AS r 
+                                    INNER JOIN municipios AS m ON r.id_municipio = m.id_municipio 
+                                    INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
+                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
+                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
+                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
+                                    INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
+                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
+                                    INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
+                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio
+                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen';
     
                 return view('layout.app', 
                             compact(    

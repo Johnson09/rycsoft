@@ -70,7 +70,7 @@ function actualizar(){
         <div class="container-fluid text-center">
             <h1 style="color: #2c53c5; margin-top: -0.8em;"><b>Referencia y Contrareferencia</b></h1>
         </div>
-        <button class="btn btn-info" data-toggle="modal" data-target="#newModal">Añadir Referencia</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#newModal" onclick="clear()">Añadir Referencia</button>
         <hr>
 
         <div class="table-responsive" style="background: #f9f9f9;">
@@ -115,44 +115,45 @@ function actualizar(){
                 
                 <!-- datos obtenidos mediante consulta - mostrados en la vista de la pagina -->
                     <tbody style="text-align: center;">
-                        
+                        @foreach($referencias as $ref)
                             <tr>
+                                <td>{{ $ref->id_orden }}</td>
+                                <td>{{ $ref->name_departamento }}</td>
+                                <td>{{ $ref->name_municipio }}</td>
+                                <td>{{ $ref->name_regimen }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ $ref->first_lastname }}</td>
+                                <td>{{ $ref->second_lastname }}</td>
+                                <td>{{ $ref->first_name }}</td>
+                                <td>{{ $ref->second_name }}</td>
+                                <td>{{ $ref->alias_tipo_ident }}</td>
+                                <td>{{ $ref->identification_number }}</td>
+                                <td>{{ $ref->name_eps }}</td>
+                                <td>{{ $ref->birthday }}</td>
+                                <td></td>
+                                <td>{{ $ref->alias_sexo }}</td>
+                                <td>{{ $ref->id_diagnostico }}</td>
+                                <td>{{ $ref->name_diagnostico }}</td>
+                                <td></td>
+                                <td>{{ $ref->alias_servicio }}</td>
+                                <td>{{ $ref->name_ips }}</td>
+                                <td>{{ $ref->name_servicio }}</td>
+                                <td>{{ $ref->municipio_rem }}</td>
+                                <td>{{ $ref->created_at }}</td>
+                                <td>{{ $ref->updated_at }}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>Activo</td>
                                 <td>
                                     <button onclick="actualizar('')" class="btn btn-info" data-toggle="modal" data-target="#actModal">Actualizar</button>
                                 </td>
                             </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>
@@ -348,7 +349,7 @@ function actualizar(){
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" style="display: none;">
                                     <option value="">SERVICIO</option>
                                     @foreach($servicio as $ser)
-                                    <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
+                                    <option value="{{ $ser->id_servicio }}">{{ $ser->alias_servicio }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -579,5 +580,34 @@ function actualizar(){
                     
                 }
             }
+        }
+
+        function clear(){
+            // Elementos Seccion1
+            document.getElementById("dept").value = "";
+            document.getElementById("mpio").value = "";
+            document.getElementById("now").value = "";
+            document.getElementById("date_now").value = "";
+
+            for (let i = 1; i < 3; i++) {
+                document.getElementById("sec"+i).value = "";        
+            }
+
+            // Elementos Seccion2
+            document.getElementById("birth").value = "";
+
+            for (let j = 1; j < 9; j++) {
+                document.getElementById("secc"+j).value = "";        
+            }
+            
+            // Elementos Seccion3
+            document.getElementById("secci21").value = "";
+
+            for (let j = 1; j < 7; j++) {
+                document.getElementById("secci"+j).value = "";  
+            }
+
+            back('section1');
+            back();
         }
 	</script>
