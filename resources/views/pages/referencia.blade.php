@@ -172,8 +172,10 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="id_empresa" disabled class="form-control input-lg" required="required" value="{{ $empresa['id_empresa'] }}">
-                                <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $empresa['nombre_empresa'] }}">
+                                @foreach($empresa as $emp)
+                                    <input type="text" name="id_empresa" disabled class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}">
+                                    <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $emp->nombre_empresa }}">
+                                @endforeach
                             </div>
                         </div>
                     </div>
