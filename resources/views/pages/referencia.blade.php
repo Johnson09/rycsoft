@@ -119,7 +119,7 @@ function actualizar(){
                         <h3>REFERENCIA</h3>
                         <hr>
                     
-                    <input type="text" name="id_user" disabled class="form-control input-lg" required="required" value="{{ $set }}">
+                    <input type="text" name="id_user" disabled class="form-control input-lg" required="required" value="{{ $set }}" hidden>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -173,7 +173,7 @@ function actualizar(){
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 @foreach($empresa as $emp)
-                                    <input type="text" name="id_empresa" disabled class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}">
+                                    <input type="text" name="id_empresa" disabled class="form-control input-lg" required="required" hidden value="{{ $emp->id_empresa }}">
                                     <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $emp->nombre_empresa }}">
                                 @endforeach
                             </div>
