@@ -13,8 +13,8 @@ class ReferenciaController extends Controller
             [
                 'id_municipio' => $request->id_municipio, 
                 'id_regimen' => $request->id_regimen, 
-                'nit_prestador_servic' => "PRUEBA", 
-                'cod_hab_prestador' => "PRUEBA", 
+                'id_user' => $request->id_user, 
+                'id_empresa' => $request->id_empresa, 
                 'first_lastname' => $request->first_lastname, 
                 'second_lastname' => $request->second_lastname, 
                 'first_name' => $request->first_name, 
@@ -25,7 +25,7 @@ class ReferenciaController extends Controller
                 'birthday' => $request->birthday,
                 'id_sexo' => $request->id_sexo,
                 'id_diagnostico' => $request->id_diagnostico,
-                'name_doctor' => "PRUEBA",
+                'name_doctor' => $request->name_doctor,
                 'id_servicio' => $request->id_servicio,
                 'id_ips' => $request->id_ips,
                 'id_municipio_rem' => $request->id_municipio_rem,
@@ -35,7 +35,7 @@ class ReferenciaController extends Controller
             ]
         );
 
-        return back();
+        return back()->with('success','Referencia creada satisfactoriamente.');
     }
 
     public function update(Request $request, $orden)

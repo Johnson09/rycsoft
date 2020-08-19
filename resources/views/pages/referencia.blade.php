@@ -7,62 +7,6 @@ function pad(input, length, padding) {
 
 function actualizar(){
     document.getElementById("form").action = "regprod/";
-
-    $.get('=', function(data) {
-        $('#cod').empty();
-        $('#bar').empty();
-        $('#des').empty();
-        $('#cuv').empty();
-
-        $.each(data, function(index, EmpObj){
-
-            $('#cod').val(EmpObj.id_producto);
-            $('#bar').val(EmpObj.cod_barras);
-            $('#gru').val(EmpObj.id_grupo);
-
-            $.get('?id=' + EmpObj.id_grupo, function(data) {
-                    // console.log(data);
-                $('#cla').empty();
-
-                if (data == "") {
-                    $('#cla').append("<option value=''>Clase</option>");
-                }else{
-                    $('#cla').append("<option value=''>Clase</option>");
-                    $.each(data, function(index, ClassObj){
-                        $('#cla').append("<option value='"+ClassObj.id_clase+"'>"+ClassObj.descripcion+"</option>");
-                            // $('#ciudad').selectpicker("refresh");
-                    })
-                }
-                $('#cla').val(EmpObj.id_clase);
-            });
-
-            $.get('?id=' + EmpObj.id_clase, function(data) {
-                    // console.log(data);
-                $('#sub').empty();
-
-                if (data == "") {
-                    $('#sub').append("<option value=''>Subclase</option>");
-                }else{
-                    $('#sub').append("<option value=''>Subclase</option>");
-                    $.each(data, function(index, ClassObj){
-                        $('#sub').append("<option value='"+ClassObj.id_subclase+"'>"+ClassObj.descripcion+"</option>");
-                            // $('#ciudad').selectpicker("refresh");
-                    })
-                }
-                $('#sub').val(EmpObj.id_subclase);
-            });
-
-            $('#des').val(EmpObj.descripcion);
-            $('#und').val(EmpObj.id_und_med);
-            $('#pro').val(EmpObj.id_proveedor);
-            $('#mar').val(EmpObj.id_marca);
-            $('#iva').val(EmpObj.sw_iva);
-            $('#est').val(EmpObj.sw_estado);
-            $('#ven').val(EmpObj.und_venta);
-            $('#cuv').val(EmpObj.cant_und_venta);
-        
-        })
-    })
 }
 </script>
 <div class="container-fluid">
@@ -121,8 +65,8 @@ function actualizar(){
                                 <td>{{ $ref->name_departamento }}</td>
                                 <td>{{ $ref->name_municipio }}</td>
                                 <td>{{ $ref->name_regimen }}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $ref->nit_empresa }}</td>
+                                <td>{{ $ref->cod_hab_empresa }}</td>
                                 <td>{{ $ref->first_lastname }}</td>
                                 <td>{{ $ref->second_lastname }}</td>
                                 <td>{{ $ref->first_name }}</td>
@@ -135,7 +79,7 @@ function actualizar(){
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
                                 <td>{{ $ref->name_diagnostico }}</td>
-                                <td></td>
+                                <td>{{ $ref->name_doctor }}</td>
                                 <td>{{ $ref->alias_servicio }}</td>
                                 <td>{{ $ref->name_ips }}</td>
                                 <td>{{ $ref->name_servicio }}</td>
@@ -174,7 +118,8 @@ function actualizar(){
                         <h2>REGISTRO</h2>
                         <h3>REFERENCIA</h3>
                         <hr>
-      
+                    
+                    <input type="text" name="id_user" disabled class="form-control input-lg" required="required" value="{{ $set }}">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -227,7 +172,8 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="id_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2">
+                                <input type="text" name="id_empresa" disabled class="form-control input-lg" required="required" value="{{ $empresa->id_empresa }}">
+                                <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $empresa->nombre_empresa }}">
                             </div>
                         </div>
                     </div>

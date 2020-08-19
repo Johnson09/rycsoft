@@ -25,12 +25,35 @@
   <!-- Custom styles for this template-->
   <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
 
+  <script>
+        // Mensaje de envio exitoso
+        function envio(){
+          var mensaje = document.getElementById('mensaje').value;
+          swal({
+            title: 'Registro exitoso',
+            text: mensaje,
+            icon: "success",
+            buttons: "Aceptar!",
+          });
+        }
+  </script>
+
 </head>
 
 <body id="page-top">
-    <?php 
-        $pagina = isset($_GET['p']) ? strtolower($_GET['p']) : 'home';
-    ?>
+  @if(session()->has('success'))
+      <input type="hidden" id="mensaje" value="{{ session()->get('success') }}">
+      <?php
+      echo "<script>";
+      echo "envio();";
+      echo "</script>";
+       ?>
+  @endif
+
+  <?php 
+    $pagina = isset($_GET['p']) ? strtolower($_GET['p']) : 'home';
+  ?>
+  
   <!-- Page Wrapper -->
   <div id="wrapper">
 
