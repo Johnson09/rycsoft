@@ -87,7 +87,7 @@ function actualizar(id_orden){
                                 <td>{{ $ref->name_eps }}</td>
                                 <td>{{ $ref->birthday }}</td>
                                 <td>
-                                    {{ $date->diff($ref->birthday) }}
+                                    {{ strtotime($date)-strtotime($ref->birthday) }}
                                 </td>
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
