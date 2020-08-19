@@ -63,10 +63,14 @@ function actualizar(id_orden){
                         @foreach($referencias as $ref)
                             <tr>
                                 <td>
-                                    <a class="btn btn-warning" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}"><span class="glyphicon glyphicon-list-alt"></span></a>
+                                    <a class="btn btn-warning" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}">
+                                        <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
+                                    </a>
                                 </td>
                                 <td>
-                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info" data-toggle="modal" data-target="#actModal"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info" data-toggle="modal" data-target="#actModal">
+                                        <span class="fa fa-pencil" aria-hidden="true"></span>
+                                    </button>
                                 </td>
                                 <td>{{ $ref->id_orden }}</td>
                                 <td>{{ $ref->name_departamento }}</td>
