@@ -15,4 +15,13 @@ class MunicipioController extends Controller
             
         return response()->json($municipio);
     }
+
+    public function getMunicipioIps(Request $request){
+
+        $id_ips = $request->input('id_ips');
+
+        $municipio = DB::select("SELECT id_municipio FROM entidad_ips WHERE id_ips = '$id_ips'");
+            
+        return response()->json($municipio);
+    }
 }

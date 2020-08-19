@@ -32,4 +32,6 @@ Route::resource('/gestion_referencia', 'ReferenciaController');
 
 Route::get('/obtener_municipio', 'MunicipioController@getMunicipios');
 
+Route::get('/obtener_municipio_ips', 'MunicipioController@getMunicipioIps');
+
 Route::get('/layout/{any}', 'RoutesController@index')->where('any', '.*');

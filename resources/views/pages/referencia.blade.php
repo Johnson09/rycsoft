@@ -294,13 +294,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" onchange="secci41.value=this.value" required="required" id="secci4" style="display: none;">
-                                    <option value="">SERVICIO</option>
-                                    @foreach($servicio as $ser)
-                                    <option value="{{ $ser->id_servicio }}">{{ $ser->alias_servicio }}</option>
-                                    @endforeach
-                                </select>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" onchange="secci4.value=this.value" required="required" id="secci41" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" style="display: none;">
                                     <option value="">SERVICIO</option>
                                     @foreach($servicio as $ser)
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
@@ -329,6 +323,22 @@ function actualizar(){
                                     <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
                                     @endforeach
                                 </select>
+                                <script type="text/javascript">
+                                    $('#secci5').on('change', function(e){
+                                        var ips = e.target.value;
+                                        $.get('{{ action('MunicipioController@getMunicipioIps') }}?id_ips=' + ips, function(data) {
+                                            // console.log(data);
+
+                                            if (data == "") {
+                                                $('#secci6').val("");
+                                            }else{
+                                                $.each(data, function(index, ClassObj){
+                                                    $('#secci6').val(ClassObj.id_municipio);
+                                                })
+                                            }
+                                        });
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -479,7 +489,6 @@ function actualizar(){
 
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "block";
-                document.getElementById("secci41").style.display = "block";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "block";
@@ -529,7 +538,6 @@ function actualizar(){
 
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "none";
-                document.getElementById("secci41").style.display = "none";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "none";
