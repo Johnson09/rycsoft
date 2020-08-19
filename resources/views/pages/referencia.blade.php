@@ -63,7 +63,7 @@ function actualizar(id_orden){
                         @foreach($referencias as $ref)
                             <tr>
                                 <td>
-                                    <a class="btn btn-warning" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}">
+                                    <a class="btn btn-secondary" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}">
                                         <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
                                     </a>
                                 </td>
@@ -86,7 +86,9 @@ function actualizar(id_orden){
                                 <td>{{ $ref->identification_number }}</td>
                                 <td>{{ $ref->name_eps }}</td>
                                 <td>{{ $ref->birthday }}</td>
-                                <td></td>
+                                <td>
+                                    {{ $date->diff($ref->birthday) }}
+                                </td>
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
                                 <td>{{ $ref->name_diagnostico }}</td>
