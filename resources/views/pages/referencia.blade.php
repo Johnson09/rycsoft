@@ -86,9 +86,7 @@ function actualizar(id_orden){
                                 <td>{{ $ref->identification_number }}</td>
                                 <td>{{ $ref->name_eps }}</td>
                                 <td>{{ $ref->birthday }}</td>
-                                <td>
-                                    {{ strtotime($date)-strtotime($ref->birthday) }}
-                                </td>
+                                <td>{{ $ref->edad }}</td>
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
                                 <td>{{ $ref->name_diagnostico }}</td>
@@ -99,10 +97,10 @@ function actualizar(id_orden){
                                 <td>{{ $ref->municipio_rem }}</td>
                                 <td>{{ $ref->created_at }}</td>
                                 <td>{{ $ref->updated_at }}</td>
+                                <td>{{ $ref->espera_dias }}</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $ref->espera_horas }}</td>
                                 <td></td>
                                 <!-- <td></td> -->
                                 <td>{{ $ref->descripcion }}</td>

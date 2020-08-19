@@ -35,11 +35,13 @@ class LoginController extends Controller
                 $date = date("Y-m-d");
     
                 // Datos de llenado tabla de referencia
-                $referencias = DB::select('SELECT r.id_orden, d.name_departamento, m.name_municipio, 
+                $referencias = DB::select("SELECT r.id_orden, d.name_departamento, m.name_municipio, 
                                     tr.name_regimen, e.nit_empresa, e.cod_hab_empresa, r.first_lastname, r.second_lastname, 
                                     r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
                                     ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, td.name_diagnostico,
-                                    tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor, 
+                                    tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor,
+                                    date_part('year',age(CURRENT_DATE,r.birthday)) AS edad, date_part('day',age(now(),r.updated_at)) AS espera_dias, 
+                                    date_part('hour',age(now(),r.updated_at)) AS espera_horas, 
                                     mu.name_municipio as municipio_rem, r.created_at, r.updated_at, es.descripcion  
                                     FROM registro_referencia AS r 
                                     INNER JOIN municipios AS m ON r.id_municipio = m.id_municipio 
@@ -53,7 +55,7 @@ class LoginController extends Controller
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
                                     INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio
-                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado');
+                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado");
 
                 // dd($referencias);
     
