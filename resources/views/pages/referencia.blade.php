@@ -270,18 +270,7 @@ function actualizar(){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci21.value=this.value" tabindex="15" name="id_diagnostico" required="required" id="secci2" style="display: none;">
-                                    <option value="">COD DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
-                                    @endforeach
-                                </select>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="15" name="id_diagnostico" required="required" id="secci21" style="display: none;">
-                                    <option value="">DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" id="secci3" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -289,15 +278,32 @@ function actualizar(){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="16" required="required" id="secci3" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci21.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci2" style="display: none;">
+                                    <option value="">COD DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci21" style="display: none;">
+                                    <option value="">DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" onchange="secci41.value=this.value" required="required" id="secci4" style="display: none;">
                                     <option value="">SERVICIO</option>
                                     @foreach($servicio as $ser)
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->alias_servicio }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" onchange="secci4.value=this.value" required="required" id="secci41" style="display: none;">
+                                    <option value="">SERVICIO</option>
+                                    @foreach($servicio as $ser)
+                                    <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -473,6 +479,7 @@ function actualizar(){
 
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "block";
+                document.getElementById("secci41").style.display = "block";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "block";
@@ -522,6 +529,7 @@ function actualizar(){
 
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "none";
+                document.getElementById("secci41").style.display = "none";
 
                 for (let j = 1; j < 7; j++) {
                     document.getElementById("secci"+j).style.display = "none";
