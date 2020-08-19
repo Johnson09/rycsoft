@@ -9,7 +9,7 @@ class ReferenciaController extends Controller
 {
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         DB::table('registro_referencia')->insert(
             [
                 'id_municipio' => $request->id_municipio, 
