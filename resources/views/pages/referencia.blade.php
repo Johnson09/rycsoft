@@ -5,8 +5,8 @@ function pad(input, length, padding) {
   return (length <= str.length) ? str : pad(padding+str, length, padding);
 }
 
-function actualizar(){
-    document.getElementById("form").action = "regprod/";
+function actualizar(id_orden){
+    document.getElementById("form").action = "regprod/"+id_orden;
 }
 </script>
 <div class="container-fluid">
@@ -21,6 +21,8 @@ function actualizar(){
             <table id="table_doc" class="cell-border compact stripe" style="background: #f9f9f9; font-size: 12px;">
                 <thead>
                     <tr>
+                        <th></th>
+                        <th></th>
                         <th>ORDEN</th>
                         <th>DEPT</th>
                         <th>MPIO</th>
@@ -51,9 +53,8 @@ function actualizar(){
                         <th>HORA ASIG SITIO REM</th>
                         <th>TIEMPO ESP HORAS</th>
                         <th>FECHA CANCEL REF</th>
-                        <th>N° VECES RECHADAS</th>
+                        <!-- <th>N° VECES RECHADAS</th> -->
                         <th>EST FINAL REM</th>
-                        <th></th>
                     </tr>
                 </thead>
                 
@@ -61,6 +62,12 @@ function actualizar(){
                     <tbody style="text-align: center;">
                         @foreach($referencias as $ref)
                             <tr>
+                                <td>
+                                    <a class="btn btn-warning" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}"><span class="glyphicon glyphicon-list-alt"></span></a>
+                                </td>
+                                <td>
+                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info" data-toggle="modal" data-target="#actModal"><span class="glyphicon glyphicon-pencil"></span></button>
+                                </td>
                                 <td>{{ $ref->id_orden }}</td>
                                 <td>{{ $ref->name_departamento }}</td>
                                 <td>{{ $ref->name_municipio }}</td>
@@ -91,11 +98,8 @@ function actualizar(){
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td>Activo</td>
-                                <td>
-                                    <button onclick="actualizar('')" class="btn btn-info" data-toggle="modal" data-target="#actModal">Actualizar</button>
-                                </td>
+                                <!-- <td></td> -->
+                                <td>{{ $ref->descripcion }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -371,6 +375,240 @@ function actualizar(){
     </div>
 </div>
 <!-- Final del modal de registro de referencia -->
+
+<!-- Modal de actualizacion de referencia -->
+<div id="actModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="background:;">
+            <div class="modal-body" style="font-size: 14px">
+                <div style="text-align: center;">
+                    <!-- Formulario de registro de referencia -->
+                    <form role="form" action="#" method="post" id="form">
+                    @method('PATCH')
+                    @csrf
+                        <h2>ACTUALIZAR</h2>
+                        <h3>REFERENCIA</h3>
+                        <hr>
+                    
+                    <input type="text" name="id_user" class="form-control input-lg" required="required" value="{{ $set }}" style="display: none;">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" name="id_departamento" required="required">
+                                    <option value="">DEPARTAMENTO</option>
+                                    @foreach($departamento as $dept)
+                                    <option value="{{ $dept->id_departamento }}">{{ $dept->name_departamento }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" name="id_municipio" required="required">
+                                    <option value="">MUNICIPIO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="seccion1.1">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required">
+                                    <option value="">REGIMEN</option>
+                                    @foreach($regimen as $reg)
+                                    <option value="{{ $reg->id_regimen }}">{{ $reg->name_regimen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                @foreach($empresa as $emp)
+                                    <input type="text" name="id_empresa" class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}" style="display: none;">
+                                    <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" value="{{ $emp->nombre_empresa }}">
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label id="date_now">FECHA ACTUAL</label>
+                                <input type="date" class="form-control input-lg" disabled tabindex="13" required="required" value="{{ $date }}">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" style="display: none;">
+                                    <option value="">TIPO IDENTIFICACIÓN</option>
+                                    @foreach($tipo_identificacion as $ti)
+                                    <option value="{{ $ti->id_tipo_ident }}">{{ $ti->name_tipo_ident }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label id="birth" style="display: none;">FECHA DE NACIMIENTO</label>
+                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label> </label>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" style="display: none;">
+                                    <option value="">GENERO</option>
+                                    @foreach($genero as $sex)
+                                    <option value="{{ $sex->id_sexo }}">{{ $sex->name_sexo }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" autocomplete="off" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" autocomplete="off" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" autocomplete="off" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" autocomplete="off" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" style="display: none;">
+                                    <option value="">EPS QUE SE ENCUENTRA AFILIADO</option>
+                                    @foreach($regimen_eps as $eps)
+                                    <option value="{{ $eps->id_eps }}">{{ $eps->name_eps }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="id_diagnostico" required="required" style="display: none;">
+                                    <option value="">COD DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="id_diagnostico" required="required" style="display: none;">
+                                    <option value="">DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" style="display: none;">
+                                    <option value="">SERVICIO</option>
+                                    @foreach($servicio as $ser)
+                                    <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required" style="display: none;">
+                                    <option value="">IPS REMITENTE</option>
+                                    @foreach($regimen_ips as $ips)
+                                    <option value="{{ $ips->id_ips }}">{{ $ips->name_ips }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required" style="display: none;">
+                                    <option value="">MUNICIPIO REMITENTE</option>
+                                    @foreach($municipio_remitente as $mpio)
+                                    <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+      
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6" id="ini1">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="ini2">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="med1" style="display: none;">
+                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section1')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="med2" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section3')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="f1" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="REGRESAR" onclick="back('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="f2" style="display: none;">
+                            <input type="submit" class="btn btn-info btn-block btn-lg" tabindex="20" value="GUARDAR REGISTRO">
+                        </div>
+                    </div>
+                    </form>
+                    <!-- Fin del formulario -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Final del modal de actualizar de referencia -->
 
 <style>
 .inputBox{

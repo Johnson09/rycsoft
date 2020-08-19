@@ -40,7 +40,7 @@ class LoginController extends Controller
                                     r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
                                     ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, td.name_diagnostico,
                                     tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor, 
-                                    mu.name_municipio as municipio_rem, r.created_at, r.updated_at 
+                                    mu.name_municipio as municipio_rem, r.created_at, r.updated_at, es.descripcion  
                                     FROM registro_referencia AS r 
                                     INNER JOIN municipios AS m ON r.id_municipio = m.id_municipio 
                                     INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
@@ -52,7 +52,8 @@ class LoginController extends Controller
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     INNER JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
-                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio');
+                                    INNER JOIN municipios AS mu ON r.id_municipio_rem = mu.id_municipio
+                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado');
 
                 // dd($referencias);
     
