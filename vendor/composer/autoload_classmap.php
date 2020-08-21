@@ -3149,6 +3149,7 @@ return array(
     'PhpParser\\Node\\Expr\\StaticCall' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/StaticCall.php',
     'PhpParser\\Node\\Expr\\StaticPropertyFetch' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/StaticPropertyFetch.php',
     'PhpParser\\Node\\Expr\\Ternary' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/Ternary.php',
+    'PhpParser\\Node\\Expr\\Throw_' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/Throw_.php',
     'PhpParser\\Node\\Expr\\UnaryMinus' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/UnaryMinus.php',
     'PhpParser\\Node\\Expr\\UnaryPlus' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/UnaryPlus.php',
     'PhpParser\\Node\\Expr\\Variable' => $vendorDir . '/nikic/php-parser/lib/PhpParser/Node/Expr/Variable.php',
