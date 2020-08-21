@@ -30,6 +30,8 @@ Route::get('/logout', function () {
 
 Route::resource('/gestion_referencia', 'ReferenciaController');
 
+Route::get('/get_referencia', 'ReferenciaController@getReferencia');
+
 Route::get('/get_referencia_pdf/{orden}', 'ReferenciaController@getPdf');
 
 Route::get('/obtener_municipio', 'MunicipioController@getMunicipios');

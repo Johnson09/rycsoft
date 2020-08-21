@@ -6,7 +6,42 @@ function pad(input, length, padding) {
 }
 
 function actualizar(id_orden){
-    document.getElementById("form").action = "regprod/"+id_orden;
+    document.getElementById("form").action = "gestion_referencia/"+id_orden;
+
+    for (let j = 1; j < 19; j++) {
+        $('#s'+j).val("");
+    }
+
+    actBack();
+    actBack('section1');
+
+    $.get('{{ action('ReferenciaController@getReferencia') }}?id_orden=' + id_orden, function(data) {
+
+        if (data == "") {
+            console.log('error');
+        }else{
+            // console.log(data);
+            $.each(data, function(index, ClassObj){
+                $('#s1').val(ClassObj.name_departamento);
+                $('#s2').val(ClassObj.name_municipio);
+                $('#s3').val(ClassObj.name_regimen);
+                $('#s4').val(ClassObj.nombre_empresa);
+                $('#s5').val(ClassObj.name_tipo_ident);
+                $('#s6').val(ClassObj.identification_number);
+                $('#s7').val(ClassObj.birthday);
+                $('#s8').val(ClassObj.name_sexo);
+                $('#s9').val(ClassObj.first_lastname);
+                $('#s10').val(ClassObj.second_lastname);
+                $('#s11').val(ClassObj.first_name);
+                $('#s12').val(ClassObj.second_name);
+                $('#s13').val(ClassObj.name_eps);
+                $('#s14').val(ClassObj.name_doctor);
+                $('#s15').val(ClassObj.name_diagnostico);
+                $('#s16').val(ClassObj.name_servicio);
+                $('#s19').val(ClassObj.id_estado);
+            })
+        }
+    });
 }
 </script>
 <div class="container-fluid">
@@ -63,7 +98,7 @@ function actualizar(id_orden){
                         @foreach($referencias as $ref)
                             <tr>
                                 <td>
-                                    <a class="btn btn-secondary" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}">
+                                    <a class="btn btn-secondary" href="{{ action('ReferenciaController@getPdf', $ref->id_orden) }}" target="_blank">
                                         <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
                                     </a>
                                 </td>
@@ -117,57 +152,21 @@ function actualizar(id_orden){
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
-        <div class="modal-content" style="background:;">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="modal-title">REGISTRO REFERENCIA</h3>
+                <span class="close" style="font-size: medium">FECHA ACTUAL: {{ $date }}</span>
+            </div>
+            
+            <hr>
             <div class="modal-body" style="font-size: 14px">
                 <div style="text-align: center;">
                     <!-- Formulario de registro de referencia -->
-                    <form role="form" action="{{ url('gestion_referencia') }}" method="post">
+                    <form role="form" action="{{ url('gestion_referencia') }}" method="post" autocomplete="on">
                     @csrf
-                        <h2>REGISTRO</h2>
-                        <h3>REFERENCIA</h3>
-                        <hr>
-                    
-                    <input type="text" name="id_user" class="form-control input-lg" required="required" value="{{ $set }}" style="display: none;">
+
                     <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" id="dept" name="id_departamento" required="required">
-                                    <option value="">DEPARTAMENTO</option>
-                                    @foreach($departamento as $dept)
-                                    <option value="{{ $dept->id_departamento }}">{{ $dept->name_departamento }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" id="mpio" name="id_municipio" required="required">
-                                    <option value="">MUNICIPIO</option>
-                                </select>
-                                <script type="text/javascript">
-                                    $('#dept').on('change', function(e){
-                                        var dept = e.target.value;
-                                        $.get('{{ action('MunicipioController@getMunicipios') }}?id_dept=' + dept, function(data) {
-                                            // console.log(data);
-                                            $('#mpio').empty();
-
-                                            if (data == "") {
-                                                $('#mpio').append("<option value=''>MUNICIPIO</option>");
-                                            }else{
-                                                $('#mpio').append("<option value=''>MUNICIPIO</option>");
-                                                $.each(data, function(index, ClassObj){
-                                                    $('#mpio').append("<option value='"+ClassObj.id_municipio+"'>"+ClassObj.name_municipio+"</option>");
-                                                    // $('#ciudad').selectpicker("refresh");
-                                                })
-                                            }
-                                        });
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row" id="seccion1.1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required" id="sec1">
@@ -184,19 +183,6 @@ function actualizar(id_orden){
                                     <input type="text" name="id_empresa" class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}" style="display: none;">
                                     <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $emp->nombre_empresa }}">
                                 @endforeach
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label id="date_now">FECHA ACTUAL</label>
-                                <input type="date" class="form-control input-lg" disabled tabindex="13" required="required" id="now" value="{{ $date }}">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
                             </div>
                         </div>
                     </div>
@@ -223,7 +209,7 @@ function actualizar(id_orden){
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <label id="birth" style="display: none;">FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;">
+                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3" style="display: none;" onchange="if('{{$date}}'<=this.value){this.value=''}">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -278,7 +264,7 @@ function actualizar(id_orden){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" id="secci3" style="display: none;">
+                                <input type="text" name="name_doctor" onkeyup="Textos(this);" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" id="secci3" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -308,45 +294,6 @@ function actualizar(id_orden){
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required" id="secci5" style="display: none;">
-                                    <option value="">IPS REMITENTE</option>
-                                    @foreach($regimen_ips as $ips)
-                                    <option value="{{ $ips->id_ips }}">{{ $ips->name_ips }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required" id="secci6" style="display: none;">
-                                    <option value="">MUNICIPIO REMITENTE</option>
-                                    @foreach($municipio_remitente as $mpio)
-                                    <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
-                                    @endforeach
-                                </select>
-                                <script type="text/javascript">
-                                    $('#secci5').on('change', function(e){
-                                        var ips = e.target.value;
-                                        $.get('{{ action('MunicipioController@getMunicipioIps') }}?id_ips=' + ips, function(data) {
-                                            // console.log(data);
-
-                                            if (data == "") {
-                                                $('#secci6').val("");
-                                            }else{
-                                                $.each(data, function(index, ClassObj){
-                                                    $('#secci6').val(ClassObj.id_municipio);
-                                                })
-                                            }
-                                        });
-                                    });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -385,34 +332,31 @@ function actualizar(id_orden){
     <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
-        <div class="modal-content" style="background:;">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="modal-title">ACTUALIZAR REFERENCIA</h3>
+                <span class="close" style="font-size: medium">FECHA ACTUAL: {{ $date }}</span>
+            </div>
+            
+            <hr>
             <div class="modal-body" style="font-size: 14px">
                 <div style="text-align: center;">
                     <!-- Formulario de registro de referencia -->
                     <form role="form" action="#" method="post" id="form">
                     @method('PATCH')
                     @csrf
-                        <h2>ACTUALIZAR</h2>
-                        <h3>REFERENCIA</h3>
-                        <hr>
                     
                     <input type="text" name="id_user" class="form-control input-lg" required="required" value="{{ $set }}" style="display: none;">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="1" name="id_departamento" required="required">
-                                    <option value="">DEPARTAMENTO</option>
-                                    @foreach($departamento as $dept)
-                                    <option value="{{ $dept->id_departamento }}">{{ $dept->name_departamento }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s1" class="form-control input-lg" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="2" name="id_municipio" required="required">
-                                    <option value="">MUNICIPIO</option>
-                                </select>
+                                <input type="text" id="s2" class="form-control input-lg" disabled>
                             </div>
                         </div>
                     </div>
@@ -420,20 +364,13 @@ function actualizar(id_orden){
                     <div class="row" id="seccion1.1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="3" name="id_regimen" required="required">
-                                    <option value="">REGIMEN</option>
-                                    @foreach($regimen as $reg)
-                                    <option value="{{ $reg->id_regimen }}">{{ $reg->name_regimen }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s3" class="form-control input-lg" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                @foreach($empresa as $emp)
-                                    <input type="text" name="id_empresa" class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}" style="display: none;">
-                                    <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" value="{{ $emp->nombre_empresa }}">
-                                @endforeach
+                                <input type="text" id="s4" class="form-control input-lg" disabled>
+
                             </div>
                         </div>
                     </div>
@@ -441,30 +378,12 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label id="date_now">FECHA ACTUAL</label>
-                                <input type="date" class="form-control input-lg" disabled tabindex="13" required="required" value="{{ $date }}">
+                                <input type="text" id="s5" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" style="display: none;">
-                                    <option value="">TIPO IDENTIFICACIÓN</option>
-                                    @foreach($tipo_identificacion as $ti)
-                                    <option value="{{ $ti->id_tipo_ident }}">{{ $ti->name_tipo_ident }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" style="display: none;">
+                                <input type="text" id="s6" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                     </div>
@@ -472,19 +391,14 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label id="birth" style="display: none;">FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" style="display: none;">
+                                <label id="bir" style="display: none;">FECHA DE NACIMIENTO</label>
+                                <input type="text" id="s7" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <label> </label>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" style="display: none;">
-                                    <option value="">GENERO</option>
-                                    @foreach($genero as $sex)
-                                    <option value="{{ $sex->id_sexo }}">{{ $sex->name_sexo }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s8" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                     </div>
@@ -492,25 +406,12 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" autocomplete="off" style="display: none;">
+                                <input type="text" id="s9" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" autocomplete="off" style="display: none;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" autocomplete="off" style="display: none;">
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" autocomplete="off" style="display: none;">
+                                <input type="text" id="s10" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                     </div>
@@ -518,17 +419,12 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" style="display: none;">
-                                    <option value="">EPS QUE SE ENCUENTRA AFILIADO</option>
-                                    @foreach($regimen_eps as $eps)
-                                    <option value="{{ $eps->id_eps }}">{{ $eps->name_eps }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s11" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="name_doctor" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" style="display: none;">
+                                <input type="text" id="s12" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                     </div>
@@ -536,28 +432,12 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="id_diagnostico" required="required" style="display: none;">
-                                    <option value="">COD DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
-                                    @endforeach
-                                </select>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="id_diagnostico" required="required" style="display: none;">
-                                    <option value="">DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s13" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" style="display: none;">
-                                    <option value="">SERVICIO</option>
-                                    @foreach($servicio as $ser)
-                                    <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" id="s14" class="form-control input-lg" style="display: none;" disabled>
                             </div>
                         </div>
                     </div>
@@ -565,7 +445,20 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="18" name="id_ips" required="required" style="display: none;">
+                                <input type="text" id="s15" class="form-control input-lg" style="display: none;" disabled>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" id="s16" class="form-control input-lg" style="display: none;" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select name="id_ips" class="selectpicker form-control input-lg" data-style="btn-info" id="s17" required="required" style="display: none;">
                                     <option value="">IPS REMITENTE</option>
                                     @foreach($regimen_ips as $ips)
                                     <option value="{{ $ips->id_ips }}">{{ $ips->name_ips }}</option>
@@ -575,12 +468,45 @@ function actualizar(id_orden){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="19" name="id_municipio_rem" required="required" style="display: none;">
+                                <select name="id_municipio_rem" class="selectpicker form-control input-lg" data-style="btn-info" id="s18" required="required" style="display: none;">
                                     <option value="">MUNICIPIO REMITENTE</option>
                                     @foreach($municipio_remitente as $mpio)
                                     <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
                                     @endforeach
                                 </select>
+                                
+                                <script type="text/javascript">
+                                    $('#s17').on('change', function(e){
+                                        var id_ips = e.target.value;
+                                        $.get('{{ action('MunicipioController@getMunicipioIps') }}?id_ips=' + id_ips, function(data) {
+
+                                            if (data == "") {
+                                                console.log('Error, no hay datos. Revisa la consulta');
+                                            }else{
+                                                $.each(data, function(index, ClassObj){
+                                                    $('#s18').val(ClassObj.id_municipio);
+                                                })
+                                            }
+                                        });
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select name="id_estado" class="selectpicker form-control input-lg" data-style="btn-info" id="s19" required="required" style="display: none;">
+                                    <option value="">ESTADO</option>
+                                    @foreach($estado as $est)
+                                    <option value="{{ $est->id_estado }}">{{ $est->descripcion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
                             </div>
                         </div>
                     </div>
@@ -590,19 +516,19 @@ function actualizar(id_orden){
                         <div class="col-xs-6 col-md-6" id="ini1">
                         </div>
                         <div class="col-xs-6 col-md-6" id="ini2">
-                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section2')">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="actNext('section2')">
                         </div>
                         <div class="col-xs-6 col-md-6" id="med1" style="display: none;">
-                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section1')">
+                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="actBack('section1')">
                         </div>
                         <div class="col-xs-6 col-md-6" id="med2" style="display: none;">
-                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section3')">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="actNext('section3')">
                         </div>
                         <div class="col-xs-6 col-md-6" id="f1" style="display: none;">
-                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="REGRESAR" onclick="back('section2')">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="REGRESAR" onclick="actBack('section2')">
                         </div>
                         <div class="col-xs-6 col-md-6" id="f2" style="display: none;">
-                            <input type="submit" class="btn btn-info btn-block btn-lg" tabindex="20" value="GUARDAR REGISTRO">
+                            <input type="submit" class="btn btn-info btn-block btn-lg" tabindex="20" value="ACTUALIZAR REGISTRO">
                         </div>
                     </div>
                     </form>
@@ -698,11 +624,6 @@ function actualizar(id_orden){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion1
-                document.getElementById("dept").style.display = "none";
-                document.getElementById("mpio").style.display = "none";
-                document.getElementById("now").style.display = "none";
-                document.getElementById("date_now").style.display = "none";
-
                 for (let i = 1; i < 3; i++) {
                     document.getElementById("sec"+i).style.display = "none";
                     
@@ -732,7 +653,7 @@ function actualizar(id_orden){
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "block";
 
-                for (let j = 1; j < 7; j++) {
+                for (let j = 1; j < 5; j++) {
                     document.getElementById("secci"+j).style.display = "block";
                     
                 }
@@ -747,11 +668,6 @@ function actualizar(id_orden){
                 document.getElementById("inicio2").style.display = "block";
 
                 // Elementos Seccion1
-                document.getElementById("dept").style.display = "block";
-                document.getElementById("mpio").style.display = "block";
-                document.getElementById("now").style.display = "block";
-                document.getElementById("date_now").style.display = "block";
-
                 for (let i = 1; i < 3; i++) {
                     document.getElementById("sec"+i).style.display = "block";
                     
@@ -781,8 +697,94 @@ function actualizar(id_orden){
                 // Elementos Seccion3
                 document.getElementById("secci21").style.display = "none";
 
-                for (let j = 1; j < 7; j++) {
+                for (let j = 1; j < 5; j++) {
                     document.getElementById("secci"+j).style.display = "none";
+                    
+                }
+            }
+        }
+
+        function actNext(section){
+            // console.log(section);
+            if (section === 'section2') {
+                // Botones de secciones
+                document.getElementById("ini1").style.display = "none";
+                document.getElementById("ini2").style.display = "none";
+                document.getElementById("med1").style.display = "block";
+                document.getElementById("med2").style.display = "block";
+
+                // Elementos Seccion1
+                for (let i = 1; i < 5; i++) {
+                    document.getElementById("s"+i).style.display = "none";
+                    
+                }
+
+                // Elementos Seccion2
+                document.getElementById("bir").style.display = "block";
+
+                for (let j = 5; j < 13; j++) {
+                    document.getElementById("s"+j).style.display = "block";
+                    
+                }
+            }else {
+                document.getElementById("med1").style.display = "none";
+                document.getElementById("med2").style.display = "none";
+                document.getElementById("f1").style.display = "block";
+                document.getElementById("f2").style.display = "block";
+
+                // Elementos Seccion2
+                document.getElementById("bir").style.display = "none";
+
+                for (let i = 5; i < 13; i++) {
+                    document.getElementById("s"+i).style.display = "none";
+                    
+                }
+
+                // Elementos Seccion3
+                for (let j = 13; j < 20; j++) {
+                    document.getElementById("s"+j).style.display = "block";
+                    
+                }
+            }
+        }
+        function actBack(section){
+            if (section === 'section1') {
+                // Botones de secciones
+                document.getElementById("med1").style.display = "none";
+                document.getElementById("med2").style.display = "none";
+                document.getElementById("ini1").style.display = "block";
+                document.getElementById("ini2").style.display = "block";
+
+                // Elementos Seccion1
+                for (let i = 1; i < 5; i++) {
+                    document.getElementById("s"+i).style.display = "block";
+                    
+                }
+
+                // Elementos Seccion2
+                document.getElementById("bir").style.display = "none";
+
+                for (let j = 5; j < 13; j++) {
+                    document.getElementById("s"+j).style.display = "none";
+                    
+                }
+            }else {
+                document.getElementById("f1").style.display = "none";
+                document.getElementById("f2").style.display = "none";
+                document.getElementById("med1").style.display = "block";
+                document.getElementById("med2").style.display = "block";
+
+                // Elementos Seccion2
+                document.getElementById("bir").style.display = "block";
+
+                for (let i = 5; i < 13; i++) {
+                    document.getElementById("s"+i).style.display = "block";
+                    
+                }
+
+                // Elementos Seccion3
+                for (let j = 13; j < 20; j++) {
+                    document.getElementById("s"+j).style.display = "none";
                     
                 }
             }
