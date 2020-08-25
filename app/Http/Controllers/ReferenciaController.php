@@ -12,6 +12,9 @@ class ReferenciaController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        session_start();
+        $id_user = $_SESSION['id'];
+
         $documento1 = '';
         $documento2 = '';
         $documento3 = '';
@@ -54,7 +57,7 @@ class ReferenciaController extends Controller
         DB::table('registro_referencia')->insert(
             [
                 'id_regimen' => $request->id_regimen, 
-                'id_user' => $request->id_user, 
+                'id_user' => $id_user, 
                 'id_empresa' => $request->id_empresa, 
                 'first_lastname' => $request->first_lastname, 
                 'second_lastname' => $request->second_lastname, 
