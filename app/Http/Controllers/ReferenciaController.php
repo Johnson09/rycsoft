@@ -43,7 +43,7 @@ class ReferenciaController extends Controller
 
                 if (in_array($fileExtension, $allowedfileExtensions)) {
                     // directory in which the uploaded file will be moved
-                    $uploadFileDir = '../public/uploaded_files/';
+                    $uploadFileDir = './public/uploaded_files/';
                     $dest_path = $uploadFileDir . $newFileName;
                     
                     move_uploaded_file($fileTmpPath, $dest_path);
