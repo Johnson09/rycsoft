@@ -22,7 +22,6 @@ class LoginController extends Controller
             if ($pagina == 'referencia') {
 
                 // Datos requeridos en los formularios de referencia
-                $departamento = DB::select("SELECT * FROM departamentos ");
                 $regimen = DB::select("SELECT * FROM tipo_regimen ");
                 $tipo_identificacion = DB::select("SELECT * FROM tipo_identificacion ");
                 $regimen_eps = DB::select("SELECT * FROM entidad_eps ");
@@ -39,19 +38,17 @@ class LoginController extends Controller
                 $date = date("Y-m-d");
     
                 // Datos de llenado tabla de referencia
-                $referencias = DB::select("SELECT r.id_orden, d.name_departamento, m.name_municipio, 
-                                    tr.name_regimen, e.nit_empresa, e.cod_hab_empresa, r.first_lastname, r.second_lastname, 
+                $referencias = DB::select("SELECT r.id_orden, tr.name_regimen, e.nit_empresa, 
+                                    e.cod_hab_empresa, r.first_lastname, r.second_lastname, 
                                     r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
-                                    ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, td.name_diagnostico,
+                                    ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, 
                                     tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor,
-                                    date_part('year',age(CURRENT_DATE,r.birthday)) AS edad, date_part('day',age(now(),r.updated_at)) AS espera_dias, 
-                                    date_part('hour',age(now(),r.updated_at)) AS espera_horas, 
+                                    date_part('year',age(CURRENT_DATE,r.birthday)) AS edad, 
+                                    date_part('day',age(now(),r.updated_at)) AS espera_dias,  
                                     mu.name_municipio as municipio_rem, r.created_at, r.updated_at, es.descripcion  
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
-                                    INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
-                                    LEFT JOIN municipios AS m ON e.id_municipio = m.id_municipio 
-                                    LEFT JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
+                                    INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa 
                                     INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
                                     INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
                                     INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
@@ -68,7 +65,6 @@ class LoginController extends Controller
                             compact(    
                                 'set', 
                                 'name', 
-                                'departamento', 
                                 'regimen', 
                                 'tipo_identificacion', 
                                 'regimen_eps', 

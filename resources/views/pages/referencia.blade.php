@@ -44,44 +44,6 @@ function modalActualizar(id_orden){
         }
     });
 }
-
-function actualizar(id_orden){
-    $.get('{{ action('ReferenciaController@codeGeneration') }}?id_orden=' + id_orden, function(data) {});
-
-    swal({
-        text: 'Ingresar el código de habilitación',
-        content: "input",
-        button: {
-            text: "Validar",
-            closeModal: false,
-        },
-    })
-    .then(codigo => {       
-        if (!codigo) throw null; 
-        return fetch(`{{ action('ReferenciaController@codeValidation') }}?codigo=${codigo}`);
-    })
-    .then(result => {
-        return result.json();
-    })
-    .then(json => {
-        const referencia = json.result[0];
-
-        if (!referencia) {
-            return swal("Código invalido");
-        }else{
-            swal.close();
-            modalActualizar(id_orden);
-        }
-    })
-    .catch(err => {
-        if (err) {
-            swal("Oh noes!", "The AJAX request failed!", "error");
-        } else {
-            swal.stopLoading();
-            swal.close();
-        }
-    });
-}
 </script>
 <div class="container-fluid">
     <div class="row justify-content-center text-center">
@@ -97,36 +59,26 @@ function actualizar(id_orden){
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>ORDEN</th>
-                        <th>DEPT</th>
-                        <th>MPIO</th>
+                        <th>REMISIÓN</th>
                         <th>REG</th>
-                        <th>NIT PREST SERV SALUD</th>
-                        <th>COD HAB PRESTADOR</th>
+                        <th>TIPO IDEN</th>
+                        <th>N° IDEN USUARIO</th>
                         <th>PRIMER APELLIDO</th>
                         <th>SEG APELLIDO</th>
                         <th>PRIMER NOMBRE</th>
                         <th>SEG NOMBRE</th>
-                        <th>TIPO IDEN</th>
-                        <th>N° IDEN USUARIO</th>
                         <th>EAPB</th>
                         <th>FECHA NAC</th>
                         <th>EDAD</th>
                         <th>SEXO</th>
                         <th>DIAGNOSTICO CIE 10</th>
-                        <th>NOMBRE DIAG</th>
                         <th>MEDICO REMITE</th>
                         <th>SERVICIO</th>
                         <th>IPS REMITE</th>
                         <th>SERVICIO SOLICITADO</th>
                         <th>MPIO REMITE</th>
-                        <th>FECHA NOT REM EPS AA/MM/DD</th>
                         <th>FECHA REMISION</th>
                         <th>TIEMPO ESP DIAS</th>
-                        <th>HORA NOT REM (fecha y hora)</th>
-                        <th>HORA ASIG SITIO REM</th>
-                        <th>TIEMPO ESP HORAS</th>
-                        <th>FECHA CANCEL REF</th>
                         <!-- <th>N° VECES RECHADAS</th> -->
                         <th>EST FINAL REM</th>
                     </tr>
@@ -142,40 +94,30 @@ function actualizar(id_orden){
                                     </a>
                                 </td>
                                 <td>
-                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info">
+                                    <button onclick="modalActualizar('{{ $ref->id_orden }}')" class="btn btn-info">
                                         <span class="fa fa-pencil" aria-hidden="true"></span>
                                     </button>
                                 </td>
                                 <td>{{ $ref->id_orden }}</td>
-                                <td>{{ $ref->name_departamento }}</td>
-                                <td>{{ $ref->name_municipio }}</td>
                                 <td>{{ $ref->name_regimen }}</td>
-                                <td>{{ $ref->nit_empresa }}</td>
-                                <td>{{ $ref->cod_hab_empresa }}</td>
+                                <td>{{ $ref->alias_tipo_ident }}</td>
+                                <td>{{ $ref->identification_number }}</td>
                                 <td>{{ $ref->first_lastname }}</td>
                                 <td>{{ $ref->second_lastname }}</td>
                                 <td>{{ $ref->first_name }}</td>
                                 <td>{{ $ref->second_name }}</td>
-                                <td>{{ $ref->alias_tipo_ident }}</td>
-                                <td>{{ $ref->identification_number }}</td>
                                 <td>{{ $ref->name_eps }}</td>
                                 <td>{{ $ref->birthday }}</td>
                                 <td>{{ $ref->edad }}</td>
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
-                                <td>{{ $ref->name_diagnostico }}</td>
                                 <td>{{ $ref->name_doctor }}</td>
                                 <td>{{ $ref->alias_servicio }}</td>
                                 <td>{{ $ref->name_ips }}</td>
                                 <td>{{ $ref->name_servicio }}</td>
                                 <td>{{ $ref->municipio_rem }}</td>
-                                <td>{{ $ref->created_at }}</td>
                                 <td>{{ $ref->updated_at }}</td>
                                 <td>{{ $ref->espera_dias }}</td>
-                                <td></td>
-                                <td></td>
-                                <td>{{ $ref->espera_horas }}</td>
-                                <td></td>
                                 <!-- <td></td> -->
                                 <td>{{ $ref->descripcion }}</td>
                             </tr>
@@ -302,7 +244,7 @@ function actualizar(id_orden){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" autocomplete="off"  id="secc6" style="display: none;">
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" autocomplete="off"  id="secc6" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -315,7 +257,7 @@ function actualizar(id_orden){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" required="required" autocomplete="off"  id="secc8" style="display: none;">
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" autocomplete="off"  id="secc8" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -693,7 +635,7 @@ function actualizar(id_orden){
             var string = e.value;
             var out = '';
             //Se añaden las letras validas
-            var filtro = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';//Caracteres validos
+            var filtro = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ ';//Caracteres validos
             
             for (var i=0; i<string.length; i++)
             if (filtro.indexOf(string.charAt(i)) != -1) 

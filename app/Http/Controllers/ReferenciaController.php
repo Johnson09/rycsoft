@@ -29,13 +29,13 @@ class ReferenciaController extends Controller
 
                 $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
 
-                if($i = 1){
+                if(isset($_FILES['uploadedFile1'])){
                     $documento1 = $newFileName;
-                }elseif ($i = 2) {
+                }elseif (isset($_FILES['uploadedFile2'])) {
                     $documento2 = $newFileName;
-                }elseif ($i = 3) {
+                }elseif (isset($_FILES['uploadedFile3'])) {
                     $documento3 = $newFileName;
-                }elseif ($i = 4) {
+                }elseif (isset($_FILES['uploadedFile4'])) {
                     $documento4 = $newFileName;
                 }
 
@@ -83,6 +83,13 @@ class ReferenciaController extends Controller
 
     public function update(Request $request, $orden)
     {
+        $codigo = '';
+        $estado = $request->id_estado;
+
+        if ($estado = 2) {
+            $codigo = substr(md5(time()), 0, 20);
+        }
+
         DB::table('registro_referencia')
             ->where('id_orden', $orden)
             ->update(
@@ -90,6 +97,7 @@ class ReferenciaController extends Controller
                     'id_ips' => $request->id_ips,
                     'id_municipio_rem' => $request->id_municipio_rem,
                     'id_estado' => $request->id_estado,
+                    'cod_apro' => $codigo,
                     'id_ambulancia' => $request->id_ambulancia,
                     'cod_autorizacion' => $request->cod_autorizacion,
                     'updated_at' => now()

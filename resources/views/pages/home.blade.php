@@ -16,3 +16,40 @@
 		margin: auto;
 	}
 </style>
+<!-- function actualizar(id_orden){
+    $.get('{{ action('ReferenciaController@codeGeneration') }}?id_orden=' + id_orden, function(data) {});
+
+    swal({
+        text: 'Ingresar el código de habilitación',
+        content: "input",
+        button: {
+            text: "Validar",
+            closeModal: false,
+        },
+    })
+    .then(codigo => {       
+        if (!codigo) throw null; 
+        return fetch(`{{ action('ReferenciaController@codeValidation') }}?codigo=${codigo}`);
+    })
+    .then(result => {
+        return result.json();
+    })
+    .then(json => {
+        const referencia = json.result[0];
+
+        if (!referencia) {
+            return swal("Código invalido");
+        }else{
+            swal.close();
+            modalActualizar(id_orden);
+        }
+    })
+    .catch(err => {
+        if (err) {
+            swal("Oh noes!", "The AJAX request failed!", "error");
+        } else {
+            swal.stopLoading();
+            swal.close();
+        }
+    });
+} -->
