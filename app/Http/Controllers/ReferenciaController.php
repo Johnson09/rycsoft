@@ -185,7 +185,7 @@ class ReferenciaController extends Controller
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
-                                    INNER JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
+                                    LEFT JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
                                     LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
                                     WHERE r.id_orden = '$orden'");

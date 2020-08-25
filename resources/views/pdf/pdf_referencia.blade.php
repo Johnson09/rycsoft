@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>{{ $text }}}</title>
+        <title>{{ $text }}</title>
         <meta charset="utf-8">
 
         <!-- estilo de la tabla -->
@@ -34,12 +34,19 @@
                     <td style="width: 10%;">
                         <img src="{{ asset('public/images/logopag.png') }}" style="width: 7em;">
                     </td>
-                    <td>
-                        
+                    <td style="text-align: center;">
+                        <p>
+                            N° ORDEN {{ $orden }}
+                        </p>
+                        <p>
+                            DOCUMENTO DE REFERENCIA Y CONTRAREFERENCIA
+                        </p>
+                        <p>
+                            E.S.E HOSPITAL DIVINO NIÑO
+                        </p>
                     </td>
                     <td style="width: 10%; text-align: center;">
-                        N° ORDEN
-                        {{ $orden }}
+                        Versión: N° 1
                     </td>
                 </tr>
             </thead>

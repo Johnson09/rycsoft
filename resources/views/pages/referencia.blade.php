@@ -10,7 +10,7 @@ function modalActualizar(id_orden){
     document.getElementById("form").action = "gestion_referencia/"+id_orden;
 
     for (let j = 1; j < 17; j++) {
-        $('#s'+j).val("");
+        $('#i'+j).val("");
     }
 
     actBack();
@@ -23,22 +23,22 @@ function modalActualizar(id_orden){
         }else{
             // console.log(data);
             $.each(data, function(index, ClassObj){
-                $('#s1').val(ClassObj.name_departamento);
-                $('#s2').val(ClassObj.name_municipio);
-                $('#s3').val(ClassObj.name_regimen);
-                $('#s4').val(ClassObj.nombre_empresa);
-                $('#s5').val(ClassObj.name_tipo_ident);
-                $('#s6').val(ClassObj.identification_number);
-                $('#s7').val(ClassObj.birthday);
-                $('#s8').val(ClassObj.name_sexo);
-                $('#s9').val(ClassObj.first_lastname);
-                $('#s10').val(ClassObj.second_lastname);
-                $('#s11').val(ClassObj.first_name);
-                $('#s12').val(ClassObj.second_name);
-                $('#s13').val(ClassObj.name_eps);
-                $('#s14').val(ClassObj.name_doctor);
-                $('#s15').val(ClassObj.name_diagnostico);
-                $('#s16').val(ClassObj.name_servicio);
+                $('#i1').text(ClassObj.name_departamento);
+                $('#i2').text(ClassObj.name_municipio);
+                $('#i3').text(ClassObj.name_regimen);
+                $('#i4').text(ClassObj.nombre_empresa);
+                $('#i5').text(ClassObj.name_tipo_ident);
+                $('#i6').text(ClassObj.identification_number);
+                $('#i7').text(ClassObj.birthday);
+                $('#i8').text(ClassObj.name_sexo);
+                $('#i9').text(ClassObj.first_lastname);
+                $('#i10').text(ClassObj.second_lastname);
+                $('#i11').text(ClassObj.first_name);
+                $('#i12').text(ClassObj.second_name);
+                $('#i13').text(ClassObj.name_eps);
+                $('#i14').text(ClassObj.name_doctor);
+                $('#i15').text(ClassObj.name_diagnostico);
+                $('#i16').text(ClassObj.name_servicio);
                 $('#s20').val(ClassObj.id_estado);
             })
         }
@@ -94,9 +94,15 @@ function modalActualizar(id_orden){
                                     </a>
                                 </td>
                                 <td>
-                                    <button onclick="modalActualizar('{{ $ref->id_orden }}')" class="btn btn-info">
-                                        <span class="fa fa-pencil" aria-hidden="true"></span>
-                                    </button>
+                                    @if($ref->id_estado == 2)
+                                        <button onclick="modalActualizar('{{ $ref->id_orden }}')" class="btn btn-info" disabled>
+                                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    @else
+                                        <button onclick="modalActualizar('{{ $ref->id_orden }}')" class="btn btn-info">
+                                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    @endif
                                 </td>
                                 <td>{{ $ref->id_orden }}</td>
                                 <td>{{ $ref->name_regimen }}</td>
@@ -211,7 +217,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2" style="display: none;">
+                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2" style="display: none;" maxlength="10">
                             </div>
                         </div>
                     </div>
@@ -362,12 +368,12 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s1" class="form-control input-lg" disabled>
+                                <span id="s1">DEPARTAMENTO: <i id="i1"></i></span>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s2" class="form-control input-lg" disabled>
+                                <span id="s2">MUNICIPIO: <i id="i2"></i></span>
                             </div>
                         </div>
                     </div>
@@ -375,26 +381,12 @@ function modalActualizar(id_orden){
                     <div class="row" id="seccion1.1">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s3" class="form-control input-lg" disabled>
+                                <span id="s3">REGIMEN: <i id="i3"></i></span>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s4" class="form-control input-lg" disabled>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s5" class="form-control input-lg" style="display: none;" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s6" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s4">EMPRESA: <i id="i4"></i></span>
                             </div>
                         </div>
                     </div>
@@ -402,27 +394,12 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label id="bir" style="display: none;">FECHA DE NACIMIENTO</label>
-                                <input type="text" id="s7" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s5" style="display: none;">TIPO DOCUMENTO: <i id="i5"></i></span>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <label> </label>
-                                <input type="text" id="s8" class="form-control input-lg" style="display: none;" disabled>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s9" class="form-control input-lg" style="display: none;" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s10" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s6" style="display: none;"># DOCUMENTO: <i id="i6"></i></span>
                             </div>
                         </div>
                     </div>
@@ -430,25 +407,12 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s11" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s7" style="display: none;">FECHA NACIMIENTO: <i id="i7"></i></span>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s12" class="form-control input-lg" style="display: none;" disabled>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s13" class="form-control input-lg" style="display: none;" disabled>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <input type="text" id="s14" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s8" style="display: none;">GENERO: <i id="i8"></i></span>
                             </div>
                         </div>
                     </div>
@@ -456,12 +420,51 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s15" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s9" style="display: none;">PRIMER APELLIDO: <i id="i9"></i></span>
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" id="s16" class="form-control input-lg" style="display: none;" disabled>
+                                <span id="s10" style="display: none;">SEGUNDO APELLIDO: <i id="i10"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s11" style="display: none;">PRIMER NOMBRE: <i id="i11"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s12" style="display: none;">SEGUNDO NOMBRE: <i id="i12"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s13" style="display: none;">EPS: <i id="i13"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s14" style="display: none;">MEDICO: <i id="i14"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s15" style="display: none;">DIAGNOSTICO: <i id="i15"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="s16" style="display: none;">SERVICIO: <i id="i16"></i></span>
                             </div>
                         </div>
                     </div>
@@ -757,8 +760,6 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion2
-                document.getElementById("bir").style.display = "block";
-
                 for (let j = 5; j < 13; j++) {
                     document.getElementById("s"+j).style.display = "block";
                     
@@ -770,8 +771,6 @@ function modalActualizar(id_orden){
                 document.getElementById("f2").style.display = "block";
 
                 // Elementos Seccion2
-                document.getElementById("bir").style.display = "none";
-
                 for (let i = 5; i < 13; i++) {
                     document.getElementById("s"+i).style.display = "none";
                     
@@ -799,8 +798,6 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion2
-                document.getElementById("bir").style.display = "none";
-
                 for (let j = 5; j < 13; j++) {
                     document.getElementById("s"+j).style.display = "none";
                     
@@ -812,8 +809,6 @@ function modalActualizar(id_orden){
                 document.getElementById("med2").style.display = "block";
 
                 // Elementos Seccion2
-                document.getElementById("bir").style.display = "block";
-
                 for (let i = 5; i < 13; i++) {
                     document.getElementById("s"+i).style.display = "block";
                     
