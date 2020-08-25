@@ -32,6 +32,10 @@ Route::resource('/gestion_referencia', 'ReferenciaController');
 
 Route::get('/get_referencia', 'ReferenciaController@getReferencia');
 
+Route::get('/codeGeneration', 'ReferenciaController@codeGeneration');
+
+Route::get('/codeValidation', 'ReferenciaController@codeValidation');
+
 Route::get('/get_referencia_pdf/{orden}', 'ReferenciaController@getPdf');
 
 Route::get('/obtener_municipio', 'MunicipioController@getMunicipios');

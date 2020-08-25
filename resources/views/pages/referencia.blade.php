@@ -5,10 +5,11 @@ function pad(input, length, padding) {
   return (length <= str.length) ? str : pad(padding+str, length, padding);
 }
 
-function actualizar(id_orden){
+function modalActualizar(id_orden){
+    $("#actModal").modal();
     document.getElementById("form").action = "gestion_referencia/"+id_orden;
 
-    for (let j = 1; j < 19; j++) {
+    for (let j = 1; j < 17; j++) {
         $('#s'+j).val("");
     }
 
@@ -38,8 +39,46 @@ function actualizar(id_orden){
                 $('#s14').val(ClassObj.name_doctor);
                 $('#s15').val(ClassObj.name_diagnostico);
                 $('#s16').val(ClassObj.name_servicio);
-                $('#s19').val(ClassObj.id_estado);
+                $('#s20').val(ClassObj.id_estado);
             })
+        }
+    });
+}
+
+function actualizar(id_orden){
+    $.get('{{ action('ReferenciaController@codeGeneration') }}?id_orden=' + id_orden, function(data) {});
+
+    swal({
+        text: 'Ingresar el código de habilitación',
+        content: "input",
+        button: {
+            text: "Validar",
+            closeModal: false,
+        },
+    })
+    .then(codigo => {       
+        if (!codigo) throw null; 
+        return fetch(`{{ action('ReferenciaController@codeValidation') }}?codigo=${codigo}`);
+    })
+    .then(result => {
+        return result.json();
+    })
+    .then(json => {
+        const referencia = json.result[0];
+
+        if (!referencia) {
+            return swal("Código invalido");
+        }else{
+            swal.close();
+            modalActualizar(id_orden);
+        }
+    })
+    .catch(err => {
+        if (err) {
+            swal("Oh noes!", "The AJAX request failed!", "error");
+        } else {
+            swal.stopLoading();
+            swal.close();
         }
     });
 }
@@ -103,7 +142,7 @@ function actualizar(id_orden){
                                     </a>
                                 </td>
                                 <td>
-                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info" data-toggle="modal" data-target="#actModal">
+                                    <button onclick="actualizar('{{ $ref->id_orden }}')" class="btn btn-info">
                                         <span class="fa fa-pencil" aria-hidden="true"></span>
                                     </button>
                                 </td>
@@ -163,7 +202,7 @@ function actualizar(id_orden){
             <div class="modal-body" style="font-size: 14px">
                 <div style="text-align: center;">
                     <!-- Formulario de registro de referencia -->
-                    <form role="form" action="{{ url('gestion_referencia') }}" method="post" autocomplete="on">
+                    <form role="form" action="{{ url('gestion_referencia') }}" method="post" autocomplete="on" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
@@ -183,6 +222,36 @@ function actualizar(id_orden){
                                     <input type="text" name="id_empresa" class="form-control input-lg" required="required" value="{{ $emp->id_empresa }}" style="display: none;">
                                     <input type="text" name="nombre_empresa" placeholder="EMPRESA" disabled class="form-control input-lg" tabindex="4" required="required" id="sec2" value="{{ $emp->nombre_empresa }}">
                                 @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="t1">REMISION SOFTWARE INSTITUCIONAL:</span>
+                                <input type="file" name="uploadedFile1" class="form-control input-lg" required="required" id="sec3" accept=".pdf,.png,.jpg">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="t2">RESULTADO LABORATORIO: (Opcional)</span>
+                                <input type="file" name="uploadedFile2" class="form-control input-lg" id="sec4" accept=".pdf,.png,.jpg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="t3">RESULTADO RX: (Opcional)</span>
+                                <input type="file" name="uploadedFile3" class="form-control input-lg" id="sec5" accept=".pdf,.png,.jpg">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <span id="t4">FICHA EPIDEMIOLOGICA: (Opcional)</span>
+                                <input type="file" name="uploadedFile4" class="form-control input-lg" id="sec6" accept=".pdf,.png,.jpg">
                             </div>
                         </div>
                     </div>
@@ -497,12 +566,30 @@ function actualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <select name="id_estado" class="selectpicker form-control input-lg" data-style="btn-info" id="s19" required="required" style="display: none;">
+                                <select name="id_ambulancia" class="selectpicker form-control input-lg" data-style="btn-info" id="s19" required="required" style="display: none;">
+                                    <option value="">TIPO AMBULANCIA</option>
+                                    @foreach($ambulancia as $am)
+                                    <option value="{{ $am->id_ambulancia }}">{{ $am->alias_ambulancia }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select name="id_estado" class="selectpicker form-control input-lg" data-style="btn-info" id="s20" required="required" style="display: none;">
                                     <option value="">ESTADO</option>
                                     @foreach($estado as $est)
                                     <option value="{{ $est->id_estado }}">{{ $est->descripcion }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="cod_autorizacion" placeholder="CÓDIGO AUTORIZACIÓN" id="s21" class="form-control input-lg" style="display: none;" required="required">
                             </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -624,7 +711,11 @@ function actualizar(id_orden){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion1
-                for (let i = 1; i < 3; i++) {
+                for (let i = 1; i < 5; i++) {
+                    document.getElementById("t"+i).style.display = "none";
+                    
+                }
+                for (let i = 1; i < 7; i++) {
                     document.getElementById("sec"+i).style.display = "none";
                     
                 }
@@ -668,7 +759,11 @@ function actualizar(id_orden){
                 document.getElementById("inicio2").style.display = "block";
 
                 // Elementos Seccion1
-                for (let i = 1; i < 3; i++) {
+                for (let i = 1; i < 5; i++) {
+                    document.getElementById("t"+i).style.display = "block";
+                    
+                }
+                for (let i = 1; i < 7; i++) {
                     document.getElementById("sec"+i).style.display = "block";
                     
                 }
@@ -741,7 +836,7 @@ function actualizar(id_orden){
                 }
 
                 // Elementos Seccion3
-                for (let j = 13; j < 20; j++) {
+                for (let j = 13; j < 22; j++) {
                     document.getElementById("s"+j).style.display = "block";
                     
                 }
@@ -783,7 +878,7 @@ function actualizar(id_orden){
                 }
 
                 // Elementos Seccion3
-                for (let j = 13; j < 20; j++) {
+                for (let j = 13; j < 22; j++) {
                     document.getElementById("s"+j).style.display = "none";
                     
                 }

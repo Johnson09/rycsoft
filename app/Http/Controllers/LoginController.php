@@ -33,6 +33,7 @@ class LoginController extends Controller
                 $municipio_remitente = DB::select("SELECT * FROM municipios ");
                 $empresa = DB::select("SELECT * FROM empresas ");
                 $estado = DB::select("SELECT * FROM estados ");
+                $ambulancia = DB::select("SELECT * FROM tipo_ambulancia ");
 
                 date_default_timezone_set('America/Bogota');
                 $date = date("Y-m-d");
@@ -58,7 +59,8 @@ class LoginController extends Controller
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
                                     INNER JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
-                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado");
+                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado
+                                    LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia");
 
                 // dd($referencias);
     
@@ -77,6 +79,7 @@ class LoginController extends Controller
                                 'municipio_remitente',
                                 'empresa',
                                 'estado',
+                                'ambulancia',
                                 'date',
                                 'referencias'
                             ));

@@ -12,6 +12,45 @@ class ReferenciaController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $documento1 = '';
+        $documento2 = '';
+        $documento3 = '';
+        $documento4 = '';
+
+        for ($i=1; $i < 5; $i++) { 
+            if (isset($_FILES['uploadedFile'.$i]) && $_FILES['uploadedFile'.$i]['error'] === UPLOAD_ERR_OK) {
+                // get details of the uploaded file
+                $fileTmpPath = $_FILES['uploadedFile'.$i]['tmp_name'];
+                $fileName = $_FILES['uploadedFile'.$i]['name'];
+                $fileSize = $_FILES['uploadedFile'.$i]['size'];
+                $fileType = $_FILES['uploadedFile'.$i]['type'];
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+
+                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+
+                if($i = 1){
+                    $documento1 = $newFileName;
+                }elseif ($i = 2) {
+                    $documento2 = $newFileName;
+                }elseif ($i = 3) {
+                    $documento3 = $newFileName;
+                }elseif ($i = 4) {
+                    $documento4 = $newFileName;
+                }
+
+                $allowedfileExtensions = array('jpg', 'pdf', 'png');
+
+                if (in_array($fileExtension, $allowedfileExtensions)) {
+                    // directory in which the uploaded file will be moved
+                    $uploadFileDir = './public/uploaded_files/';
+                    $dest_path = $uploadFileDir . $newFileName;
+                    
+                    move_uploaded_file($fileTmpPath, $dest_path);
+                }
+            }
+        }
+
         DB::table('registro_referencia')->insert(
             [
                 'id_regimen' => $request->id_regimen, 
@@ -30,6 +69,10 @@ class ReferenciaController extends Controller
                 'name_doctor' => $request->name_doctor,
                 'id_servicio' => $request->id_servicio,
                 'id_estado' => '1',
+                'doc_rem_soft_inst' => $documento1,
+                'doc_resul_lab' => $documento2,
+                'doc_resul_rx' => $documento3,
+                'doc_ficha_epi' => $documento4,
                 'created_at' => now(),
                 'updated_at' => now()
             ]
@@ -47,11 +90,41 @@ class ReferenciaController extends Controller
                     'id_ips' => $request->id_ips,
                     'id_municipio_rem' => $request->id_municipio_rem,
                     'id_estado' => $request->id_estado,
+                    'id_ambulancia' => $request->id_ambulancia,
+                    'cod_autorizacion' => $request->cod_autorizacion,
                     'updated_at' => now()
                 ]
             );
 
         return back()->with('success','Referencia actualizada satisfactoriamente.');
+    }
+
+    public function codeGeneration(Request $request)
+    {
+        $id_orden = $request->input('id_orden');
+
+        $codigo = substr(md5(time()), 0, 10);
+
+        DB::table('registro_referencia')
+            ->where('id_orden', $id_orden)
+            ->update(
+                [
+                    'cod_apro' => $codigo
+                ]
+            );
+
+        return response()->json($codigo);
+    }
+
+    public function codeValidation(Request $request)
+    {
+        $codigo = $request->input('codigo');
+
+        $referencia = DB::select("SELECT * FROM registro_referencia WHERE cod_apro = '$codigo'");
+
+        $output = ['result' => $referencia];
+
+        return response()->json($output);
     }
 
     public function getReferencia(Request $request)
@@ -103,6 +176,7 @@ class ReferenciaController extends Controller
                                     LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
                                     INNER JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
+                                    LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
                                     WHERE r.id_orden = '$orden'");
         
         $text = 'Referencia_numero_'.$orden.'.pdf';
