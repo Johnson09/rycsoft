@@ -49,10 +49,6 @@
       echo "</script>";
        ?>
   @endif
-
-  <?php 
-    $pagina = isset($_GET['p']) ? strtolower($_GET['p']) : 'home';
-  ?>
   
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -141,8 +137,8 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Directivas:</h6>
-            <a class="collapse-item <?php echo $pagina == 'referencia'; ?>" href="?p=referencia">Registro Referencia</a>
-            <a class="collapse-item <?php echo $pagina == 'seguimiento'; ?>" href="?p=seguimiento">Seguimiento</a>
+            <a class="collapse-item" href="gestion_referencia">Registro Referencia</a>
+            <a class="collapse-item" href="gestion_seguimiento">Seguimiento</a>
             <!-- <a class="collapse-item" href="#">Reporte</a> -->
             <!-- <a class="collapse-item" href="register.html">Register</a>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
@@ -150,6 +146,17 @@
             <h6 class="collapse-header">Other Pages:</h6>
             <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a> -->
+          </div>
+        </div>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIndicadores" aria-expanded="true" aria-controls="collapseIndicadores">
+          <i class="fas fa-fw fa-list"></i>
+          <span>Informes</span>
+        </a>
+        <div id="collapseIndicadores" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Indicadores:</h6>
+            <a class="collapse-item" href="prueba">Indicador 1</a>
+            <a class="collapse-item" href="#">Indicador 2</a>
           </div>
         </div>
       </li>
@@ -378,7 +385,7 @@
           </div> -->
 
           <main id="responsive_cellphone" class="py-4">
-            @include('pages.'. $pagina)
+            @yield('content')
           </main>
         </div>
 

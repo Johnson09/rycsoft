@@ -1,3 +1,6 @@
+@extends('layout.app')
+
+@section('content')
 <script type="text/javascript">
 
 function pad(input, length, padding) { 
@@ -823,3 +826,4 @@ function modalActualizar(id_orden){
         }
 
 	</script>
+@endsection

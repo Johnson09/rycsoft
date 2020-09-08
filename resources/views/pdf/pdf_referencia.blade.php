@@ -13,8 +13,12 @@
             width: 100%;
         }
 
-        #principal td, #principal th {
-            border: 1px solid #ddd;
+        #principal thead, #principal tbody, #principal tfoot {
+            border: 1px solid black;
+        }
+
+        #principal tbody td span, #principal tfoot td span{
+            font-weight: bold;
         }
         </style>
 
@@ -31,23 +35,28 @@
         <table id="principal">
             <thead>
                 <tr>
-                    <td style="width: 10%;">
+                    <th style="width: 10%;">
                         <img src="{{ asset('public/images/logopag.png') }}" style="width: 7em;">
-                    </td>
-                    <td style="text-align: center;">
+                    </th>
+                    <th style="">
                         <p>
-                            N° ORDEN {{ $orden }}
+                            MINISTERIO DE LA PROTECCION SOCIAL
                         </p>
                         <p>
-                            DOCUMENTO DE REFERENCIA Y CONTRAREFERENCIA
+                            SOLICITUD DE AUTORIZACION DE SERVICIOS DE SALUD
                         </p>
                         <p>
-                            E.S.E HOSPITAL DIVINO NIÑO
+                            NUMERO DE SOLICITUD: {{ $orden }}
                         </p>
-                    </td>
-                    <td style="width: 10%; text-align: center;">
-                        Versión: N° 1
-                    </td>
+                    </th>
+                    <th style="width: 20%;">
+                        <p>
+                            Fecha:  {{ $array[0] }}
+                        </p>
+                        <p>
+                            Hora:   {{ $array[1] }}
+                        </p>
+                    </th>
                 </tr>
             </thead>
         </table>
@@ -56,38 +65,45 @@
         <table id="principal">
             <thead>
                 <tr>
-                    <td colspan="4">
-                        DETALLE EMPRESA
-                    </td>
+                    <th colspan="3">
+                        INFORMACION DEL PRESTADOR (Solicitante)
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>
-                        DEPARTAMENTO
-                    </th>
-                    <th>
-                        MUNICIPIO
-                    </th>
-                    <th>
-                        REGIMEN
-                    </th>
-                    <th>
-                        EMPRESA
-                    </th>
+                    <td colspan="2">
+                        <span>Nombre:</span> {{ $ref->nombre_empresa }}
+                    </td>
+                    <td>
+                        <span>NIT:</span> {{ $ref->nit_empresa }}
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ $ref->name_departamento }}
+                        <span>Código:</span> {{ $ref->cod_hab_empresa }}
+                    </td>
+                    <td colspan="2">
+                        <span>Dirección del prestador:</span> {{ $ref->direccion }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Teléfono:</span> {{ $ref->telefono }}
                     </td>
                     <td>
-                        {{ $ref->name_municipio }}
+                        <span>Departamento:</span> {{ $ref->name_departamento }}
                     </td>
                     <td>
-                        {{ $ref->name_regimen }}
+                        <span>Municipio:</span> {{ $ref->name_municipio }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>ENTIDAD A LA QUE SE LE SOLICITA (Pagador):</span> {{ $ref->name_eps }}
                     </td>
                     <td>
-                        {{ $ref->nombre_empresa }}
+                        <span>Código:</span>
                     </td>
                 </tr>
             </tbody>
@@ -96,68 +112,182 @@
         <table id="principal">
             <thead>
                 <tr>
-                    <td colspan="4">
-                        DETALLE USUARIO
-                    </td>
+                    <th colspan="4">
+                        DATOS DEL PACIENTE
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>
-                        TIPO DOCUMENTO
+                    <td>
+                        <span>1er Apellido:</span> {{ $ref->first_lastname }}
+                    </td>
+                    <td>
+                        <span>2do Apellido:</span> {{ $ref->second_lastname }}
+                    </td>
+                    <td>
+                        <span>1er Nombre:</span> {{ $ref->first_name }}
+                    </td>
+                    <td>
+                        <span>2do Nombre:</span> {{ $ref->second_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Tipo de documento:</span> {{ $ref->name_tipo_ident }}
+                    </td>
+                    <td colspan="2">
+                        <span>Numero de documento de identificación:</span> {{ $ref->identification_number }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Fecha de nacimiento:</span> {{ $ref->birthday }}
+                    </td>
+                    <td colspan="2">
+                        <span>Teléfono:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Dirección de residencia habitual:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Departamento:</span>
+                    </td>
+                    <td colspan="2">
+                        <span>Municipio:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Correo electronico:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Cobertura en salud:</span> {{ $ref->name_regimen }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <br>
+        <table id="principal">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        INFORMACION DE LA ATENCION Y SERVICIOS SOLICITADOS
                     </th>
-                    <th>
-                        N° DOCUMENTO
-                    </th>
-                    <th>
-                        FECHA NACIMIENTO
-                    </th>
-                    <th>
-                        GENERO
-                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        <span>Origen de la atención:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Tipo de servicios solicitados:</span>
+                    </td>
+                    <td>
+                        <span>Prioridad de la atención:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <span>Ubicación del paciente al momento de la solicitud de autorización:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Servicio:</span>
+                    </td>
+                    <td>
+                        <span>Cama:</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <span>Manejo integral segun guia de:</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ $ref->name_tipo_ident }}
+                        <span>Código CUPS:</span>
                     </td>
                     <td>
-                        {{ $ref->identification_number }}
+                        <span>Cantidad:</span>
                     </td>
                     <td>
-                        {{ $ref->birthday }}
-                    </td>
-                    <td>
-                        {{ $ref->name_sexo }}
+                        <span>Descripción:</span>
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <th>
-                        PRIMER APELLIDO
-                    </th>
-                    <th>
-                        SEGUNDO APELLIDO
-                    </th>
-                    <th>
-                        PRIMER NOMBRE
-                    </th>
-                    <th>
-                        SEGUNDO NOMBRE
-                    </th>
+                    <td>
+                        <span>Justificación clinica:</span>
+                    </td>
+                    <td colspan="2">
+                        
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ $ref->first_lastname }}
+                        <span>Impresión Diagnóstica:</span>
                     </td>
                     <td>
-                        {{ $ref->second_lastname }}
+                        <span>Código CIE10:</span>
                     </td>
                     <td>
-                        {{ $ref->first_name }}
+                        <span>Descripción
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Diagnostico principal:</span>
                     </td>
                     <td>
-                        {{ $ref->second_name }}
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Diagnostico Relacionado 1:</span>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Diagnostico Relacionado 2:</span>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Diagnostico Relacionado 3:</span>
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
                     </td>
                 </tr>
             </tfoot>
@@ -166,65 +296,26 @@
         <table id="principal">
             <thead>
                 <tr>
-                    <td colspan="4">
-                        DETALLE SERVICIO 
-                    </td>
+                    <th colspan="2">
+                        INFORMACION DE LA PERSONA QUE SOLICITA
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>
-                        EPS
-                    </th>
-                    <th>
-                        MEDICO REMITENTE
-                    </th>
-                    <th>
-                        DIAGNOSTICO
-                    </th>
-                    <th>
-                        SERVICIO
-                    </th>
+                    <td colspan="2">
+                        <span>Nombre de quien solicita:</span>
+                    </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ $ref->name_eps }}
+                        <span>Cargo o actividad:</span>
                     </td>
                     <td>
-                        {{ $ref->name_doctor }}
-                    </td>
-                    <td>
-                        {{ $ref->name_diagnostico }}
-                    </td>
-                    <td>
-                        {{ $ref->name_servicio }}
+                        <span>Teléfono:</span>
                     </td>
                 </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>
-                        IPS REMITENTE
-                    </th>
-                    <th>
-                        MUNICIPIO REMITENTE
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>
-                        {{ $ref->name_ips }}
-                    </td>
-                    <td>
-                        {{ $ref->municipio_rem }}
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     @endforeach
     </body>

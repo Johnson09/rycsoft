@@ -9,6 +9,79 @@ use Illuminate\Http\Request;
 
 class ReferenciaController extends Controller
 {
+    public function index(){
+        session_start();
+
+        // dd($pagina);
+        if (!isset($_SESSION['id'])) {
+            return redirect('/logout');
+        }else{
+            $set = $_SESSION['id'];
+            $name = $_SESSION['nombre'];
+
+                // Datos requeridos en los formularios de referencia
+                $regimen = DB::select("SELECT * FROM tipo_regimen ");
+                $tipo_identificacion = DB::select("SELECT * FROM tipo_identificacion ");
+                $regimen_eps = DB::select("SELECT * FROM entidad_eps ");
+                $genero = DB::select("SELECT * FROM tipo_sexo ");
+                $diagnostico = DB::select("SELECT * FROM tipo_diagnostico ");
+                $servicio = DB::select("SELECT * FROM tipo_servicio ");
+                $regimen_ips = DB::select("SELECT * FROM entidad_ips ");
+                $municipio_remitente = DB::select("SELECT * FROM municipios ");
+                $empresa = DB::select("SELECT * FROM empresas ");
+                $estado = DB::select("SELECT * FROM estados ");
+                $ambulancia = DB::select("SELECT * FROM tipo_ambulancia ");
+
+                date_default_timezone_set('America/Bogota');
+                $date = date("Y-m-d");
+    
+                // Datos de llenado tabla de referencia
+                $referencias = DB::select("SELECT r.id_orden, tr.name_regimen, e.nit_empresa, 
+                                    e.cod_hab_empresa, r.first_lastname, r.second_lastname, 
+                                    r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
+                                    ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, 
+                                    tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor,
+                                    date_part('year',age(CURRENT_DATE,r.birthday)) AS edad, es.id_estado,
+                                    date_part('day',age(now(),r.updated_at)) AS espera_dias,  
+                                    mu.name_municipio as municipio_rem, r.created_at, r.updated_at, es.descripcion  
+                                    FROM registro_referencia AS r 
+                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
+                                    INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa 
+                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
+                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
+                                    INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
+                                    LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
+                                    LEFT JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
+                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado
+                                    LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia");
+
+                // dd($referencias);
+    
+                return view('directivas.referencia', 
+                            compact(    
+                                'set', 
+                                'name', 
+                                'regimen', 
+                                'tipo_identificacion', 
+                                'regimen_eps', 
+                                'genero', 
+                                'diagnostico', 
+                                'servicio', 
+                                'regimen_ips', 
+                                'municipio_remitente',
+                                'empresa',
+                                'estado',
+                                'ambulancia',
+                                'date',
+                                'referencias'
+                            ));
+
+        }
+
+    }
+
     public function store(Request $request)
     {
         // dd($request);
@@ -173,7 +246,8 @@ class ReferenciaController extends Controller
                                     r.first_name, r.second_name, ti.name_tipo_ident, r.identification_number,
                                     ee.name_eps, r.birthday, ts.name_sexo, td.name_diagnostico,
                                     tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado, 
-                                    ei.name_ips, mu.name_municipio AS municipio_rem   
+                                    ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at,
+                                    e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono 
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
                                     INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
@@ -189,10 +263,14 @@ class ReferenciaController extends Controller
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
                                     LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
                                     WHERE r.id_orden = '$orden'");
+
+        $cadena = $referencia[0]->created_at;
+        $array = explode(" ", $cadena);
+        // dd($array);
         
         $text = 'Referencia_numero_'.$orden.'.pdf';
 
-        $pdf = \PDF::loadView('pdf.pdf_referencia', compact('referencia','orden','text'));
+        $pdf = \PDF::loadView('pdf.pdf_referencia', compact('referencia','orden','text','array'));
         //dd($pdf); 
 
         // $pdf->setPaper('A4', 'landscape'); // Formato de la hoja

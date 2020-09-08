@@ -1,3 +1,6 @@
+@extends('layout.app')
+
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center text-center">
         <div class="container-fluid text-center">
@@ -35,9 +38,6 @@
                                 <td></td>
                                 <td>
                                     <svg id=""></svg>
-                                    <script type="text/javascript">
-                                        $("#c").JsBarcode("");
-                                    </script>
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -109,3 +109,4 @@
 	 		$(this).parent().addClass("focus");
 	 	})
 	</script>
+@endsection

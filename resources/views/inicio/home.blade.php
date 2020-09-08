@@ -1,3 +1,6 @@
+@extends('layout.app')
+
+@section('content')
 <div class="container-fluid">
     <div class="row justify-content-center text-center">
         <div class="container-fluid text-center">
@@ -53,3 +56,4 @@
         }
     });
 } -->
+@endsection

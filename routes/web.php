@@ -28,6 +28,16 @@ Route::get('/logout', function () {
     return view('welcome');
 });
 
+Route::get('/prueba', function () {
+    $name = "prueba";
+    return view('indicadores.prueba', compact('name'));
+});
+
+Route::get('/gestion_seguimiento', function () {
+    $name = "prueba";
+    return view('directivas.seguimiento', compact('name'));
+});
+
 Route::resource('/gestion_referencia', 'ReferenciaController');
 
 Route::get('/get_referencia', 'ReferenciaController@getReferencia');
