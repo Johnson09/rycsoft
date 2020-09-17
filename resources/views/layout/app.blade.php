@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!-- <link rel="icon" type="image/png" href="public/images/icons/002-paper-plane.png"/> -->
+  <link rel="icon" type="image/png" href="public/images/HDN LOGO.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -99,26 +99,18 @@
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Inventarios</span>
+          <i class="fas fa-fw fa-file"></i>
+          <span>Encuestas</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Maestra Inven:</h6>
-            <a class="collapse-item" href="regubi">Ubicaciones</a>
-            <a class="collapse-item" href="regbod">Bodegas</a>
-            <a class="collapse-item" href="regbodubi">Bodegas Ubicaciones</a>
-            <a class="collapse-item" href="reggrup">Grupos</a>
-            <a class="collapse-item" href="regclas">Clases</a>
-            <a class="collapse-item" href="regsubc">Subclases</a>
-            <a class="collapse-item" href="regprod">Productos</a>
-            <a class="collapse-item" href="regexsbod">Existencias Bodegas</a>
-            <a class="collapse-item" href="reginvpro">Productos - Empresa</a>
+            <h6 class="collapse-header">Modulo:</h6>
+            <a class="collapse-item" href="gestion_encuesta_covid">Covid-19</a>
           </div>
         </div>
-      </li> -->
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
