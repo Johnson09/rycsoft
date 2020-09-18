@@ -79,7 +79,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interfaces
+        Parametros
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -94,20 +94,6 @@
             <a class="collapse-item" href="#">Usuarios</a>
             <a class="collapse-item" href="#"></a>
             <a class="collapse-item" href="#"></a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-file"></i>
-          <span>Encuestas</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Modulo:</h6>
-            <a class="collapse-item" href="gestion_encuesta_covid">Covid-19</a>
           </div>
         </div>
       </li>
@@ -149,6 +135,30 @@
             <h6 class="collapse-header">Indicadores:</h6>
             <a class="collapse-item" href="prueba">Indicador 1</a>
             <a class="collapse-item" href="#">Indicador 2</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Lista de chequeo
+      </div>
+
+      
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-file"></i>
+          <span>Encuestas</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Modulo:</h6>
+            <a class="collapse-item" href="gestion_encuesta_covid">Covid-19</a>
           </div>
         </div>
       </li>

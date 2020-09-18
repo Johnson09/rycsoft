@@ -180,25 +180,25 @@
             <tbody>
                 <tr>
                     <td colspan="3">
-                        <span>Origen de la atención:</span>
+                        <span>Origen de la atención:</span> {{ $ref->descripcion_origen }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span>Tipo de servicios solicitados:</span>
+                        <span>Tipo de servicios solicitados:</span> {{ $ref->descripcion_servicio_sol }}
                     </td>
                     <td>
-                        <span>Prioridad de la atención:</span>
+                        <span>Prioridad de la atención:</span> {{ $ref->descripcion_prioridad }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <span>Ubicación del paciente al momento de la solicitud de autorización:</span>
+                        <span>Ubicación del paciente al momento de la solicitud de autorización:</span> {{ $ref->descripcion_ubicacion }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span>Servicio:</span>
+                        <span>Servicio:</span> {{ $ref->name_servicio }}
                     </td>
                     <td>
                         <span>Cama:</span>
@@ -206,7 +206,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <span>Manejo integral segun guia de:</span>
+                        <span>Manejo integral segun guia de:</span> NA
                     </td>
                 </tr>
                 <tr>
@@ -227,7 +227,7 @@
                         <span>Justificación clinica:</span>
                     </td>
                     <td colspan="2">
-                        
+                        {{ $ref->justificacion_clinica }}
                     </td>
                 </tr>
                 <tr>
@@ -246,10 +246,10 @@
                         <span>Diagnostico principal:</span>
                     </td>
                     <td>
-                        
+                        {{ $ref->id_diagnostico }}
                     </td>
                     <td>
-                        
+                        {{ $ref->name_diagnostico }} 
                     </td>
                 </tr>
                 <tr>
@@ -257,10 +257,10 @@
                         <span>Diagnostico Relacionado 1:</span>
                     </td>
                     <td>
-                        
+                        {{ $ref->cr1 }}
                     </td>
                     <td>
-                        
+                        {{ $ref->dr1 }}
                     </td>
                 </tr>
                 <tr>
@@ -268,10 +268,10 @@
                         <span>Diagnostico Relacionado 2:</span>
                     </td>
                     <td>
-                        
+                        {{ $ref->cr2 }}
                     </td>
                     <td>
-                        
+                        {{ $ref->dr2 }}
                     </td>
                 </tr>
                 <tr>
@@ -279,10 +279,10 @@
                         <span>Diagnostico Relacionado 3:</span>
                     </td>
                     <td>
-                        
+                        {{ $ref->cr3 }}
                     </td>
                     <td>
-                        
+                        {{ $ref->dr3 }}
                     </td>
                 </tr>
             </tfoot>

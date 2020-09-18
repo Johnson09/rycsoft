@@ -47,6 +47,42 @@ function modalActualizar(id_orden){
         }
     });
 }
+function addCup(){
+
+    var cup = document.getElementById('secci13').value;
+    var cups_des = document.getElementById('secci131').value;
+
+    sessionStorage.setItem(cup,cups_des); //ó sessionStorage[producto]=precio
+
+    mostrarDatos(cup);
+}
+
+function mostrarDatos(cup){
+
+    var cups = [];
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    var cups_des = sessionStorage.getItem(cup);
+    cell1.innerHTML = cup;
+    cell2.innerHTML = cups_des;
+
+    for(var i=0; i<sessionStorage.length; i++){
+        var c = sessionStorage.key(i);
+        cups.push(c);
+    }
+
+    console.log(cups);
+}
+
+function borrarTodo() {
+    for(var i=0; i<sessionStorage.length; i++){
+        document.getElementById("myTable").deleteRow(i);
+    }
+    sessionStorage.clear(); 
+}
 </script>
 <div class="container-fluid">
     <div class="row justify-content-center text-center">
@@ -156,6 +192,7 @@ function modalActualizar(id_orden){
                     <form role="form" action="{{ url('gestion_referencia') }}" method="post" autocomplete="on" enctype="multipart/form-data">
                     @csrf
 
+                    <h5 id="tl1"><b>INFORMACION DEL PRESTADOR</b></h5>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -207,6 +244,7 @@ function modalActualizar(id_orden){
                         </div>
                     </div>
 
+                    <h5 id="tl2" style="display: none; margin-top: -3em;"><b>DATOS DEL PACIENTE</b></h5>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
@@ -302,8 +340,9 @@ function modalActualizar(id_orden){
                         </div>
                     </div>
 
+                    <h5 id="tl3" style="display: none; margin-top: -9em;"><b>INFORMACION DE LA ATENCION Y SERVICIOS SOLICITADOS</b></h5>
                     <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" id="secci1" style="display: none;">
                                     <option value="">EPS QUE SE ENCUENTRA AFILIADO</option>
@@ -313,31 +352,12 @@ function modalActualizar(id_orden){
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <input type="text" name="name_doctor" onkeyup="Textos(this);" placeholder="MEDICO REMITENTE" class="form-control input-lg" tabindex="15" required="required" id="secci3" style="display: none;">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci21.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci2" style="display: none;">
-                                    <option value="">COD DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
-                                    @endforeach
-                                </select>
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci21" style="display: none;">
-                                    <option value="">DIAGNOSTICO</option>
-                                    @foreach($diagnostico as $diag)
-                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" style="display: none;">
                                     <option value="">SERVICIO</option>
@@ -345,6 +365,177 @@ function modalActualizar(id_orden){
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_origen_atencion" required="required" id="secci9" style="display: none;">
+                                    <option value="">ORIGEN ATENCIÓN</option>
+                                    @foreach($origen as $ori)
+                                    <option value="{{ $ori->id_origen_atencion }}">{{ $ori->descripcion_origen }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_tipo_servicio_sol" required="required" id="secci10" style="display: none;">
+                                    <option value="">SERVICIO SOLICITADO</option>
+                                    @foreach($servicio_sol as $sol)
+                                    <option value="{{ $sol->id_tipo_servicio_sol }}">{{ $sol->descripcion_servicio_sol }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_prioridad_atencion" required="required" id="secci11" style="display: none;">
+                                    <option value="">ATENCIÓN</option>
+                                    @foreach($atencion as $ate)
+                                    <option value="{{ $ate->id_prioridad_atencion }}">{{ $ate->descripcion_prioridad }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_ubicacion_pte" required="required" id="secci12" style="display: none;">
+                                    <option value="">UBICACION PACIENTE</option>
+                                    @foreach($ubicacion as $ubi)
+                                    <option value="{{ $ubi->id_ubicacion_pte }}">{{ $ubi->descripcion_ubicacion }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci21.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci2" style="display: none;">
+                                    <option value="">PRINCIPAL DIAG.</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci2.value=this.value" tabindex="16" name="id_diagnostico" required="required" id="secci21" style="display: none;">
+                                    <option value="">DES. DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci51.value=this.value" tabindex="16" name="id_diagnostico_1" id="secci5" style="display: none;">
+                                    <option value="">RELACIONADO 1 DIAG.</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci5.value=this.value" tabindex="16" name="id_diagnostico_1" id="secci51" style="display: none;">
+                                    <option value="">DES. DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci61.value=this.value" tabindex="16" name="id_diagnostico_2" id="secci6" style="display: none;">
+                                    <option value="">RELACIONADO 2 DIAG.</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci6.value=this.value" tabindex="16" name="id_diagnostico_2" id="secci61" style="display: none;">
+                                    <option value="">DES. DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci71.value=this.value" tabindex="16" name="id_diagnostico_3" id="secci7" style="display: none;">
+                                    <option value="">RELACIONADO 3 DIAG.</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->id_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci7.value=this.value" tabindex="16" name="id_diagnostico_3" id="secci71" style="display: none;">
+                                    <option value="">DES. DIAGNOSTICO</option>
+                                    @foreach($diagnostico as $diag)
+                                    <option value="{{ $diag->id_diagnostico }}">{{ $diag->name_diagnostico }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <div class="form-group">
+                                <textarea class="form-control input-lg" name="justificacion_clinica" placeholder="JUSTIFICACIÓN CLINICA" id="secci8" cols="30" rows="2" style="display: none;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci131.value=this.value" tabindex="16" id="secci13" style="display: none;">
+                                    <option value="">CÓDIGO CUP</option>
+                                    @foreach($cup as $c)
+                                        <option value="{{ $c->cups }}">{{ $c->cups }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" onchange="secci13.value=this.value" tabindex="16" id="secci131" style="display: none;">
+                                    <option value="">DESCRIPCIÓN CUP</option>
+                                    @foreach($cup as $c)
+                                        <option value="{{ $c->cups }}">{{ $c->descripcion_cups }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <input type="button" onclick="addCup()" name="guardar" value="GUARDAR CUP" id="secci14" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <input type="button" onclick="borrarTodo()" name="borrar" value="BORRAR CUPS" id="secci15" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <table id="secci16" style="display: none;" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td>CODIGO CUP</td>
+                                            <td>DESCRIPCIÓN CUP</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -690,6 +881,7 @@ function modalActualizar(id_orden){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion1
+                document.getElementById("tl1").style.display = "none";
                 for (let i = 1; i < 5; i++) {
                     document.getElementById("t"+i).style.display = "none";
                     
@@ -700,6 +892,7 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("tl2").style.display = "block";
                 document.getElementById("birth").style.display = "block";
 
                 for (let j = 1; j < 13; j++) {
@@ -713,6 +906,7 @@ function modalActualizar(id_orden){
                 document.getElementById("fin2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("tl2").style.display = "none";
                 document.getElementById("birth").style.display = "none";
 
                 for (let i = 1; i < 13; i++) {
@@ -721,9 +915,15 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion3
+                document.getElementById("tl3").style.display = "block";
+                for (let j = 5; j < 8; j++) {
+                    document.getElementById("secci"+j+"1").style.display = "block";
+                    
+                }
                 document.getElementById("secci21").style.display = "block";
+                document.getElementById("secci131").style.display = "block";
 
-                for (let j = 1; j < 5; j++) {
+                for (let j = 1; j < 17; j++) {
                     document.getElementById("secci"+j).style.display = "block";
                     
                 }
@@ -738,6 +938,7 @@ function modalActualizar(id_orden){
                 document.getElementById("inicio2").style.display = "block";
 
                 // Elementos Seccion1
+                document.getElementById("tl1").style.display = "block";
                 for (let i = 1; i < 5; i++) {
                     document.getElementById("t"+i).style.display = "block";
                     
@@ -748,6 +949,7 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion2
+                document.getElementById("tl2").style.display = "none";
                 document.getElementById("birth").style.display = "none";
 
                 for (let j = 1; j < 13; j++) {
@@ -761,6 +963,7 @@ function modalActualizar(id_orden){
                 document.getElementById("medio2").style.display = "block";
 
                 // Elementos Seccion2
+                document.getElementById("tl2").style.display = "block";
                 document.getElementById("birth").style.display = "block";
 
                 for (let i = 1; i < 13; i++) {
@@ -769,9 +972,15 @@ function modalActualizar(id_orden){
                 }
 
                 // Elementos Seccion3
+                document.getElementById("tl3").style.display = "none";
+                for (let j = 5; j < 8; j++) {
+                    document.getElementById("secci"+j+"1").style.display = "none";
+                    
+                }
                 document.getElementById("secci21").style.display = "none";
+                document.getElementById("secci131").style.display = "none";
 
-                for (let j = 1; j < 5; j++) {
+                for (let j = 1; j < 17; j++) {
                     document.getElementById("secci"+j).style.display = "none";
                     
                 }

@@ -30,7 +30,12 @@ class ReferenciaController extends Controller
                 $municipio_remitente = DB::select("SELECT * FROM municipios ");
                 $empresa = DB::select("SELECT * FROM empresas ");
                 $estado = DB::select("SELECT * FROM estados ");
+                $servicio_sol = DB::select("SELECT * FROM tipos_servicios_sol ");
+                $origen = DB::select("SELECT * FROM origenes_atencion ");
+                $ubicacion = DB::select("SELECT * FROM ubicacion_paciente ");
+                $atencion = DB::select("SELECT * FROM prioridad_atencion ");
                 $ambulancia = DB::select("SELECT * FROM tipo_ambulancia ");
+                $cup = DB::select("SELECT * FROM cups ");
 
                 date_default_timezone_set('America/Bogota');
                 $date = date("Y-m-d");
@@ -76,6 +81,11 @@ class ReferenciaController extends Controller
                                 'empresa',
                                 'estado',
                                 'ambulancia',
+                                'origen',
+                                'ubicacion',
+                                'servicio_sol',
+                                'atencion',
+                                'cup',
                                 'date',
                                 'referencias'
                             ));
@@ -163,6 +173,14 @@ class ReferenciaController extends Controller
                 'doc_resul_lab' => $documento2,
                 'doc_resul_rx' => $documento3,
                 'doc_ficha_epi' => $documento4,
+                'id_diagnostico_1' => $request->id_diagnostico_1,
+                'id_diagnostico_2' => $request->id_diagnostico_2,
+                'id_diagnostico_3' => $request->id_diagnostico_3,
+                'justificacion_clinica' => $request->justificacion_clinica,
+                'id_origen_atencion' => $request->id_origen_atencion,
+                'id_prioridad_atencion' => $request->id_prioridad_atencion,
+                'id_tipo_servicio_sol' => $request->id_tipo_servicio_sol,
+                'id_ubicacion_pte' => $request->id_ubicacion_pte,
                 'created_at' => now(),
                 'updated_at' => now()
             ]
@@ -256,14 +274,17 @@ class ReferenciaController extends Controller
         // Generador de pdf
         ini_set('max_execution_time', 300);
 
-        $referencia = DB::select("SELECT d.name_departamento, m.name_municipio, 
-                                    dp.name_departamento AS dep_paciente, mp.name_municipio AS mun_paciente,
+        $referencia = DB::select("SELECT d.name_departamento, m.name_municipio, tp1.name_diagnostico AS dr1,
+                                    tp2.name_diagnostico AS dr2, tp3.name_diagnostico AS dr3, tss.descripcion_servicio_sol, 
+                                    pa.descripcion_prioridad, oa.descripcion_origen, up.descripcion_ubicacion, 
+                                    dp.name_departamento AS dep_paciente, mp.name_municipio AS mun_paciente, 
                                     tr.name_regimen, e.nombre_empresa, p.primer_apellido, p.segundo_apellido, 
-                                    p.primer_nombre, p.segundo_nombre, ti.name_tipo_ident, r.id_paciente,
+                                    p.primer_nombre, p.segundo_nombre, ti.name_tipo_ident, r.id_paciente, 
                                     p.direccion AS dir_paciente, p.telefono AS tel_paciente, p.email, 
-                                    ee.name_eps, p.fecha_nacimiento, ts.name_sexo, td.name_diagnostico,
+                                    ee.name_eps, p.fecha_nacimiento, ts.name_sexo, td.name_diagnostico, 
+                                    td.id_diagnostico, tp1.id_diagnostico AS cr1, tp2.id_diagnostico AS cr2, tp3.id_diagnostico AS cr3,
                                     tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado, 
-                                    ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at,
+                                    ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at, 
                                     e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono 
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
@@ -282,6 +303,13 @@ class ReferenciaController extends Controller
                                     LEFT JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
                                     LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
+                                    INNER JOIN tipo_diagnostico AS tp1 ON r.id_diagnostico_1 = tp1.id_diagnostico
+                                    INNER JOIN tipo_diagnostico AS tp2 ON r.id_diagnostico_2 = tp2.id_diagnostico
+                                    INNER JOIN tipo_diagnostico AS tp3 ON r.id_diagnostico_3 = tp3.id_diagnostico
+                                    INNER JOIN prioridad_atencion AS pa ON r.id_prioridad_atencion = pa.id_prioridad_atencion
+                                    INNER JOIN origenes_atencion AS oa ON r.id_origen_atencion = oa.id_origen_atencion
+                                    INNER JOIN ubicacion_paciente AS up ON r.id_ubicacion_pte = up.id_ubicacion_pte
+                                    INNER JOIN tipos_servicios_sol AS tss ON r.id_tipo_servicio_sol = tss.id_tipo_servicio_sol
                                     WHERE r.id_orden = '$orden'");
 
         $cadena = $referencia[0]->created_at;
