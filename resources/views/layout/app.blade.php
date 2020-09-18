@@ -476,6 +476,27 @@
               },
             }
         });
+        $('#table_docu').DataTable({
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "Todos"]],
+            language: {
+              processing: "Procesando...",
+              search: "Buscar:",
+              lengthMenu:    "Mostrar _MENU_ elementos",
+              info:           "Mostrando _START_ a _END_ de _TOTAL_ elementos",
+              infoEmpty:      "Mostrando 0 a 0 de 0 elementos",
+              infoFiltered:   "(filtrado de _MAX_ elementos totales)",
+              infoPostFix:    "",
+              loadingRecords: "Cargando...",
+              zeroRecords:    "No se encontraron registros coincidentes",
+              emptyTable:     "No hay registros almacenados ",
+              paginate: {
+                  first:      "Anterior",
+                  previous:   "Anterior",
+                  next:       "Siguiente",
+                  last:       "Siguiente"
+              },
+            }
+        });
     });
   </script>
 
