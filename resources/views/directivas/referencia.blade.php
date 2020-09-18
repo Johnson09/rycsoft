@@ -31,13 +31,13 @@ function modalActualizar(id_orden){
                 $('#i3').text(ClassObj.name_regimen);
                 $('#i4').text(ClassObj.nombre_empresa);
                 $('#i5').text(ClassObj.name_tipo_ident);
-                $('#i6').text(ClassObj.identification_number);
-                $('#i7').text(ClassObj.birthday);
+                $('#i6').text(ClassObj.id_paciente);
+                $('#i7').text(ClassObj.fecha_nacimiento);
                 $('#i8').text(ClassObj.name_sexo);
-                $('#i9').text(ClassObj.first_lastname);
-                $('#i10').text(ClassObj.second_lastname);
-                $('#i11').text(ClassObj.first_name);
-                $('#i12').text(ClassObj.second_name);
+                $('#i9').text(ClassObj.primer_apellido);
+                $('#i10').text(ClassObj.segundo_apellido);
+                $('#i11').text(ClassObj.primer_nombre);
+                $('#i12').text(ClassObj.segundo_nombre);
                 $('#i13').text(ClassObj.name_eps);
                 $('#i14').text(ClassObj.name_doctor);
                 $('#i15').text(ClassObj.name_diagnostico);
@@ -82,8 +82,8 @@ function modalActualizar(id_orden){
                         <th>MPIO REMITE</th>
                         <th>FECHA REMISION</th>
                         <th>TIEMPO ESP DIAS</th>
-                        <!-- <th>N° VECES RECHADAS</th> -->
                         <th>EST FINAL REM</th>
+                        <th>COD APRO</th>
                     </tr>
                 </thead>
                 
@@ -110,13 +110,13 @@ function modalActualizar(id_orden){
                                 <td>{{ $ref->id_orden }}</td>
                                 <td>{{ $ref->name_regimen }}</td>
                                 <td>{{ $ref->alias_tipo_ident }}</td>
-                                <td>{{ $ref->identification_number }}</td>
-                                <td>{{ $ref->first_lastname }}</td>
-                                <td>{{ $ref->second_lastname }}</td>
-                                <td>{{ $ref->first_name }}</td>
-                                <td>{{ $ref->second_name }}</td>
+                                <td>{{ $ref->id_paciente }}</td>
+                                <td>{{ $ref->primer_apellido }}</td>
+                                <td>{{ $ref->segundo_apellido }}</td>
+                                <td>{{ $ref->primer_nombre }}</td>
+                                <td>{{ $ref->segundo_nombre }}</td>
                                 <td>{{ $ref->name_eps }}</td>
-                                <td>{{ $ref->birthday }}</td>
+                                <td>{{ $ref->fecha_nacimiento }}</td>
                                 <td>{{ $ref->edad }}</td>
                                 <td>{{ $ref->alias_sexo }}</td>
                                 <td>{{ $ref->id_diagnostico }}</td>
@@ -127,8 +127,8 @@ function modalActualizar(id_orden){
                                 <td>{{ $ref->municipio_rem }}</td>
                                 <td>{{ $ref->updated_at }}</td>
                                 <td>{{ $ref->espera_dias }}</td>
-                                <!-- <td></td> -->
                                 <td>{{ $ref->descripcion }}</td>
+                                <td>{{ $ref->cod_apro }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -267,6 +267,37 @@ function modalActualizar(id_orden){
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">
                                 <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="9" autocomplete="off"  id="secc8" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <select name="id_municipio_paciente" class="selectpicker form-control input-lg" data-style="btn-info" id="secc9" required="required" style="display: none;">
+                                    <option value="">MUNICIPIO</option>
+                                    @foreach($municipio_remitente as $mpio)
+                                        <option value="{{ $mpio->id_municipio }}">{{ $mpio->name_municipio }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="address" placeholder="DIRECCIÓN" class="form-control input-lg" tabindex="9" id="secc10" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="tel" name="telefono" placeholder="TELEFONO" class="form-control input-lg" tabindex="8" required="required" id="secc11" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="EMAIL" class="form-control input-lg" tabindex="9" id="secc12" style="display: none;">
                             </div>
                         </div>
                     </div>
@@ -671,7 +702,7 @@ function modalActualizar(id_orden){
                 // Elementos Seccion2
                 document.getElementById("birth").style.display = "block";
 
-                for (let j = 1; j < 9; j++) {
+                for (let j = 1; j < 13; j++) {
                     document.getElementById("secc"+j).style.display = "block";
                     
                 }
@@ -684,7 +715,7 @@ function modalActualizar(id_orden){
                 // Elementos Seccion2
                 document.getElementById("birth").style.display = "none";
 
-                for (let i = 1; i < 9; i++) {
+                for (let i = 1; i < 13; i++) {
                     document.getElementById("secc"+i).style.display = "none";
                     
                 }
@@ -719,7 +750,7 @@ function modalActualizar(id_orden){
                 // Elementos Seccion2
                 document.getElementById("birth").style.display = "none";
 
-                for (let j = 1; j < 9; j++) {
+                for (let j = 1; j < 13; j++) {
                     document.getElementById("secc"+j).style.display = "none";
                     
                 }
@@ -732,7 +763,7 @@ function modalActualizar(id_orden){
                 // Elementos Seccion2
                 document.getElementById("birth").style.display = "block";
 
-                for (let i = 1; i < 9; i++) {
+                for (let i = 1; i < 13; i++) {
                     document.getElementById("secc"+i).style.display = "block";
                     
                 }

@@ -36,20 +36,22 @@ class ReferenciaController extends Controller
                 $date = date("Y-m-d");
     
                 // Datos de llenado tabla de referencia
-                $referencias = DB::select("SELECT r.id_orden, tr.name_regimen, e.nit_empresa, 
-                                    e.cod_hab_empresa, r.first_lastname, r.second_lastname, 
-                                    r.first_name, r.second_name, ti.alias_tipo_ident, r.identification_number,
-                                    ee.name_eps, r.birthday, ts.alias_sexo, td.id_diagnostico, 
-                                    tse.alias_servicio, ei.name_ips, tse.name_servicio, r.name_doctor,
-                                    date_part('year',age(CURRENT_DATE,r.birthday)) AS edad, es.id_estado,
-                                    date_part('day',age(now(),r.updated_at)) AS espera_dias,  
-                                    mu.name_municipio as municipio_rem, r.created_at, r.updated_at, es.descripcion  
+                $referencias = DB::select("SELECT r.id_orden, tr.name_regimen, e.nit_empresa, e.cod_hab_empresa,  
+                                    ti.alias_tipo_ident, r.id_paciente, ts.alias_sexo, p.primer_apellido,
+                                    p.segundo_apellido, p.primer_nombre, p.segundo_nombre, 
+                                    ee.name_eps, td.id_diagnostico, tse.alias_servicio, ei.name_ips,
+                                    tse.name_servicio, r.name_doctor, p.fecha_nacimiento, 
+                                    date_part('year',age(CURRENT_DATE,p.fecha_nacimiento)) AS edad,
+                                    es.id_estado, date_part('day',age(now(),r.updated_at)) AS espera_dias, 
+                                    r.cod_apro, mu.name_municipio as municipio_rem, r.created_at, 
+                                    r.updated_at, es.descripcion  
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
                                     INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa 
-                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN pacientes AS p ON r.id_paciente = p.id_paciente
+                                    INNER JOIN tipo_identificacion AS ti ON p.id_tipo_ident = ti.id_tipo_ident
                                     INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
-                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_sexo AS ts ON p.id_sexo = ts.id_sexo 
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
@@ -127,20 +129,32 @@ class ReferenciaController extends Controller
             }
         }
 
+        DB::table('pacientes')->insert(
+            [ 
+                'id_paciente' => $request->identification_number,
+                'id_tipo_ident' => $request->id_tipo_ident,
+                'primer_nombre' => $request->first_name, 
+                'segundo_nombre' => $request->second_name,
+                'primer_apellido' => $request->first_lastname, 
+                'segundo_apellido' => $request->second_lastname, 
+                'fecha_nacimiento' => $request->birthday,
+                'id_sexo' => $request->id_sexo,
+                'direccion' => $request->address,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+                'fecha_registro' => now(),
+                'id_municipio' => $request->email
+            ]
+        );
+
         DB::table('registro_referencia')->insert(
             [
                 'id_regimen' => $request->id_regimen, 
                 'id_user' => $id_user, 
                 'id_empresa' => $request->id_empresa, 
-                'first_lastname' => $request->first_lastname, 
-                'second_lastname' => $request->second_lastname, 
-                'first_name' => $request->first_name, 
-                'second_name' => $request->second_name,
                 'id_tipo_ident' => $request->id_tipo_ident,
-                'identification_number' => $request->identification_number,
+                'id_paciente' => $request->identification_number,
                 'id_eps' => $request->id_eps,
-                'birthday' => $request->birthday,
-                'id_sexo' => $request->id_sexo,
                 'id_diagnostico' => $request->id_diagnostico,
                 'name_doctor' => $request->name_doctor,
                 'id_servicio' => $request->id_servicio,
@@ -216,18 +230,19 @@ class ReferenciaController extends Controller
         $id_orden = $request->input('id_orden');
 
         $referencia = DB::select("SELECT d.name_departamento, m.name_municipio, 
-                                    tr.name_regimen, e.nombre_empresa, r.first_lastname, r.second_lastname, 
-                                    r.first_name, r.second_name, ti.name_tipo_ident, r.identification_number,
-                                    ee.name_eps, r.birthday, ts.name_sexo, td.name_diagnostico,
+                                    tr.name_regimen, e.nombre_empresa, p.primer_apellido, p.segundo_apellido, 
+                                    p.primer_nombre, p.segundo_nombre, ti.name_tipo_ident, p.id_paciente,
+                                    ee.name_eps, p.fecha_nacimiento, ts.name_sexo, td.name_diagnostico,
                                     tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado  
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
                                     INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
                                     INNER JOIN municipios AS m ON e.id_municipio = m.id_municipio 
                                     INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
-                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN pacientes AS p ON r.id_paciente = p.id_paciente
+                                    INNER JOIN tipo_identificacion AS ti ON p.id_tipo_ident = ti.id_tipo_ident
                                     INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
-                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_sexo AS ts ON p.id_sexo = ts.id_sexo 
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
@@ -242,9 +257,11 @@ class ReferenciaController extends Controller
         ini_set('max_execution_time', 300);
 
         $referencia = DB::select("SELECT d.name_departamento, m.name_municipio, 
-                                    tr.name_regimen, e.nombre_empresa, r.first_lastname, r.second_lastname, 
-                                    r.first_name, r.second_name, ti.name_tipo_ident, r.identification_number,
-                                    ee.name_eps, r.birthday, ts.name_sexo, td.name_diagnostico,
+                                    dp.name_departamento AS dep_paciente, mp.name_municipio AS mun_paciente,
+                                    tr.name_regimen, e.nombre_empresa, p.primer_apellido, p.segundo_apellido, 
+                                    p.primer_nombre, p.segundo_nombre, ti.name_tipo_ident, r.id_paciente,
+                                    p.direccion AS dir_paciente, p.telefono AS tel_paciente, p.email, 
+                                    ee.name_eps, p.fecha_nacimiento, ts.name_sexo, td.name_diagnostico,
                                     tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado, 
                                     ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at,
                                     e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono 
@@ -253,9 +270,12 @@ class ReferenciaController extends Controller
                                     INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
                                     INNER JOIN municipios AS m ON e.id_municipio = m.id_municipio 
                                     INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
-                                    INNER JOIN tipo_identificacion AS ti ON r.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN pacientes AS p ON r.id_paciente = p.id_paciente
+                                    INNER JOIN municipios AS mp ON p.id_municipio = mp.id_municipio 
+                                    INNER JOIN departamentos AS dp ON mp.id_departamento = dp.id_departamento 
+                                    INNER JOIN tipo_identificacion AS ti ON p.id_tipo_ident = ti.id_tipo_ident
                                     INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
-                                    INNER JOIN tipo_sexo AS ts ON r.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_sexo AS ts ON p.id_sexo = ts.id_sexo 
                                     INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
                                     INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
                                     LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips

@@ -445,6 +445,7 @@
     $(document).ready(function() {
       // $('#table_doc').bootstrapTable();
         $('#table_doc').DataTable({
+            "order": [[ 20, "desc" ]],
             "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "Todos"]],
             language: {
               processing: "Procesando...",

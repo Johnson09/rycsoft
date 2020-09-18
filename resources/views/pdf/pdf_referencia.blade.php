@@ -36,7 +36,7 @@
             <thead>
                 <tr>
                     <th style="width: 10%;">
-                        <img src="{{ asset('public/images/logopag.png') }}" style="width: 7em;">
+                        <img src="{{ asset('public/images/escudo.png') }}" style="width: 7em;">
                     </th>
                     <th style="">
                         <p>
@@ -46,16 +46,11 @@
                             SOLICITUD DE AUTORIZACION DE SERVICIOS DE SALUD
                         </p>
                         <p>
-                            NUMERO DE SOLICITUD: {{ $orden }}
+                            NUMERO DE SOLICITUD: {{ $orden }} --- Fecha:  {{ $array[0] }}  Hora:   {{ $array[1] }}
                         </p>
                     </th>
-                    <th style="width: 20%;">
-                        <p>
-                            Fecha:  {{ $array[0] }}
-                        </p>
-                        <p>
-                            Hora:   {{ $array[1] }}
-                        </p>
+                    <th style="width: 10%;">
+                        <img src="{{ asset('public/images/HDN LOGO.png') }}" style="width: 7em;">
                     </th>
                 </tr>
             </thead>
@@ -120,16 +115,16 @@
             <tbody>
                 <tr>
                     <td>
-                        <span>1er Apellido:</span> {{ $ref->first_lastname }}
+                        <span>1er Apellido:</span> {{ $ref->primer_apellido }}
                     </td>
                     <td>
-                        <span>2do Apellido:</span> {{ $ref->second_lastname }}
+                        <span>2do Apellido:</span> {{ $ref->segundo_apellido }}
                     </td>
                     <td>
-                        <span>1er Nombre:</span> {{ $ref->first_name }}
+                        <span>1er Nombre:</span> {{ $ref->primer_nombre }}
                     </td>
                     <td>
-                        <span>2do Nombre:</span> {{ $ref->second_name }}
+                        <span>2do Nombre:</span> {{ $ref->segundo_nombre }}
                     </td>
                 </tr>
                 <tr>
@@ -137,33 +132,33 @@
                         <span>Tipo de documento:</span> {{ $ref->name_tipo_ident }}
                     </td>
                     <td colspan="2">
-                        <span>Numero de documento de identificación:</span> {{ $ref->identification_number }}
+                        <span>Numero de documento de identificación:</span> {{ $ref->id_paciente }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <span>Fecha de nacimiento:</span> {{ $ref->birthday }}
+                        <span>Fecha de nacimiento:</span> {{ $ref->fecha_nacimiento }}
                     </td>
                     <td colspan="2">
-                        <span>Teléfono:</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <span>Dirección de residencia habitual:</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span>Departamento:</span>
-                    </td>
-                    <td colspan="2">
-                        <span>Municipio:</span>
+                        <span>Teléfono:</span> {{ $ref->tel_paciente }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <span>Correo electronico:</span>
+                        <span>Dirección de residencia habitual:</span> {{ $ref->dir_paciente }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <span>Departamento:</span> {{ $ref->dep_paciente }}
+                    </td>
+                    <td colspan="2">
+                        <span>Municipio:</span> {{ $ref->mun_paciente }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Correo electronico:</span> {{ $ref->email }}
                     </td>
                 </tr>
                 <tr>
