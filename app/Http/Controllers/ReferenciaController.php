@@ -153,7 +153,7 @@ class ReferenciaController extends Controller
                 'telefono' => $request->telefono,
                 'email' => $request->email,
                 'fecha_registro' => now(),
-                'id_municipio' => $request->email
+                'id_municipio' => $request->id_municipio_paciente
             ]
         );
 
