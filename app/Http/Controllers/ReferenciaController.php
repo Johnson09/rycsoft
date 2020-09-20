@@ -285,7 +285,7 @@ class ReferenciaController extends Controller
                                     td.id_diagnostico, tp1.id_diagnostico AS cr1, tp2.id_diagnostico AS cr2, tp3.id_diagnostico AS cr3,
                                     tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado, 
                                     ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at, 
-                                    e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono 
+                                    e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono, r.justificacion_clinica 
                                     FROM registro_referencia AS r 
                                     INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
                                     INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
@@ -303,9 +303,9 @@ class ReferenciaController extends Controller
                                     LEFT JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
                                     INNER JOIN estados AS es ON r.id_estado = es.id_estado
                                     LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
-                                    INNER JOIN tipo_diagnostico AS tp1 ON r.id_diagnostico_1 = tp1.id_diagnostico
-                                    INNER JOIN tipo_diagnostico AS tp2 ON r.id_diagnostico_2 = tp2.id_diagnostico
-                                    INNER JOIN tipo_diagnostico AS tp3 ON r.id_diagnostico_3 = tp3.id_diagnostico
+                                    LEFT JOIN tipo_diagnostico AS tp1 ON r.id_diagnostico_1 = tp1.id_diagnostico
+                                    LEFT JOIN tipo_diagnostico AS tp2 ON r.id_diagnostico_2 = tp2.id_diagnostico
+                                    LEFT JOIN tipo_diagnostico AS tp3 ON r.id_diagnostico_3 = tp3.id_diagnostico
                                     INNER JOIN prioridad_atencion AS pa ON r.id_prioridad_atencion = pa.id_prioridad_atencion
                                     INNER JOIN origenes_atencion AS oa ON r.id_origen_atencion = oa.id_origen_atencion
                                     INNER JOIN ubicacion_paciente AS up ON r.id_ubicacion_pte = up.id_ubicacion_pte
