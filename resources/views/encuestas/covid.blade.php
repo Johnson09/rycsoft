@@ -63,26 +63,28 @@ function modalActualizar(id_orden){
                 
                 <!-- datos obtenidos mediante consulta - mostrados en la vista de la pagina -->
                     <tbody style="text-align: center;">
+                        @foreach($encuesta as $re)
                             <tr>
                                 <td>
-                                    <button onclick="modalActualizar('')" class="btn btn-info">
+                                    <button onclick="modalActualizar('')" class="btn btn-info" disabled>
                                         <span class="fa fa-pencil" aria-hidden="true"></span>
                                     </button>
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $re->id_tipo_ident }}</td>
+                                <td>{{ $re->id_paciente }}</td>
+                                <td>{{ $re->primer_nombre }} {{ $re->segundo_nombre }}</td>
+                                <td>{{ $re->primer_apellido }}</td>
+                                <td>{{ $re->segundo_apellido }}</td>
+                                <td>{{ $re->edad }}</td>
+                                <td>{{ $re->name_sexo }}</td>
+                                <td>{{ $re->direccion }}</td>
+                                <td>{{ $re->telefono }}</td>
+                                <td>{{ $re->email }}</td>
+                                <td>{{ $re->name_eps }}</td>
+                                <td>{{ $re->descripcion_tipo_user }}</td>
+                                <td>{{ $re->name_servicio }}</td>
                             </tr>
+                        @endforeach
                     </tbody>
             </table>
         </div>
@@ -108,11 +110,11 @@ function modalActualizar(id_orden){
                     <form role="form" action="{{ url('gestion_encuesta_covid') }}" method="post" autocomplete="on" enctype="multipart/form-data">
                     @csrf
                     
-                    <h5><b>Datos Usuario</b></h5>
+                    <h5 id="tl1"><b>Datos Usuario</b></h5>
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" id="secc1" >
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="10" name="id_tipo_ident" required="required" id="s1" >
                                     <option value="">TIPO DOCUMENTO</option>
                                     @foreach($tipo_identificacion as $ti)
                                     <option value="{{ $ti->id_tipo_ident }}">{{ $ti->name_tipo_ident }}</option>
@@ -122,7 +124,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="secc2"  maxlength="10">
+                                <input type="text" name="identification_number" onkeyup="this.value=Numeros(this.value);" placeholder="# IDENTIFICACIÓN" class="form-control input-lg" tabindex="11" required="required" id="s2"  maxlength="10">
                             </div>
                         </div>
                     </div>
@@ -130,31 +132,22 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required">
+                                <input type="text" name="first_lastname" onkeyup="Textos(this);" placeholder="PRIMER APELLIDO" class="form-control input-lg" tabindex="6" required="required" id="s3" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required">
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="s4" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required">
+                                <input type="text" name="first_name" onkeyup="Textos(this);" placeholder="PRIMER NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="s5" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="8" required="required">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                            <div class="form-group">
-                                <label>FECHA DE NACIMIENTO</label>
-                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="secc3"  onchange="if('{{$date}}'<=this.value){this.value=''}">
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="s6" >
                             </div>
                         </div>
                     </div>
@@ -162,7 +155,16 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="secc4" >
+                                <label id="stl1">FECHA DE NACIMIENTO</label>
+                                <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="s7"  onchange="if('{{$date}}'<=this.value){this.value=''}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="form-group">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="14" name="id_sexo" required="required" id="s8" >
                                     <option value="">GENERO</option>
                                     @foreach($genero as $sex)
                                     <option value="{{ $sex->id_sexo }}">{{ $sex->name_sexo }}</option>
@@ -172,17 +174,17 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="address" placeholder="DIRECCIÓN" class="form-control input-lg" tabindex="6" required="required" id="secc5" >
+                                <input type="text" name="address" placeholder="DIRECCIÓN" class="form-control input-lg" tabindex="6" required="required" id="s9" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="tel" name="telephone" placeholder="TELEFONO" class="form-control input-lg" tabindex="7" required="required" id="secc6" >
+                                <input type="tel" name="telephone" placeholder="TELEFONO" class="form-control input-lg" tabindex="7" required="required" id="s10" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="email" name="email" placeholder="EMAIL" class="form-control input-lg" tabindex="7" required="required" id="secc6" >
+                                <input type="email" name="email" placeholder="EMAIL" class="form-control input-lg" tabindex="7" required="required" id="s11" >
                             </div>
                         </div>
                     </div>
@@ -190,7 +192,7 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" id="secci1" >
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="12" name="id_eps" required="required" id="s12" >
                                     <option value="">EPS</option>
                                     @foreach($regimen_eps as $eps)
                                     <option value="{{ $eps->id_eps }}">{{ $eps->name_eps }}</option>
@@ -200,7 +202,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="tipo_usuario" required="required" id="secci21" >
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="tipo_usuario" required="required" id="s13" >
                                     <option value="">TIPO USUARIO</option>
                                     @foreach($tipo_usuario as $tpuser)
                                     <option value="{{ $tpuser->id_tipo_user }}">{{ $tpuser->descripcion_tipo_user }}</option>
@@ -210,7 +212,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="secci4" >
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="17" name="id_servicio" required="required" id="s14" >
                                     <option value="">SERVICIO</option>
                                     @foreach($servicio as $ser)
                                     <option value="{{ $ser->id_servicio }}">{{ $ser->name_servicio }}</option>
@@ -223,10 +225,15 @@ function modalActualizar(id_orden){
                     <div class="row">
                         <div class="col-xs-12 col-md-12 col-md-12">
                             <table class="table table-hover">
-                                <thead>
+                                <thead id="section1" style="display: none;">
+                                    <tr>
+                                        <th colspan="4">
+                                            1. ANTECEDENTES. ¿Ha tenido alguno de los siguientes antecedentes?
+                                        </th>
+                                    </tr>
                                     <tr>
                                         <th>
-                                            1. ANTECEDENTES. ¿Ha tenido alguno de los siguientes antecedentes?
+                                            
                                         </th>
                                         <th>
                                             Si
@@ -234,27 +241,135 @@ function modalActualizar(id_orden){
                                         <th>
                                             No
                                         </th>
+                                        <th>
+                                            Observación
+                                        </th>
                                     </tr>
-                                </thead>
-                                <tbody>
                                     @foreach($preguntas as $pre)
+                                        @if($pre->id_grupo == 1)
+                                        <tr>
+                                            <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                </thead>
+                                <tbody id="section2" style="display: none;">
                                     <tr>
-                                        <td><input type="hidden" name="id_pregunta" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
-                                        <td><input type="radio" name="rid_pregunta" value="1"></td>
-                                        <td><input type="radio" name="rid_pregunta" value="0"></td>
+                                        <th colspan="4">
+                                            2. ¿Ha tenido síntomas en los últimos 2 días?
+                                        </th>
                                     </tr>
+                                    <tr>
+                                        <th>
+                                            
+                                        </th>
+                                        <th>
+                                            Si
+                                        </th>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th>
+                                            Observación
+                                        </th>
+                                    </tr>
+                                    @foreach($preguntas as $pre)
+                                        @if($pre->id_grupo == 2)
+                                        <tr>
+                                            <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
+                                        </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
+                                <tfoot id="section3" style="display: none;">
+                                    <tr>
+                                        <th colspan="4">
+                                            3. Identificación de Contacto
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            
+                                        </th>
+                                        <th>
+                                            Si
+                                        </th>
+                                        <th>
+                                            No
+                                        </th>
+                                        <th>
+                                            Observación
+                                        </th>
+                                    </tr>
+                                    @foreach($preguntas as $pre)
+                                        @if($pre->id_grupo == 3)
+                                        <tr>
+                                            <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                    <tr>
+                                        <th colspan="4">
+                                            4. Pruebas Diagnosticas
+                                        </th>
+                                    </tr>
+                                    @foreach($preguntas as $pre)
+                                        @if($pre->id_grupo == 4)
+                                        <tr>
+                                            <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                    
+                                </tfoot>
+                            </table>
+                            <table id="section4" class="table table-hover" style="text-align: justify; display: none;">
+                                <tr>
+                                    <th>
+                                        <p>Responsabilidad sobre la información consignada en la encuesta: </p>
+                                        <p>Yo <label id="nombre_user"></label> responsable sobre la veracidad de la información que suministres a lo largo de la encuesta y que entiendes que la información es requerida para conocer tus condiciones de salud, y a partir de esta, conocer los acciones en prevención a exposición al COVID 19,  Seguridad de la Información: La ESE Hospital Divino Niño guardará absoluta confidencialidad sobre la información presentada, la cual estará sujeta a los más altos estándares de seguridad de la información. Autorizo de manera libre y espontánea a suministrar la información que he diligenciado en esta encuesta a la ESE Hospital Divino Niño, ARL, entes de control, entes gubernamentales, y autoridades sanitarias para que aporten a la implementación de los sistemas de vigilancia epidemiológica que ayudan al control y mitigación de la Pandemia Mundial del virus SARS- CoV-2 (Covid 19), pues estos datos proporcionan información relevante para construir un sistema de vigilancia epidemiológica de Colombia y contribuye a mejorar las condiciones de salud en el ámbito laboral y comunitario.</p>
+                                        <p>Acepto los Términos y Condiciones <input type="checkbox" name="terminos" value="1" required></p>
+                                    </th>
+                                </tr>          
                             </table>
                         </div>
                     </div>
 
                     <hr>
                     <div class="row">
-                        <div class="col-xs-6 col-md-6">
-                            <input type="reset" class="btn btn-warning btn-block btn-lg" tabindex="14" value="LIMPIAR">
+                        <div class="col-xs-6 col-md-6" id="inicio1">
                         </div>
-                        <div class="col-xs-6 col-md-6">
+                        <div class="col-xs-6 col-md-6" id="inicio2">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio1" style="display: none;">
+                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section1')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio2" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section3')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio11" style="display: none;">
+                            <input type="button" class="btn btn-info btn-block btn-lg" tabindex="20" value="REGRESAR" onclick="back('section2')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="medio21" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="SIGUIENTE" onclick="next('section4')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="fin1" style="display: none;">
+                            <input type="button" class="btn btn-warning btn-block btn-lg" tabindex="14" value="REGRESAR" onclick="back('section3')">
+                        </div>
+                        <div class="col-xs-6 col-md-6" id="fin2" style="display: none;">
                             <input type="submit" class="btn btn-info btn-block btn-lg" tabindex="20" value="GUARDAR REGISTRO">
                         </div>
                     </div>
@@ -339,6 +454,108 @@ function modalActualizar(id_orden){
             if (filtro.indexOf(string.charAt(i)) != -1) 
                 out += string.charAt(i);
             e.value = out.toUpperCase();
+        }
+
+        function next(section){
+            // console.log(section);
+            if (section === 'section2') {
+                // Botones de secciones
+                document.getElementById("inicio1").style.display = "none";
+                document.getElementById("inicio2").style.display = "none";
+                document.getElementById("medio1").style.display = "block";
+                document.getElementById("medio2").style.display = "block";
+
+                // Elementos Seccion0
+                document.getElementById("tl1").style.display = "none";
+                document.getElementById("stl1").style.display = "none";
+                for (let i = 1; i < 15; i++) {
+                    document.getElementById("s"+i).style.display = "none";
+                    
+                }
+
+                // Elementos Seccion1
+                document.getElementById("section1").style.display = "block";
+
+                // Elementos Seccion4
+                $('#nombre_user').text($('#s5').val()+" "+$('#s6').val()
+                +" "+$('#s3').val()+" "+$('#s4').val());
+
+            }else if (section === 'section3') {
+                document.getElementById("medio1").style.display = "none";
+                document.getElementById("medio2").style.display = "none";
+                document.getElementById("medio11").style.display = "block";
+                document.getElementById("medio21").style.display = "block";
+
+                // Elementos Seccion1
+                document.getElementById("section1").style.display = "none";
+
+                // Elementos Seccion2
+                document.getElementById("section2").style.display = "block";
+            }else {
+                document.getElementById("medio11").style.display = "none";
+                document.getElementById("medio21").style.display = "none";
+                document.getElementById("fin1").style.display = "block";
+                document.getElementById("fin2").style.display = "block";
+
+                // Elementos Seccion2
+                document.getElementById("section2").style.display = "none";
+
+                // Elementos Seccion3
+                document.getElementById("section3").style.display = "block";
+
+                // Elementos Seccion4
+                document.getElementById("section4").style.display = "block";
+
+            }
+        }
+
+        function back(section){
+            if (section === 'section1') {
+                // Botones de secciones
+                document.getElementById("medio1").style.display = "none";
+                document.getElementById("medio2").style.display = "none";
+                document.getElementById("inicio1").style.display = "block";
+                document.getElementById("inicio2").style.display = "block";
+
+                // Elementos Seccion0
+                document.getElementById("tl1").style.display = "block";
+                document.getElementById("stl1").style.display = "block";
+                for (let i = 1; i < 15; i++) {
+                    document.getElementById("s"+i).style.display = "block";
+                    
+                }
+
+                // Elementos Seccion1
+                document.getElementById("section1").style.display = "none";
+
+            }else if (section === 'section2') {
+                document.getElementById("medio11").style.display = "none";
+                document.getElementById("medio21").style.display = "none";
+                document.getElementById("medio1").style.display = "block";
+                document.getElementById("medio2").style.display = "block";
+
+                // Elementos Seccion1
+                document.getElementById("section1").style.display = "block";
+
+                // Elementos Seccion2
+                document.getElementById("section2").style.display = "none";
+
+            }else {
+                document.getElementById("fin1").style.display = "none";
+                document.getElementById("fin2").style.display = "none";
+                document.getElementById("medio11").style.display = "block";
+                document.getElementById("medio21").style.display = "block";
+
+                // Elementos Seccion2
+                document.getElementById("section2").style.display = "block";
+
+                // Elementos Seccion3
+                document.getElementById("section3").style.display = "none";
+                
+                // Elementos Seccion4
+                document.getElementById("section4").style.display = "none";
+
+            }
         }
 	</script>
 @endsection
