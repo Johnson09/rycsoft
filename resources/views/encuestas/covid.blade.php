@@ -70,7 +70,7 @@ function modalActualizar(id_orden){
                                         <span class="fa fa-pencil" aria-hidden="true"></span>
                                     </button>
                                 </td>
-                                <td>{{ $re->id_tipo_ident }}</td>
+                                <td>{{ $re->name_tipo_ident }}</td>
                                 <td>{{ $re->id_paciente }}</td>
                                 <td>{{ $re->primer_nombre }} {{ $re->segundo_nombre }}</td>
                                 <td>{{ $re->primer_apellido }}</td>
@@ -137,7 +137,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" required="required" id="s4" >
+                                <input type="text" name="second_lastname" onkeyup="Textos(this);" placeholder="SEGUNDO APELLIDO" class="form-control input-lg" tabindex="7" id="s4" >
                             </div>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
@@ -147,7 +147,7 @@ function modalActualizar(id_orden){
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                             <div class="form-group">
-                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="8" required="required" id="s6" >
+                                <input type="text" name="second_name" onkeyup="Textos(this);" placeholder="SEGUNDO NOMBRE" class="form-control input-lg" tabindex="8" id="s6" >
                             </div>
                         </div>
                     </div>

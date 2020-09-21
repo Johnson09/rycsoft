@@ -84,7 +84,7 @@ class EncuestaCovidController extends Controller
 
         $registro_encuesta = DB::select("SELECT nextval('registro_encuesta_id_registro_encuesta_seq'); ");
         $id_registro_encuesta = $registro_encuesta[0]->nextval;
-        // dd($id_registro_encuesta);
+        // // dd($id_registro_encuesta);
 
         DB::table('registro_encuesta')->insert(
             [ 
@@ -103,9 +103,9 @@ class EncuestaCovidController extends Controller
             DB::table('registro_encuesta_preguntas')->insert(
                 [ 
                     'id_registro_encuesta' => $id_registro_encuesta,
-                    'id_pregunta' => $request->id_pregunta.$i, 
-                    'respuesta_pregunta' => $request->respuesta_pregunta.$i, 
-                    'observacion_pregunta' => $request->observacion_pregunta.$i, 
+                    'id_pregunta' => $_REQUEST['id_pregunta'.$i], 
+                    'respuesta_pregunta' => $_REQUEST['respuesta_pregunta'.$i], 
+                    'observacion_pregunta' => $_REQUEST['observacion_pregunta'.$i], 
                     'fecha_registro' => now()
                 ]
             );
