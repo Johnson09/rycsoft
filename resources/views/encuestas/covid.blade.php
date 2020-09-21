@@ -203,7 +203,7 @@ function modalActualizar(id_orden){
                                 <select class="selectpicker form-control input-lg" data-style="btn-info" tabindex="16" name="tipo_usuario" required="required" id="secci21" >
                                     <option value="">TIPO USUARIO</option>
                                     @foreach($tipo_usuario as $tpuser)
-                                    <option value="{{ $tpuser->id_ambulancia }}">{{ $tpuser->alias_ambulancia }}</option>
+                                    <option value="{{ $tpuser->id_tipo_user }}">{{ $tpuser->descripcion_tipo_user }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -235,219 +235,16 @@ function modalActualizar(id_orden){
                                             No
                                         </th>
                                     </tr>
-                                    <tr>
-                                        <td>Enfermedad cerebrovascular</td>
-                                        <td><input type="radio" name="p1" value="1"></td>
-                                        <td><input type="radio" name="p1" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hipertensión arterial, o enfermedad cardio -vascular, infartos, enfermedad cerebrovascular</td>
-                                        <td><input type="radio" name="p2" value="1"></td>
-                                        <td><input type="radio" name="p2" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Diabetes</td>
-                                        <td><input type="radio" name="p3" value="1"></td>
-                                        <td><input type="radio" name="p3" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Enfermedades renales (riñores) o hepáticas (hígado)</td>
-                                        <td><input type="radio" name="p4" value="1"></td>
-                                        <td><input type="radio" name="p4" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Enfermedad Tiroidea</td>
-                                        <td><input type="radio" name="p5" value="1"></td>
-                                        <td><input type="radio" name="p5" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Malnutrición (obesidad o desnutrición)</td>
-                                        <td><input type="radio" name="p6" value="1"></td>
-                                        <td><input type="radio" name="p6" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tabaquismo</td>
-                                        <td><input type="radio" name="p7" value="1"></td>
-                                        <td><input type="radio" name="p7" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Enfermedad Cardiaca</td>
-                                        <td><input type="radio" name="p8" value="1"></td>
-                                        <td><input type="radio" name="p8" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Enfermedades pulmonares crónicas (EPOC/ Asma)</td>
-                                        <td><input type="radio" name="p9" value="1"></td>
-                                        <td><input type="radio" name="p9" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cáncer</td>
-                                        <td><input type="radio" name="p10" value="1"></td>
-                                        <td><input type="radio" name="p10" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Enfermedades autoinmunes, inmunosupresión, toma medicamentos inmunosupresores, VIH</td>
-                                        <td><input type="radio" name="p11" value="1"></td>
-                                        <td><input type="radio" name="p11" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Embarazo actualmente</td>
-                                        <td><input type="radio" name="p12" value="1"></td>
-                                        <td><input type="radio" name="p12" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Convive con personas mayores de 70 años o personas que trabajan en prestación asistencial en salud</td>
-                                        <td><input type="radio" name="p13" value="1"></td>
-                                        <td><input type="radio" name="p13" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Si lleva tratamiento médico por su condición de salud, marque Si, de lo contrario marque No</td>
-                                        <td><input type="radio" name="p14" value="1"></td>
-                                        <td><input type="radio" name="p14" value="0"></td>
-                                    </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($preguntas as $pre)
                                     <tr>
-                                        <th>
-                                            2. ¿Ha tenido síntomas en los últimos 2 días?
-                                        </th>
-                                        <th>
-                                            Si
-                                        </th>
-                                        <th>
-                                            No
-                                        </th>
+                                        <td><input type="hidden" name="id_pregunta" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
+                                        <td><input type="radio" name="rid_pregunta" value="1"></td>
+                                        <td><input type="radio" name="rid_pregunta" value="0"></td>
                                     </tr>
-                                    <tr>
-                                        <td>Fiebre cuantificada mayor a 38°C</td>
-                                        <td><input type="radio" name="p15" value="1"></td>
-                                        <td><input type="radio" name="p15" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tos</td>
-                                        <td><input type="radio" name="p16" value="1"></td>
-                                        <td><input type="radio" name="p16" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dificultad para respirar</td>
-                                        <td><input type="radio" name="p17" value="1"></td>
-                                        <td><input type="radio" name="p17" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cansancio</td>
-                                        <td><input type="radio" name="p18" value="1"></td>
-                                        <td><input type="radio" name="p18" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dolores musculares</td>
-                                        <td><input type="radio" name="p19" value="1"></td>
-                                        <td><input type="radio" name="p19" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Secreción nasal (moco o flema)</td>
-                                        <td><input type="radio" name="p20" value="1"></td>
-                                        <td><input type="radio" name="p20" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dolor de cabeza</td>
-                                        <td><input type="radio" name="p21" value="1"></td>
-                                        <td><input type="radio" name="p21" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dolor de garganta</td>
-                                        <td><input type="radio" name="p22" value="1"></td>
-                                        <td><input type="radio" name="p22" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Diarrea</td>
-                                        <td><input type="radio" name="p23" value="1"></td>
-                                        <td><input type="radio" name="p23" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Perdida del gusto</td>
-                                        <td><input type="radio" name="p24" value="1"></td>
-                                        <td><input type="radio" name="p24" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Perdida del olfato</td>
-                                        <td><input type="radio" name="p25" value="1"></td>
-                                        <td><input type="radio" name="p25" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Malestar general</td>
-                                        <td><input type="radio" name="p26" value="1"></td>
-                                        <td><input type="radio" name="p26" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Erupción cutánea</td>
-                                        <td><input type="radio" name="p27" value="1"></td>
-                                        <td><input type="radio" name="p27" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nauseas</td>
-                                        <td><input type="radio" name="p28" value="1"></td>
-                                        <td><input type="radio" name="p28" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vomito</td>
-                                        <td><input type="radio" name="p29" value="1"></td>
-                                        <td><input type="radio" name="p29" value="0"></td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>
-                                            3. Identificación de Contacto
-                                        </th>
-                                        <th>
-                                            Si
-                                        </th>
-                                        <th>
-                                            No
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Ha tenido contacto estrecho (menor a 2 metros por 15 minutos sin protección) con una persona con COVID-19 positivo?</td>
-                                        <td><input type="radio" name="p30" value="1"></td>
-                                        <td><input type="radio" name="p30" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Ha tenido contacto estrecho (menor a 2 metros por 15 minutos sin protección) con una persona con síntomas respiratorios y Ud. no sabe si tiene COVID-19 positivo?</td>
-                                        <td><input type="radio" name="p31" value="1"></td>
-                                        <td><input type="radio" name="p31" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            4. Pruebas Diagnosticas
-                                        </th>
-                                        <th>
-                                            Si
-                                        </th>
-                                        <th>
-                                            No
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Le han realizado prueba de COVID-19 con muestra en nariz que ha salido positiva?</td>
-                                        <td><input type="radio" name="p32" value="1"></td>
-                                        <td><input type="radio" name="p32" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Le han realizado prueba de COVID-19 en sangre que ha salido positiva?</td>
-                                        <td><input type="radio" name="p33" value="1"></td>
-                                        <td><input type="radio" name="p33" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Ha estado o está en aislamiento preventivo porque ha sido diagnosticado de COVID-19?</td>
-                                        <td><input type="radio" name="p34" value="1"></td>
-                                        <td><input type="radio" name="p34" value="0"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>¿Ha tenido incapacidad temporal por caso asociado a COVID-19?</td>
-                                        <td><input type="radio" name="p35" value="1"></td>
-                                        <td><input type="radio" name="p35" value="0"></td>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
