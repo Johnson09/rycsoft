@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use PDF;
 
 use Illuminate\Support\Facades\DB;
@@ -161,8 +162,13 @@ class ReferenciaController extends Controller
             );
         }
 
+        $registro_referencia = DB::select("SELECT nextval('registro_referencia_id_orden_seq'); ");
+        $id_registro_referencia = $registro_referencia[0]->nextval;
+        // $id_registro_referencia = 15;
+
         DB::table('registro_referencia')->insert(
             [
+                'id_orden' => $id_registro_referencia,
                 'id_regimen' => $request->id_regimen, 
                 'id_user' => $id_user, 
                 'id_empresa' => $request->id_empresa, 
@@ -190,7 +196,7 @@ class ReferenciaController extends Controller
             ]
         );
 
-        return back()->with('success','Referencia creada satisfactoriamente.');
+        return redirect()->route('send_email_referencia', [$id_registro_referencia]);
     }
 
     public function update(Request $request, $orden)
@@ -329,5 +335,83 @@ class ReferenciaController extends Controller
 
         // Se genera o se returna el pdf de la cotizacion
         return $pdf->stream($text);
+    }
+
+    public function sendEmailReferencia($orden)
+    {
+        // Generador de pdf
+        ini_set('max_execution_time', 300);
+
+        $referencia = DB::select("SELECT d.name_departamento, m.name_municipio, tp1.name_diagnostico AS dr1,
+                                    tp2.name_diagnostico AS dr2, tp3.name_diagnostico AS dr3, tss.descripcion_servicio_sol, 
+                                    pa.descripcion_prioridad, oa.descripcion_origen, up.descripcion_ubicacion, 
+                                    dp.name_departamento AS dep_paciente, mp.name_municipio AS mun_paciente, 
+                                    tr.name_regimen, e.nombre_empresa, p.primer_apellido, p.segundo_apellido, 
+                                    p.primer_nombre, p.segundo_nombre, ti.name_tipo_ident, r.id_paciente, 
+                                    p.direccion AS dir_paciente, p.telefono AS tel_paciente, p.email, ei.email_ips, 
+                                    ee.name_eps, p.fecha_nacimiento, ts.name_sexo, td.name_diagnostico, 
+                                    td.id_diagnostico, tp1.id_diagnostico AS cr1, tp2.id_diagnostico AS cr2, tp3.id_diagnostico AS cr3,
+                                    tse.name_servicio, tse.name_servicio, r.name_doctor, r.id_estado, 
+                                    ei.name_ips, mu.name_municipio AS municipio_rem, r.created_at, 
+                                    e.nit_empresa, e.cod_hab_empresa, e.direccion, e.telefono, r.justificacion_clinica 
+                                    FROM registro_referencia AS r 
+                                    INNER JOIN tipo_regimen AS tr ON r.id_regimen = tr.id_regimen
+                                    INNER JOIN empresas AS e ON r.id_empresa = e.id_empresa
+                                    INNER JOIN municipios AS m ON e.id_municipio = m.id_municipio 
+                                    INNER JOIN departamentos AS d ON m.id_departamento = d.id_departamento 
+                                    INNER JOIN pacientes AS p ON r.id_paciente = p.id_paciente
+                                    INNER JOIN municipios AS mp ON p.id_municipio = mp.id_municipio 
+                                    INNER JOIN departamentos AS dp ON mp.id_departamento = dp.id_departamento 
+                                    INNER JOIN tipo_identificacion AS ti ON p.id_tipo_ident = ti.id_tipo_ident
+                                    INNER JOIN entidad_eps AS ee ON r.id_eps = ee.id_eps 
+                                    INNER JOIN tipo_sexo AS ts ON p.id_sexo = ts.id_sexo 
+                                    INNER JOIN tipo_diagnostico AS td ON r.id_diagnostico = td.id_diagnostico
+                                    INNER JOIN tipo_servicio AS tse ON r.id_servicio = tse.id_servicio 
+                                    LEFT JOIN entidad_ips AS ei ON r.id_ips = ei.id_ips
+                                    LEFT JOIN municipios AS mu ON ei.id_municipio = mu.id_municipio
+                                    INNER JOIN estados AS es ON r.id_estado = es.id_estado
+                                    LEFT JOIN tipo_ambulancia AS ta ON r.id_ambulancia = ta.id_ambulancia
+                                    LEFT JOIN tipo_diagnostico AS tp1 ON r.id_diagnostico_1 = tp1.id_diagnostico
+                                    LEFT JOIN tipo_diagnostico AS tp2 ON r.id_diagnostico_2 = tp2.id_diagnostico
+                                    LEFT JOIN tipo_diagnostico AS tp3 ON r.id_diagnostico_3 = tp3.id_diagnostico
+                                    INNER JOIN prioridad_atencion AS pa ON r.id_prioridad_atencion = pa.id_prioridad_atencion
+                                    INNER JOIN origenes_atencion AS oa ON r.id_origen_atencion = oa.id_origen_atencion
+                                    INNER JOIN ubicacion_paciente AS up ON r.id_ubicacion_pte = up.id_ubicacion_pte
+                                    INNER JOIN tipos_servicios_sol AS tss ON r.id_tipo_servicio_sol = tss.id_tipo_servicio_sol
+                                    WHERE r.id_orden = '$orden'");
+
+        $cadena = $referencia[0]->created_at;
+        $nombrePaciente = $referencia[0]->primer_nombre." ".$referencia[0]->segundo_nombre." ".$referencia[0]->primer_apellido." ".$referencia[0]->segundo_apellido; 
+        $array = explode(" ", $cadena);
+        $data = array(
+            'nombre_paciente' => $nombrePaciente,
+            'tipo_documento' => $referencia[0]->name_tipo_ident,
+            'documento' => $referencia[0]->id_paciente,
+            'sexo' => $referencia[0]->name_sexo,
+            'email' => $referencia[0]->email_ips,
+            'diagnostico' => $referencia[0]->name_diagnostico,
+            'justificacion' => $referencia[0]->justificacion_clinica,
+            'fecha_remision' => $referencia[0]->created_at,
+            'medico_tratante' => $referencia[0]->name_doctor
+        );
+        // dd($data);
+        
+        $text = 'Referencia_numero_'.$orden.'.pdf';
+
+        $pdf = \PDF::loadView('pdf.pdf_referencia', compact('referencia','orden','text','array'));
+        // $pdf->setPaper('A4', 'landscape'); // Formato de la hoja
+
+        // Envio de correo electronico a la EPS
+        Mail::send('emails.feedback', $data, function($message) use ($data, $pdf, $text){
+            // $message->from('johnstiv9914@gmail.com');
+            // $data['email']
+            $message->to('lidertics@hdn.gov.co');
+            $message->subject('Solicitud Remision Paciente');
+            //Attach PDF doc
+            $message->attachData($pdf->output(), $text);
+        });
+
+        // Se returna a la vista de referencia
+        return redirect('gestion_referencia')->with('success','Referencia creada satisfactoriamente.');
     }
 }

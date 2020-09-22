@@ -48,6 +48,8 @@ Route::get('/codeValidation', 'ReferenciaController@codeValidation');
 
 Route::get('/get_referencia_pdf/{orden}', 'ReferenciaController@getPdf');
 
+Route::get('/send_email_referencia/{orden}', 'ReferenciaController@sendEmailReferencia')->name('send_email_referencia');
+
 Route::get('/obtener_municipio', 'MunicipioController@getMunicipios');
 
 Route::get('/obtener_municipio_ips', 'MunicipioController@getMunicipioIps');
