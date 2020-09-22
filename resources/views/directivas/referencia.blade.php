@@ -8,6 +8,35 @@ function pad(input, length, padding) {
   return (length <= str.length) ? str : pad(padding+str, length, padding);
 }
 
+function datos_paciente(id_paciente) { 
+    $.get('{{ action('PacienteController@getPaciente') }}?id_paciente=' + id_paciente, function(data) {
+        if (data == "") {
+            $('#secc3').val('');
+            $('#secc4').val('');
+            $('#secc5').val('');
+            $('#secc6').val('');
+            $('#secc7').val('');
+            $('#secc8').val('');
+            $('#secc12').val('');
+            $('#secc10').val('');
+            $('#secc11').val('');
+        }else{
+            // console.log(data);
+            $.each(data, function(index, ClassObj){
+                $('#secc5').val(ClassObj.primer_apellido);
+                $('#secc6').val(ClassObj.segundo_apellido);
+                $('#secc7').val(ClassObj.primer_nombre);
+                $('#secc8').val(ClassObj.segundo_nombre);
+                $('#secc3').val(ClassObj.fecha_nacimiento);
+                $('#secc4').val(ClassObj.id_sexo);
+                $('#secc10').val(ClassObj.direccion);
+                $('#secc11').val(ClassObj.telefono);
+                $('#secc12').val(ClassObj.email);
+            })
+        }
+    });
+}
+
 function modalActualizar(id_orden){
     $("#actModal").modal();
     document.getElementById("form").action = "gestion_referencia/"+id_orden;
@@ -862,6 +891,7 @@ function borrarTodo() {
                 out += string.charAt(i);
             
             //Retornar valor filtrado
+            datos_paciente(out);
             return out;
         }
 

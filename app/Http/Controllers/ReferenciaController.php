@@ -139,23 +139,27 @@ class ReferenciaController extends Controller
             }
         }
 
-        DB::table('pacientes')->insert(
-            [ 
-                'id_paciente' => $request->identification_number,
-                'id_tipo_ident' => $request->id_tipo_ident,
-                'primer_nombre' => $request->first_name, 
-                'segundo_nombre' => $request->second_name,
-                'primer_apellido' => $request->first_lastname, 
-                'segundo_apellido' => $request->second_lastname, 
-                'fecha_nacimiento' => $request->birthday,
-                'id_sexo' => $request->id_sexo,
-                'direccion' => $request->address,
-                'telefono' => $request->telefono,
-                'email' => $request->email,
-                'fecha_registro' => now(),
-                'id_municipio' => $request->id_municipio_paciente
-            ]
-        );
+        $existencia = DB::select("SELECT * FROM pacientes WHERE id_paciente = '$request->identification_number' ");
+        
+        if (count($existencia) == 0) {
+            DB::table('pacientes')->insert(
+                [ 
+                    'id_paciente' => $request->identification_number,
+                    'id_tipo_ident' => $request->id_tipo_ident,
+                    'primer_nombre' => $request->first_name, 
+                    'segundo_nombre' => $request->second_name,
+                    'primer_apellido' => $request->first_lastname, 
+                    'segundo_apellido' => $request->second_lastname, 
+                    'fecha_nacimiento' => $request->birthday,
+                    'id_sexo' => $request->id_sexo,
+                    'direccion' => $request->address,
+                    'telefono' => $request->telefono,
+                    'email' => $request->email,
+                    'fecha_registro' => now(),
+                    'id_municipio' => $request->id_municipio_paciente
+                ]
+            );
+        }
 
         DB::table('registro_referencia')->insert(
             [

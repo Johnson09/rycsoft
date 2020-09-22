@@ -8,6 +8,35 @@ function pad(input, length, padding) {
   return (length <= str.length) ? str : pad(padding+str, length, padding);
 }
 
+function datos_paciente(id_paciente) { 
+    $.get('{{ action('PacienteController@getPaciente') }}?id_paciente=' + id_paciente, function(data) {
+        if (data == "") {
+            $('#s3').val('');
+            $('#s4').val('');
+            $('#s5').val('');
+            $('#s6').val('');
+            $('#s7').val('');
+            $('#s8').val('');
+            $('#s9').val('');
+            $('#s10').val('');
+            $('#s11').val('');
+        }else{
+            // console.log(data);
+            $.each(data, function(index, ClassObj){
+                $('#s3').val(ClassObj.primer_apellido);
+                $('#s4').val(ClassObj.segundo_apellido);
+                $('#s5').val(ClassObj.primer_nombre);
+                $('#s6').val(ClassObj.segundo_nombre);
+                $('#s7').val(ClassObj.fecha_nacimiento);
+                $('#s8').val(ClassObj.id_sexo);
+                $('#s9').val(ClassObj.direccion);
+                $('#s10').val(ClassObj.telefono);
+                $('#s11').val(ClassObj.email);
+            })
+        }
+    });
+}
+
 function modalActualizar(id_orden){
     $("#actModal").modal();
     document.getElementById("form").action = "gestion_referencia/"+id_orden;
@@ -247,7 +276,7 @@ function modalActualizar(id_orden){
                                     </tr>
                                     @foreach($preguntas as $pre)
                                         @if($pre->id_grupo == 1)
-                                        <tr>
+                                        <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
@@ -278,7 +307,7 @@ function modalActualizar(id_orden){
                                     </tr>
                                     @foreach($preguntas as $pre)
                                         @if($pre->id_grupo == 2)
-                                        <tr>
+                                        <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
@@ -309,7 +338,7 @@ function modalActualizar(id_orden){
                                     </tr>
                                     @foreach($preguntas as $pre)
                                         @if($pre->id_grupo == 3)
-                                        <tr>
+                                        <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
@@ -324,7 +353,7 @@ function modalActualizar(id_orden){
                                     </tr>
                                     @foreach($preguntas as $pre)
                                         @if($pre->id_grupo == 4)
-                                        <tr>
+                                        <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
@@ -441,6 +470,7 @@ function modalActualizar(id_orden){
                 out += string.charAt(i);
             
             //Retornar valor filtrado
+            datos_paciente(out);
             return out;
         }
 

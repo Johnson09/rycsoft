@@ -64,24 +64,27 @@ class EncuestaCovidController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-
-        DB::table('pacientes')->insert(
-            [ 
-                'id_paciente' => $request->identification_number,
-                'id_tipo_ident' => $request->id_tipo_ident,
-                'primer_nombre' => $request->first_name, 
-                'segundo_nombre' => $request->second_name,
-                'primer_apellido' => $request->first_lastname, 
-                'segundo_apellido' => $request->second_lastname, 
-                'fecha_nacimiento' => $request->birthday,
-                'id_sexo' => $request->id_sexo,
-                'direccion' => $request->address,
-                'telefono' => $request->telephone,
-                'email' => $request->email,
-                'fecha_registro' => now()
-            ]
-        );
-
+        $existencia = DB::select("SELECT * FROM pacientes WHERE id_paciente = '$request->identification_number' ");
+        // dd(count($existencia));
+        if (count($existencia) == 0) {
+            DB::table('pacientes')->insert(
+                [ 
+                    'id_paciente' => $request->identification_number,
+                    'id_tipo_ident' => $request->id_tipo_ident,
+                    'primer_nombre' => $request->first_name, 
+                    'segundo_nombre' => $request->second_name,
+                    'primer_apellido' => $request->first_lastname, 
+                    'segundo_apellido' => $request->second_lastname, 
+                    'fecha_nacimiento' => $request->birthday,
+                    'id_sexo' => $request->id_sexo,
+                    'direccion' => $request->address,
+                    'telefono' => $request->telephone,
+                    'email' => $request->email,
+                    'fecha_registro' => now()
+                ]
+            );
+        }
+        
         $registro_encuesta = DB::select("SELECT nextval('registro_encuesta_id_registro_encuesta_seq'); ");
         $id_registro_encuesta = $registro_encuesta[0]->nextval;
         // // dd($id_registro_encuesta);
