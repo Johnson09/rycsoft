@@ -11,11 +11,12 @@ class EncuestaCovidController extends Controller
         session_start();
 
         // dd($pagina);
-        if (!isset($_SESSION['id'])) {
+        if (!isset($_SESSION['id_usuario'])) {
             return redirect('/logout');
         }else{
-            $set = $_SESSION['id'];
-            $name = $_SESSION['nombre'];
+            $id_usuario = $_SESSION['id_usuario'];
+            $sw_encuesta = $_SESSION['sw_encuesta'];
+            $nombre_usuario = $_SESSION['nombre_usuario'];
 
                 // Datos requeridos encuesta covid
                 $tipo_identificacion = DB::select("SELECT * FROM tipo_identificacion ");
@@ -45,8 +46,9 @@ class EncuestaCovidController extends Controller
     
                 return view('encuestas.covid', 
                             compact(    
-                                'set', 
-                                'name', 
+                                'id_usuario',
+                                'sw_encuesta',
+                                'nombre_usuario',
                                 'tipo_identificacion', 
                                 'regimen_eps', 
                                 'genero', 

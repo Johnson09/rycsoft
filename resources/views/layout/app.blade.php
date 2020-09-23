@@ -139,6 +139,7 @@
         </div>
       </li>
 
+      @if($sw_encuesta == 1)
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -147,11 +148,9 @@
         Lista de chequeo
       </div>
 
-      
-
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities" >
           <i class="fas fa-fw fa-file"></i>
           <span>Encuestas</span>
         </a>
@@ -162,6 +161,7 @@
           </div>
         </div>
       </li>
+      @endif
 
       <!-- Nav Item - Charts -->
       <!-- <li class="nav-item">
@@ -347,7 +347,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $name }}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ $nombre_usuario }}</span>
                 <img class="img-profile rounded-circle" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png">
               </a>
               <!-- Dropdown - User Information -->

@@ -14,11 +14,12 @@ class ReferenciaController extends Controller
         session_start();
 
         // dd($pagina);
-        if (!isset($_SESSION['id'])) {
+        if (!isset($_SESSION['id_usuario'])) {
             return redirect('/logout');
         }else{
-            $set = $_SESSION['id'];
-            $name = $_SESSION['nombre'];
+            $id_usuario = $_SESSION['id_usuario'];
+            $sw_encuesta = $_SESSION['sw_encuesta'];
+            $nombre_usuario = $_SESSION['nombre_usuario'];
 
                 // Datos requeridos en los formularios de referencia
                 $regimen = DB::select("SELECT * FROM tipo_regimen ");
@@ -69,8 +70,9 @@ class ReferenciaController extends Controller
     
                 return view('directivas.referencia', 
                             compact(    
-                                'set', 
-                                'name', 
+                                'id_usuario',
+                                'sw_encuesta',
+                                'nombre_usuario', 
                                 'regimen', 
                                 'tipo_identificacion', 
                                 'regimen_eps', 

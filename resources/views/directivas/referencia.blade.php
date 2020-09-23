@@ -624,7 +624,7 @@ function borrarTodo() {
                     @method('PATCH')
                     @csrf
                     
-                    <input type="text" name="id_user" class="form-control input-lg" required="required" value="{{ $set }}" style="display: none;">
+                    <input type="text" name="id_user" class="form-control input-lg" required="required" value="{{ $id_usuario }}" style="display: none;">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="form-group">

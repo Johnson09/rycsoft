@@ -11,13 +11,14 @@ class LoginController extends Controller
         session_start();
 
         // dd($pagina);
-        if (!isset($_SESSION['id'])) {
+        if (!isset($_SESSION['id_usuario'])) {
             return redirect('/logout');
         }else{
-            $set = $_SESSION['id'];
-            $name = $_SESSION['nombre'];
+            $id_usuario = $_SESSION['id_usuario'];
+            $sw_encuesta = $_SESSION['sw_encuesta'];
+            $nombre_usuario = $_SESSION['nombre_usuario'];
 
-            return view('inicio.home', compact('set', 'name'));
+            return view('inicio.home', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
         }
 
     }
@@ -27,7 +28,10 @@ class LoginController extends Controller
         $usuario = $request->get('usuario');
         $password = $request->get('contraseña');
 
-        $query = DB::select("SELECT us.id_user, us.name_user FROM system_users us WHERE us.usern = '$usuario' and us.password = md5('$password')");
+        $query = DB::select("SELECT us.id_user, up.sw_encuesta, us.name_user 
+                            FROM system_users AS us 
+                            INNER JOIN usuarios_perfiles AS up ON us.id_user = up.id_user
+                            WHERE us.usern = '$usuario' and us.password = md5('$password')");
 
         session_start();
 
@@ -35,10 +39,9 @@ class LoginController extends Controller
             return redirect('/')->with('status', 'Usuario o Contraseña incorrecta!');
         }else{
             foreach ($query as $key => $value){
-                $_SESSION['id'] = $value->id_user;
-                $_SESSION['nombre'] = $value->name_user;
-                $set = $value->id_user;
-                $name = $value->name_user;
+                $_SESSION['id_usuario'] = $value->id_user;
+                $_SESSION['sw_encuesta'] = $value->sw_encuesta;
+                $_SESSION['nombre_usuario'] = $value->name_user;
             }
 
             return redirect('/home');

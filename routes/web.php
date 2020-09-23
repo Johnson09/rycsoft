@@ -29,13 +29,31 @@ Route::get('/logout', function () {
 });
 
 Route::get('/prueba', function () {
-    $name = "prueba";
-    return view('indicadores.prueba', compact('name'));
+    session_start();
+
+    if (!isset($_SESSION['id_usuario'])) {
+        return redirect('/logout');
+    }else{
+        $id_usuario = $_SESSION['id_usuario'];
+        $sw_encuesta = $_SESSION['sw_encuesta'];
+        $nombre_usuario = $_SESSION['nombre_usuario'];
+
+        return view('indicadores.prueba', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
+    }
 });
 
 Route::get('/gestion_seguimiento', function () {
-    $name = "prueba";
-    return view('directivas.seguimiento', compact('name'));
+    session_start();
+
+    if (!isset($_SESSION['id_usuario'])) {
+        return redirect('/logout');
+    }else{
+        $id_usuario = $_SESSION['id_usuario'];
+        $sw_encuesta = $_SESSION['sw_encuesta'];
+        $nombre_usuario = $_SESSION['nombre_usuario'];
+
+        return view('directivas.seguimiento', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
+    }
 });
 
 Route::resource('/gestion_referencia', 'ReferenciaController');
