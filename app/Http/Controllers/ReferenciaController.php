@@ -19,6 +19,7 @@ class ReferenciaController extends Controller
         }else{
             $id_usuario = $_SESSION['id_usuario'];
             $sw_encuesta = $_SESSION['sw_encuesta'];
+            $sw_ryc = $_SESSION['sw_ryc'];
             $nombre_usuario = $_SESSION['nombre_usuario'];
 
                 // Datos requeridos en los formularios de referencia
@@ -72,6 +73,7 @@ class ReferenciaController extends Controller
                             compact(    
                                 'id_usuario',
                                 'sw_encuesta',
+                                'sw_ryc',
                                 'nombre_usuario', 
                                 'regimen', 
                                 'tipo_identificacion', 

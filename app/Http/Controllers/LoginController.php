@@ -16,9 +16,10 @@ class LoginController extends Controller
         }else{
             $id_usuario = $_SESSION['id_usuario'];
             $sw_encuesta = $_SESSION['sw_encuesta'];
+            $sw_ryc = $_SESSION['sw_ryc'];
             $nombre_usuario = $_SESSION['nombre_usuario'];
 
-            return view('inicio.home', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
+            return view('inicio.home', compact('id_usuario', 'sw_encuesta', 'sw_ryc', 'nombre_usuario'));
         }
 
     }
@@ -28,7 +29,7 @@ class LoginController extends Controller
         $usuario = $request->get('usuario');
         $password = $request->get('contraseña');
 
-        $query = DB::select("SELECT us.id_user, up.sw_encuesta, us.name_user 
+        $query = DB::select("SELECT us.id_user, up.sw_encuesta, up.sw_ryc, us.name_user 
                             FROM system_users AS us 
                             INNER JOIN usuarios_perfiles AS up ON us.id_user = up.id_user
                             WHERE us.usern = '$usuario' and us.password = md5('$password')");
@@ -41,6 +42,7 @@ class LoginController extends Controller
             foreach ($query as $key => $value){
                 $_SESSION['id_usuario'] = $value->id_user;
                 $_SESSION['sw_encuesta'] = $value->sw_encuesta;
+                $_SESSION['sw_ryc'] = $value->sw_ryc;
                 $_SESSION['nombre_usuario'] = $value->name_user;
             }
 

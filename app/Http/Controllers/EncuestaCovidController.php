@@ -16,6 +16,7 @@ class EncuestaCovidController extends Controller
         }else{
             $id_usuario = $_SESSION['id_usuario'];
             $sw_encuesta = $_SESSION['sw_encuesta'];
+            $sw_ryc = $_SESSION['sw_ryc'];
             $nombre_usuario = $_SESSION['nombre_usuario'];
 
                 // Datos requeridos encuesta covid
@@ -48,6 +49,7 @@ class EncuestaCovidController extends Controller
                             compact(    
                                 'id_usuario',
                                 'sw_encuesta',
+                                'sw_ryc',
                                 'nombre_usuario',
                                 'tipo_identificacion', 
                                 'regimen_eps', 

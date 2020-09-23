@@ -108,6 +108,7 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
+        @if($sw_ryc == 1)
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
           <span>Gestion</span>
@@ -126,6 +127,7 @@
             <a class="collapse-item" href="blank.html">Blank Page</a> -->
           </div>
         </div>
+        @endif
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseIndicadores" aria-expanded="true" aria-controls="collapseIndicadores">
           <i class="fas fa-fw fa-list"></i>
           <span>Informes</span>

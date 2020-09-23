@@ -36,9 +36,10 @@ Route::get('/prueba', function () {
     }else{
         $id_usuario = $_SESSION['id_usuario'];
         $sw_encuesta = $_SESSION['sw_encuesta'];
+        $sw_ryc = $_SESSION['sw_ryc'];
         $nombre_usuario = $_SESSION['nombre_usuario'];
 
-        return view('indicadores.prueba', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
+        return view('indicadores.prueba', compact('id_usuario', 'sw_encuesta', 'sw_ryc', 'nombre_usuario'));
     }
 });
 
@@ -50,9 +51,10 @@ Route::get('/gestion_seguimiento', function () {
     }else{
         $id_usuario = $_SESSION['id_usuario'];
         $sw_encuesta = $_SESSION['sw_encuesta'];
+        $sw_ryc = $_SESSION['sw_ryc'];
         $nombre_usuario = $_SESSION['nombre_usuario'];
 
-        return view('directivas.seguimiento', compact('id_usuario', 'sw_encuesta', 'nombre_usuario'));
+        return view('directivas.seguimiento', compact('id_usuario', 'sw_encuesta', 'sw_ryc', 'nombre_usuario'));
     }
 });
 
