@@ -73,7 +73,7 @@ function modalActualizar(id_orden){
             <table id="table_docu" class="cell-border compact stripe" style="background: #f9f9f9; font-size: 12px;">
                 <thead>
                     <tr>
-                        <th></th>
+                        <!-- <th></th> -->
                         <th>TIPO DOC</th>
                         <th>N° IDEN USUARIO</th>
                         <th>NOMBRES</th>
@@ -87,6 +87,7 @@ function modalActualizar(id_orden){
                         <th>EPS</th>
                         <th>TIPO USUARIO</th>
                         <th>SERVICIO</th>
+                        <th>FECHA REGISTRO</th>
                     </tr>
                 </thead>
                 
@@ -94,11 +95,11 @@ function modalActualizar(id_orden){
                     <tbody style="text-align: center;">
                         @foreach($encuesta as $re)
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <button onclick="modalActualizar('')" class="btn btn-info" disabled>
                                         <span class="fa fa-pencil" aria-hidden="true"></span>
                                     </button>
-                                </td>
+                                </td> -->
                                 <td>{{ $re->name_tipo_ident }}</td>
                                 <td>{{ $re->id_paciente }}</td>
                                 <td>{{ $re->primer_nombre }} {{ $re->segundo_nombre }}</td>
@@ -112,6 +113,7 @@ function modalActualizar(id_orden){
                                 <td>{{ $re->name_eps }}</td>
                                 <td>{{ $re->descripcion_tipo_user }}</td>
                                 <td>{{ $re->name_servicio }}</td>
+                                <td>{{ $re->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>

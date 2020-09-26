@@ -32,7 +32,7 @@ class EncuestaCovidController extends Controller
                                         p.segundo_nombre, p.primer_apellido, p.segundo_apellido, 
                                         date_part('year',age(CURRENT_DATE,p.fecha_nacimiento)) AS edad, 
                                         ts.name_sexo, p.direccion, p.telefono, p.email, ee.name_eps,
-                                        tu.descripcion_tipo_user, tsc.name_servicio 
+                                        tu.descripcion_tipo_user, tsc.name_servicio, re.created_at 
                                         FROM registro_encuesta AS re
                                         INNER JOIN pacientes AS p ON re.id_paciente = p.id_paciente
                                         INNER JOIN tipo_identificacion AS ti ON p.id_tipo_ident = ti.id_tipo_ident
