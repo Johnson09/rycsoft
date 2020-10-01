@@ -140,8 +140,7 @@
           </div>
         </div>
       </li>
-
-      @if($sw_encuesta == 1)
+      
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -150,6 +149,7 @@
         Lista de chequeo
       </div>
 
+      @if($sw_encuesta == 1)
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities" >
@@ -165,6 +165,20 @@
       </li>
       @endif
 
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForms" aria-expanded="true" aria-controls="collapseForms" >
+          <i class="fas fa-fw fa-archive"></i>
+          <span>Formularios</span>
+        </a>
+        <div id="collapseForms" class="collapse" aria-labelledby="headingForms" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Toma:</h6>
+            <a class="collapse-item" href="formulario_vih">VIH</a>
+            <a class="collapse-item" href="formulario_muestra">Muestra</a>
+          </div>
+        </div>
+      </li>
       <!-- Nav Item - Charts -->
       <!-- <li class="nav-item">
         <a class="nav-link" href="charts.html">

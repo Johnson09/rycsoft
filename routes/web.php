@@ -63,6 +63,10 @@ Route::get('/obtener_municipio_ips', 'MunicipioController@getMunicipioIps');
 
 Route::resource('/gestion_encuesta_covid', 'EncuestaCovidController');
 
+Route::resource('/formulario_vih', 'FormularioVIHController');
+
+Route::resource('/formulario_muestra', 'FormularioMuestraController');
+
 Route::get('/obtener_paciente', 'PacienteController@getPaciente');
 
 Route::get('/layout/{any}', 'RoutesController@index')->where('any', '.*');
