@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 
 <head>
@@ -169,7 +169,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForms" aria-expanded="true" aria-controls="collapseForms" >
           <i class="fas fa-fw fa-archive"></i>
-          <span>Formularios</span>
+          <span>Consentimientos</span>
         </a>
         <div id="collapseForms" class="collapse" aria-labelledby="headingForms" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
