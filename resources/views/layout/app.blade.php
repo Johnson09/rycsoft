@@ -175,7 +175,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Toma:</h6>
             <a class="collapse-item" href="formulario_vih">VIH</a>
-            <!-- <a class="collapse-item" href="formulario_muestra">Muestra</a> -->
+            <a class="collapse-item" href="formulario_muestra">Muestra</a>
           </div>
         </div>
       </li>

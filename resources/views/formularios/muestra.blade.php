@@ -77,7 +77,7 @@ function modalActualizar(id_orden){
 
         <div style="text-align: center;">
             <!-- Formulario de registro de referencia -->
-            <form role="form" action="{{ url('formulario_vih') }}" method="post" autocomplete="on" enctype="multipart/form-data">
+            <form role="form" id="form" action="{{ url('formulario_muestra') }}" method="post" enctype="multipart/form-data">
             @csrf
                     
             <h5 id="tl1"><b>Identificacion del Paciente</b></h5>
@@ -126,7 +126,7 @@ function modalActualizar(id_orden){
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="form-group">
                         <label id="stl1">FECHA DE NACIMIENTO</label>
-                        <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="s7"  onchange="if('{{$date}}'<=this.value){this.value=''}">
+                        <input type="date" name="birthday" class="form-control input-lg" tabindex="13" required="required" id="s7"  onchange="Edad(this)">
                     </div>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -159,12 +159,20 @@ function modalActualizar(id_orden){
                     <table id="section1" class="table table-hover" style="text-align: justify;">
                         <tr>
                             <th>
-                                <p>*En caso de ser menor de 14 años o presentar algun tipo de la discapacidad cognitiva</p>
-                                <p>Yo <label id="nombre_user"></label> N° <label id="tipo_doc"></label> <label id="doc"></label></p>
-                                <p>Declaro haber comprendido este documento y haber recibido Consejeria previa a la realización del test.</p>
-                                <p>Acepto la responsabilidad de retirar personalmente el resultado; encaso de no retirarlo en la fecha acordada, acepto que se me contacte confidencialmente, según los procedimientos que han informado (llamado telefonico, visita domiciliaria, carta certificada).</p>
-                                <p>Frente a esto decido:</p>
-                                <p>Acepto realizarme el examen de detección del VIH <input type="checkbox" name="terminos" value="1" required></p>
+                                <div id="edad" style="display: none;">
+                                    <p>*En caso de ser menor de 14 años o presentar algun tipo de la discapacidad cognitiva</p>
+                                    <p>Yo <input type="text" name="name_parent" onkeyup="Texto(this);"> doy mi consentimiento en calidad de Padre <input type="radio" name="parent" value="0"> ó Madre <input type="radio" name="parent" value="1"> y/o representante legal de: <label id="nombre_use"></label> para que se realice la toma de exámenes clinicos en:</p>
+                                    <p>
+                                        Sangre <input type="checkbox" name="toma1" value="1">
+                                        Baciloscopia en jugo gástrico <input type="checkbox" name="toma2" value="1">
+                                        Orina por sonda <input type="checkbox" name="toma3" value="1">
+                                        Frotis de flujo vaginal <input type="checkbox" name="toma4" value="1">
+                                        BK de linfa <input type="checkbox" name="toma5" value="1">
+                                        Cultivo para sreptococo <input type="checkbox" name="toma6" value="1">
+                                    </p>
+                                </div>
+                                <p>Yo <label id="nombre_user"></label> doy mi consentimiento para que se realice la toma.</p>
+                                <p>Manifiesto el haber comprendido el significado del procedimiento y los riesgos inherentes al mismo (sangrado, dolor, deterioro piel, fiebitis, infección, hematoma) y declaro estar debidamente informado/a según disponen los articulos 15 y 16 de la ley 23 de 1981. Por la cual se dictan normas en materia de ética médica, habiendo tenido oportunidad de aclarar todas mis dudas en entrevista personal y previa, así mismo, he recibido respuesta a todas mis preguntas.</p>
                             </th>
                         </tr>
                         <tr>
@@ -179,8 +187,9 @@ function modalActualizar(id_orden){
             <div style="width: 40em">
                 <label id="stl5">Firma Acudiente del Paciente y/o Representante Legal:</label>
                 <div id="canvasDiv1">
-                    <canvas id="canvasSignature1" name="firma_acudiente" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature1" height="50" style="border: 2px solid black;">
                     </canvas>
+                    <input type="hidden" name="firma_acudiente" value="" id="firma_acudiente">
                 </div>
                     <script>
                         var canvas = document.getElementById('canvasSignature1');
@@ -218,14 +227,21 @@ function modalActualizar(id_orden){
                             ctx.lineTo(mouse.x, mouse.y);
                             ctx.stroke();
                         };
+
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var images = canvass.toDataURL(); // data:image/png....
+                            document.getElementById('firma_acudiente').value = images;
+                        },false);
+
                     </script>
             </div>
 
             <div style="width: 40em">
                 <label id="stl6">Firma del Paciente:</label>
                 <div id="canvasDiv2">
-                    <canvas id="canvasSignature2" name="firma_paciente" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
                     </canvas>
+                    <input type="hidden" name="firma_paciente" value="" id="firma_paciente">
                 </div>
                     <script>
                         var canvass = document.getElementById('canvasSignature2');
@@ -263,14 +279,21 @@ function modalActualizar(id_orden){
                             ctxs.lineTo(mouses.x, mouses.y);
                             ctxs.stroke();
                         };
+
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var images = canvass.toDataURL(); // data:image/png....
+                            document.getElementById('firma_paciente').value = images;
+                        },false);
+
                     </script>
             </div>
 
             <div style="width: 40em">
                 <label id="stl6">Firma del responsable asesoria:</label>
                 <div id="canvasDiv3">
-                    <canvas id="canvasSignature3" name="firma_responsable" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature3" height="50" style="border: 2px solid black;">
                     </canvas>
+                    <input type="hidden" name="firma_responsable" value="" id="firma_responsable">
                 </div>
                     <script>
                         var canva = document.getElementById('canvasSignature3');
@@ -308,6 +331,12 @@ function modalActualizar(id_orden){
                             ct.lineTo(mous.x, mous.y);
                             ct.stroke();
                         };
+
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var images = canvass.toDataURL(); // data:image/png....
+                            document.getElementById('firma_responsable').value = images;
+                        },false);
+
                     </script>
             </div>
 
@@ -345,23 +374,21 @@ function modalActualizar(id_orden){
                                 <th>TIPO DOC</th>
                                 <th>N° IDEN USUARIO</th>
                                 <th>NOMBRES</th>
-                                <th>PRIMER APELLIDO</th>
-                                <th>SEG APELLIDO</th>
+                                <th>APELLIDOS</th>
                                 <th>EDAD</th>
                                 <th>GENERO</th>
                                 <th>DIRECCIÓN</th>
                                 <th>TELEFONO</th>
-                                <th>EMAIL</th>
-                                <th>EPS</th>
-                                <th>TIPO USUARIO</th>
-                                <th>SERVICIO</th>
+                                <th>FIRMA ACUDIENTE</th>
+                                <th>FIRMA PACIENTE</th>
+                                <th>FIRMA RESPONSABLE</th>
                                 <th>FECHA REGISTRO</th>
                             </tr>
                         </thead>
                         
                         <!-- datos obtenidos mediante consulta - mostrados en la vista de la pagina -->
                             <tbody style="text-align: center;">
-                                @foreach($encuesta as $re)
+                                @foreach($consentimiento as $re)
                                     <tr>
                                         <!-- <td>
                                             <button onclick="modalActualizar('')" class="btn btn-info" disabled>
@@ -371,16 +398,20 @@ function modalActualizar(id_orden){
                                         <td>{{ $re->name_tipo_ident }}</td>
                                         <td>{{ $re->id_paciente }}</td>
                                         <td>{{ $re->primer_nombre }} {{ $re->segundo_nombre }}</td>
-                                        <td>{{ $re->primer_apellido }}</td>
-                                        <td>{{ $re->segundo_apellido }}</td>
+                                        <td>{{ $re->primer_apellido }} {{ $re->segundo_apellido }}</td>
                                         <td>{{ $re->edad }}</td>
                                         <td>{{ $re->name_sexo }}</td>
                                         <td>{{ $re->direccion }}</td>
                                         <td>{{ $re->telefono }}</td>
-                                        <td>{{ $re->email }}</td>
-                                        <td>{{ $re->name_eps }}</td>
-                                        <td>{{ $re->descripcion_tipo_user }}</td>
-                                        <td>{{ $re->name_servicio }}</td>
+                                        <td>
+                                            <img src="public/firms_image/{{ $re->firma_acudiente }}" alt="" style="width: 100%">
+                                        </td>
+                                        <td>
+                                            <img src="public/firms_image/{{ $re->firma_paciente }}" alt="" style="width: 100%">
+                                        </td>
+                                        <td>
+                                            <img src="public/firms_image/{{ $re->firma_responsable }}" alt="" style="width: 100%">
+                                        </td>
                                         <td>{{ $re->created_at }}</td>
                                     </tr>
                                 @endforeach
@@ -467,6 +498,39 @@ function modalActualizar(id_orden){
             if (filtro.indexOf(string.charAt(i)) != -1) 
                 out += string.charAt(i);
             e.value = out.toUpperCase();
+
+            $('#nombre_user').text($('#s5').val()+" "+$('#s6').val()
+                +" "+$('#s3').val()+" "+$('#s4').val());
+            $('#nombre_use').text($('#s5').val()+" "+$('#s6').val()
+                +" "+$('#s3').val()+" "+$('#s4').val());
+        }
+
+        function Texto(e){//solo letras y numeros
+            var string = e.value;
+            var out = '';
+            //Se añaden las letras validas
+            var filtro = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ ';//Caracteres validos
+            
+            for (var i=0; i<string.length; i++)
+            if (filtro.indexOf(string.charAt(i)) != -1) 
+                out += string.charAt(i);
+            e.value = out.toUpperCase();
+        }
+
+        function Edad(e){//solo letras y numeros
+            var fecha = e.value;
+            var f = new Date();
+            var actual = f.getFullYear();
+            var edad = actual-new Date(fecha).getFullYear();
+            if('{{$date}}'<=fecha){
+                e.value='';
+            }
+            console.log(edad);
+            if(edad < 14){
+                document.getElementById("edad").style.display = "block";
+            }else{
+                document.getElementById("edad").style.display = "none";
+            }
         }
 	</script>
 @endsection

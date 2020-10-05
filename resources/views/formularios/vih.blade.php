@@ -423,6 +423,9 @@ function modalActualizar(id_orden){
             if (filtro.indexOf(string.charAt(i)) != -1) 
                 out += string.charAt(i);
             e.value = out.toUpperCase();
+
+            $('#nombre_user').text($('#s5').val()+" "+$('#s6').val()
+                +" "+$('#s3').val()+" "+$('#s4').val());
         }
 	</script>
 @endsection
