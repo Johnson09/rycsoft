@@ -93,7 +93,7 @@ class FormularioMuestraController extends Controller
 
         file_put_contents('public/firms_image/'.$fileName3, $fileData3);
         
-        $registro_consentimiento = DB::select("SELECT nextval('registro_consentimiento_muestra_id_registro_consentimiento_muestra_seq'); ");
+        $registro_consentimiento = DB::select("SELECT nextval('registro_consentimiento_muest_id_registro_consentimiento_mu_seq'); ");
         $id_registro_consentimiento_muestra = $registro_consentimiento[0]->nextval;
         // // dd($id_registro_encuesta);
 
