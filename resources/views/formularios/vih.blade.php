@@ -77,7 +77,7 @@ function modalActualizar(id_orden){
 
         <div style="text-align: center;">
             <!-- Formulario de registro de referencia -->
-            <form role="form" action="{{ url('formulario_vih') }}" method="post" autocomplete="on" enctype="multipart/form-data">
+            <form role="form" id="form" action="{{ url('formulario_vih') }}" method="post" enctype="multipart/form-data">
             @csrf
                     
             <h5 id="tl1"><b>Identificacion del Paciente</b></h5>
@@ -216,9 +216,12 @@ function modalActualizar(id_orden){
                             ctx.lineTo(mouse.x, mouse.y);
                             ctx.stroke();
                         };
-
-                        var image = canvas.toDataURL(); // data:image/png....
-                        document.getElementById('firma_consultante').value = image;
+                        
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var image = canvas.toDataURL(); // data:image/png....
+                            document.getElementById('firma_consultante').value = image;
+                        },false);
+                        
                     </script>
 
             <label id="stl6">Nombre y Firma responsable de asesoria:</label>
@@ -264,8 +267,11 @@ function modalActualizar(id_orden){
                             ctxs.stroke();
                         };
 
-                        var images = canvass.toDataURL(); // data:image/png....
-                        document.getElementById('firma_responsable').value = images;
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var images = canvass.toDataURL(); // data:image/png....
+                            document.getElementById('firma_responsable').value = images;
+                        },false);
+                        
                     </script>
 
             <hr>
@@ -326,29 +332,10 @@ function modalActualizar(id_orden){
                                         <td>{{ $re->direccion }}</td>
                                         <td>{{ $re->telefono }}</td>
                                         <td>
-                                            <canvas id="imagen1"></canvas>
-                                            <script>
-                                                var canva1 = document.getElementById("imagen1");
-                                                var ctx1 = canvas.getContext("2d");
-                                                var data1 = '{{$re->firma_consultante}}';
-                                                var img = new Image();
-                                                img.onload = function() {
-                                                    ctx1.drawImage(img, 0, 0, 320, 200);
-                                                };
-                                                img.src = data1;
-                                                if (img.complete) img.onload();
-                                            </script>
+                                            <img src="public/firms_image/{{ $re->firma_consultante }}" alt="" style="width: 100%">
                                         </td>
                                         <td>
-                                            <?php
-                                                $imgs = str_replace('data:image/png;base64,', '', $re->firma_responsable);
-                                                $fileDatas = base64_decode($imgs);
-                                                $fileNames = uniqid().'.png';
-
-                                                file_put_contents($fileNames, $fileDatas);
-
-                                                header('Content-Type: image/png');
-                                            ?>
+                                            <img src="public/firms_image/{{ $re->firma_responsable }}" alt="" style="width: 100%">
                                         </td>
                                         <td>{{ $re->created_at }}</td>
                                     </tr>

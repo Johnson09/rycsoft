@@ -74,6 +74,18 @@ class FormularioVIHController extends Controller
                 ]
             );
         }
+
+        $img1 = str_replace('data:image/png;base64,', '', $request->firma_consultante);
+        $fileData1 = base64_decode($img1);
+        $fileName1 = uniqid().'.png';
+
+        file_put_contents('public/firms_image/'.$fileName1, $fileData1);
+
+        $img2 = str_replace('data:image/png;base64,', '', $request->firma_responsable);
+        $fileData2 = base64_decode($img2);
+        $fileName2 = uniqid().'.png';
+
+        file_put_contents('public/firms_image/'.$fileName2, $fileData2);
         
         $registro_consentimiento = DB::select("SELECT nextval('registro_consentimiento_vih_id_registro_consentimiento_vih_seq'); ");
         $id_registro_consentimiento_vih = $registro_consentimiento[0]->nextval;
@@ -83,8 +95,8 @@ class FormularioVIHController extends Controller
             [ 
                 'id_registro_consentimiento_vih' => $id_registro_consentimiento_vih,
                 'id_paciente' => $request->identification_number,
-                'firma_consultante' => $request->firma_consultante, 
-                'firma_responsable' => $request->firma_responsable,
+                'firma_consultante' => $fileName1, 
+                'firma_responsable' => $fileName2,
                 'sw_terminos' => $request->terminos, 
                 'created_at' => now(),
                 'updated_at' => now()
