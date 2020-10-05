@@ -176,8 +176,9 @@ function modalActualizar(id_orden){
 
             <label id="stl5">Nombre y Firma del consultante o representante legal:</label>
             <div id="canvasDiv1">
-                <canvas id="canvasSignature1" name="firma_consultante" style="border: 2px solid black;">
+                <canvas id="canvasSignature1" style="border: 2px solid black;">
                 </canvas>
+                <input type="hidden" name="firma_consultante" value="" id="firma_consultante">
             </div>
                     <script>
                         var canvas = document.getElementById('canvasSignature1');
@@ -215,12 +216,16 @@ function modalActualizar(id_orden){
                             ctx.lineTo(mouse.x, mouse.y);
                             ctx.stroke();
                         };
+
+                        var image = canvas.toDataURL(); // data:image/png....
+                        document.getElementById('firma_consultante').value = image;
                     </script>
 
             <label id="stl6">Nombre y Firma responsable de asesoria:</label>
             <div id="canvasDiv2">
-                <canvas id="canvasSignature2" name="firma_responsable" style="border: 2px solid black;">
+                <canvas id="canvasSignature2" style="border: 2px solid black;">
                 </canvas>
+                <input type="hidden" name="firma_responsable" value="" id="firma_responsable">
             </div>
                     <script>
                         var canvass = document.getElementById('canvasSignature2');
@@ -258,6 +263,9 @@ function modalActualizar(id_orden){
                             ctxs.lineTo(mouses.x, mouses.y);
                             ctxs.stroke();
                         };
+
+                        var images = canvass.toDataURL(); // data:image/png....
+                        document.getElementById('firma_responsable').value = images;
                     </script>
 
             <hr>
@@ -294,42 +302,54 @@ function modalActualizar(id_orden){
                                 <th>TIPO DOC</th>
                                 <th>N° IDEN USUARIO</th>
                                 <th>NOMBRES</th>
-                                <th>PRIMER APELLIDO</th>
-                                <th>SEG APELLIDO</th>
+                                <th>APELLIDOS</th>
                                 <th>EDAD</th>
                                 <th>GENERO</th>
                                 <th>DIRECCIÓN</th>
                                 <th>TELEFONO</th>
-                                <th>EMAIL</th>
-                                <th>EPS</th>
-                                <th>TIPO USUARIO</th>
-                                <th>SERVICIO</th>
+                                <th>FIRMA CONSULTANTE</th>
+                                <th>FIRMA RESPONSABLE</th>
                                 <th>FECHA REGISTRO</th>
                             </tr>
                         </thead>
                         
                         <!-- datos obtenidos mediante consulta - mostrados en la vista de la pagina -->
                             <tbody style="text-align: center;">
-                                @foreach($encuesta as $re)
+                                @foreach($consentimiento as $re)
                                     <tr>
-                                        <!-- <td>
-                                            <button onclick="modalActualizar('')" class="btn btn-info" disabled>
-                                                <span class="fa fa-pencil" aria-hidden="true"></span>
-                                            </button>
-                                        </td> -->
                                         <td>{{ $re->name_tipo_ident }}</td>
                                         <td>{{ $re->id_paciente }}</td>
                                         <td>{{ $re->primer_nombre }} {{ $re->segundo_nombre }}</td>
-                                        <td>{{ $re->primer_apellido }}</td>
-                                        <td>{{ $re->segundo_apellido }}</td>
+                                        <td>{{ $re->primer_apellido }} {{ $re->segundo_apellido }}</td>
                                         <td>{{ $re->edad }}</td>
                                         <td>{{ $re->name_sexo }}</td>
                                         <td>{{ $re->direccion }}</td>
                                         <td>{{ $re->telefono }}</td>
-                                        <td>{{ $re->email }}</td>
-                                        <td>{{ $re->name_eps }}</td>
-                                        <td>{{ $re->descripcion_tipo_user }}</td>
-                                        <td>{{ $re->name_servicio }}</td>
+                                        <td>
+                                            <canvas id="imagen1"></canvas>
+                                            <script>
+                                                var canva1 = document.getElementById("imagen1");
+                                                var ctx1 = canvas.getContext("2d");
+                                                var data1 = '{{$re->firma_consultante}}';
+                                                var img = new Image();
+                                                img.onload = function() {
+                                                    ctx1.drawImage(img, 0, 0, 320, 200);
+                                                };
+                                                img.src = data1;
+                                                if (img.complete) img.onload();
+                                            </script>
+                                        </td>
+                                        <td>
+                                            <?php
+                                                $imgs = str_replace('data:image/png;base64,', '', $re->firma_responsable);
+                                                $fileDatas = base64_decode($imgs);
+                                                $fileNames = uniqid().'.png';
+
+                                                file_put_contents($fileNames, $fileDatas);
+
+                                                header('Content-Type: image/png');
+                                            ?>
+                                        </td>
                                         <td>{{ $re->created_at }}</td>
                                     </tr>
                                 @endforeach
