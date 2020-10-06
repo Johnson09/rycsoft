@@ -281,7 +281,7 @@ function modalActualizar(id_orden){
                                         <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
-                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0" checked></td>
                                             <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
                                         </tr>
                                         @endif
@@ -312,7 +312,7 @@ function modalActualizar(id_orden){
                                         <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
-                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0" checked></td>
                                             <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
                                         </tr>
                                         @endif
@@ -343,7 +343,7 @@ function modalActualizar(id_orden){
                                         <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
-                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0" checked></td>
                                             <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
                                         </tr>
                                         @endif
@@ -358,7 +358,7 @@ function modalActualizar(id_orden){
                                         <tr style="text-align: justify;">
                                             <td><input type="hidden" name="id_pregunta{{ $pre->id_pregunta }}" value="{{ $pre->id_pregunta }}" required="required">{{ $pre->descripcion_pregunta }}</td>
                                             <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="1"></td>
-                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0"></td>
+                                            <td><input type="radio" name="respuesta_pregunta{{ $pre->id_pregunta }}" value="0" checked></td>
                                             <td><textarea name="observacion_pregunta{{ $pre->id_pregunta }}" cols="30" rows="3"></textarea></td>
                                         </tr>
                                         @endif
