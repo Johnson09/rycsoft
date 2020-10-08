@@ -176,6 +176,9 @@
             <h6 class="collapse-header">Toma:</h6>
             <a class="collapse-item" href="formulario_vih">VIH</a>
             <a class="collapse-item" href="formulario_muestra">Muestra</a>
+            <a class="collapse-item" href="formulario_orina">Orina - Urucultivos</a>
+            <a class="collapse-item" href="formulario_frotisVaginal">Frotis Flujo Vaginal</a>
+            <a class="collapse-item" href="formulario_cultivoVaginal">Cultivo Vaginal y Rectal</a>
           </div>
         </div>
       </li>

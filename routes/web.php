@@ -67,6 +67,12 @@ Route::resource('/formulario_vih', 'FormularioVIHController');
 
 Route::resource('/formulario_muestra', 'FormularioMuestraController');
 
+Route::resource('/formulario_orina', 'OrinaUrucultivosController');
+
+Route::resource('/formulario_frotisVaginal', 'FrotisVaginalController');
+
+Route::resource('/formulario_cultivoVaginal', 'CultivoVaginalController');
+
 Route::get('/obtener_paciente', 'PacienteController@getPaciente');
 
 Route::get('/layout/{any}', 'RoutesController@index')->where('any', '.*');
