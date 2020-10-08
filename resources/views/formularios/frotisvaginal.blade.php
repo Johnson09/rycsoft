@@ -77,7 +77,7 @@ function modalActualizar(id_orden){
 
         <div style="text-align: center;">
             <!-- Formulario de registro de referencia -->
-            <form role="form" id="form" action="{{ url('formulario_vih') }}" method="post" enctype="multipart/form-data">
+            <form role="form" id="form" action="{{ url('formulario_frotisVaginal') }}" method="post" enctype="multipart/form-data">
             @csrf
                     
             <div class="row">
