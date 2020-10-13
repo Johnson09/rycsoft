@@ -98,6 +98,29 @@
         </div>
       </li>
 
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Aplicativos
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        @if($sw_ryc == 1)
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseApps" aria-expanded="true" aria-controls="collapseApps">
+          <i class="fas fa-fw fa-cube"></i>
+          <span>Herramienta</span>
+        </a>
+        <div id="collapseApps" class="collapse" aria-labelledby="headingApps" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">App:</h6>
+            <a class="collapse-item" target="_blank" href="http://buga.ojodedios.co/login">Ojo De Dios</a>
+          </div>
+        </div>
+        @endif
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
