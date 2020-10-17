@@ -115,7 +115,12 @@
         <div id="collapseApps" class="collapse" aria-labelledby="headingApps" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">App:</h6>
-            <a class="collapse-item" target="_blank" href="http://buga.ojodedios.co/login">Ojo De Dios</a>
+              <form id="formApp" method="post" target="_blank" action="http://buga.ojodedios.co/validateLogin">
+                @csrf
+                <input type="hidden" name="email" value="divinonino@buga.gov.co" required >
+                <input type="hidden" name="password" value="divinonino" required >
+                <a class="collapse-item" href="javascript: document.getElementById('formApp').submit();">Ojo De Dios</a>
+              </form>
           </div>
         </div>
         @endif
