@@ -35,7 +35,10 @@ class VerifyCsrfToken
      *
      * @var array
      */
-    protected $except = [];
+    protected $except = [
+        'http://buga.ojodedios.co/*',
+        'http://buga.ojodedios.co/validateLogin/*',
+    ];
 
     /**
      * Indicates whether the XSRF-TOKEN cookie should be set on the response.

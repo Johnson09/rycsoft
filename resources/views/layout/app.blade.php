@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="utf-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/png" href="public/images/HDN LOGO.png"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
@@ -26,16 +27,22 @@
   <link href="public/css/sb-admin-2.min.css" rel="stylesheet">
 
   <script>
-        // Mensaje de envio exitoso
-        function envio(){
-          var mensaje = document.getElementById('mensaje').value;
-          swal({
-            title: 'Registro exitoso',
-            text: mensaje,
-            icon: "success",
-            buttons: "Aceptar!",
-          });
-        }
+    // $.ajaxSetup({
+    //   headers: {
+    //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //   }
+    // });
+
+    // Mensaje de envio exitoso
+    function envio(){
+      var mensaje = document.getElementById('mensaje').value;
+        swal({
+          title: 'Registro exitoso',
+          text: mensaje,
+          icon: "success",
+          buttons: "Aceptar!",
+        });
+    }
   </script>
 
 </head>
@@ -115,12 +122,7 @@
         <div id="collapseApps" class="collapse" aria-labelledby="headingApps" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">App:</h6>
-              <form id="formApp" method="post" target="_blank" action="http://buga.ojodedios.co/validateLogin">
-                @csrf
-                <input type="hidden" name="email" value="divinonino@buga.gov.co" required >
-                <input type="hidden" name="password" value="divinonino" required >
-                <a class="collapse-item" href="javascript: document.getElementById('formApp').submit();">Ojo De Dios</a>
-              </form>
+            <a class="collapse-item" target="_blank" href="http://buga.ojodedios.co/">Ojo De Dios</a>
           </div>
         </div>
         @endif

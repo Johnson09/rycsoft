@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'http://buga.ojodedios.co/*',
+        'http://buga.ojodedios.co/validateLogin/*',
     ];
 }
