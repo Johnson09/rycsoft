@@ -3,39 +3,6 @@
 @section('content')
 
 <script type="text/javascript">
-var iubi = new WebSocket('ws://127.0.0.1:2015');
-
-iubi.onerror = function (error) { Ext.Msg.info({ 
-    ui: 'warning', 
-    title: 'UI', 
-    html: 'El servicio del Lector U Are U 4500 Digital Persona esta inactivo', 
-    iconCls: '#Error' 
-    }); 
-};
-
-// function loadDevice() { 
-    //local,products emit('connectserver', 
-        // { type: String('products') }); 
-        //     emit('register', { 
-        //         user: '12345678', 
-        //         finger: '1' 
-        //     }); 
-// }
-function loadDevice() {                  
-    emit('checkin');
-}
-
-iubi.onmessage = function (evt) {
-    var data;
-    eval(evt.data);
-    console.log(data)
-      
-    switch (data.type) {
-        case 'validate':
-            var r = data.payload[0];
-            IMDACTILAR.setImageUrl('data:image/png;base64,' + r.data + '');
-    } 
-} 
 
 function pad(input, length, padding) { 
   var str = input + "";
