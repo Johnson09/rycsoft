@@ -155,16 +155,16 @@ function modalActualizar(id_orden){
             </div>
 
             <div class="row">
-                <div class="col-xs-8 col-md-8 col-md-8">
+                <div class="col-xs-12 col-md-12 col-md-12">
                     <table id="section1" class="table table-hover" style="text-align: justify;">
                         <tr>
                             <th>
                                 <p>Responsabilidad sobre la información consignada en la encuesta: </p>
                                 <p>Yo <label id="nombre_user"></label> N° <label id="tipo_doc"></label> <label id="doc"></label></p>
-                                <p>Declaro haber comprendido este documento y haber recibido Consejeria previa a la realización del test.</p>
-                                <p>Acepto la responsabilidad de retirar personalmente el resultado; encaso de no retirarlo en la fecha acordada, acepto que se me contacte confidencialmente, según los procedimientos que han informado (llamado telefonico, visita domiciliaria, carta certificada).</p>
-                                <p>Frente a esto decido:</p>
-                                <p>Acepto realizarme el examen de detección del VIH <input type="checkbox" name="terminos" value="1" required></p>
+                                <p>Declaro haber comprendido este documento y haber recibido Consejeria previa a la realización del test.
+                                <br>Acepto la responsabilidad de retirar personalmente el resultado; encaso de no retirarlo en la fecha acordada, acepto que se me contacte confidencialmente, según los procedimientos que han informado (llamado telefonico, visita domiciliaria, carta certificada).</p>
+                                <p>Frente a esto decido:
+                                <br>Acepto realizarme el examen de detección del VIH <input type="checkbox" name="terminos" value="1" required></p>
                             </th>
                         </tr>          
                     </table>
