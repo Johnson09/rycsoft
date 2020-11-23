@@ -174,14 +174,61 @@ function modalActualizar(id_orden){
                                 <p>Yo <label id="nombre_user"></label> doy mi consentimiento para que se realice la toma.</p>
                                 <p>Manifiesto el haber comprendido el significado del procedimiento y los riesgos inherentes al mismo (sangrado, dolor, deterioro piel, fiebitis, infección, hematoma) y declaro estar debidamente informado/a según disponen los articulos 15 y 16 de la ley 23 de 1981. Por la cual se dictan normas en materia de ética médica, habiendo tenido oportunidad de aclarar todas mis dudas en entrevista personal y previa, así mismo, he recibido respuesta a todas mis preguntas.</p>
                             </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <p></p>
-                            </th>
-                        </tr>          
+                        </tr>         
                     </table>
                 </div>
+            </div>
+            
+            <div style="width: 40em">
+                <label id="stl6">Firma del Paciente:</label>
+                <div id="canvasDiv2">
+                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
+                    </canvas>
+                    <input type="hidden" name="firma_paciente" value="" id="firma_paciente">
+                </div>
+                    <script>
+                        var canvass = document.getElementById('canvasSignature2');
+                        var ctxs = canvass.getContext('2d');
+                        
+                        var paintings = document.getElementById('canvasDiv2');
+                        var paint_styles = getComputedStyle(paintings);
+                        canvass.width = parseInt(paint_styles.getPropertyValue('width'));
+                        canvass.height = parseInt(paint_styles.getPropertyValue('height'));
+
+                        var mouses = {x: 0, y: 0};
+                        
+                        canvass.addEventListener('mousemove', function(e) {
+                        mouses.x = e.pageX - this.offsetLeft;
+                        mouses.y = e.pageY - this.offsetTop;
+                        }, false);
+
+                        ctxs.lineWidth = 2;
+                        ctxs.lineJoin = 'round';
+                        ctxs.lineCap = 'round';
+                        ctxs.strokeStyle = '#000000';
+                        
+                        canvass.addEventListener('mousedown', function(e) {
+                            ctxs.beginPath();
+                            ctxs.moveTo(mouses.x, mouses.y);
+                        
+                            canvass.addEventListener('mousemove', onPaints, false);
+                        }, false);
+                        
+                        canvass.addEventListener('mouseup', function() {
+                            canvass.removeEventListener('mousemove', onPaints, false);
+                        }, false);
+                        
+                        var onPaints = function() {
+                            ctxs.lineTo(mouses.x, mouses.y);
+                            ctxs.stroke();
+                        };
+
+                        document.getElementById('form').addEventListener("submit",function(e){
+                            var images = canvass.toDataURL(); // data:image/png....
+                            document.getElementById('firma_paciente').value = images;
+                        },false);
+
+                    </script>
             </div>
 
             <div style="width: 40em">
@@ -231,58 +278,6 @@ function modalActualizar(id_orden){
                         document.getElementById('form').addEventListener("submit",function(e){
                             var images = canvass.toDataURL(); // data:image/png....
                             document.getElementById('firma_acudiente').value = images;
-                        },false);
-
-                    </script>
-            </div>
-
-            <div style="width: 40em">
-                <label id="stl6">Firma del Paciente:</label>
-                <div id="canvasDiv2">
-                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
-                    </canvas>
-                    <input type="hidden" name="firma_paciente" value="" id="firma_paciente">
-                </div>
-                    <script>
-                        var canvass = document.getElementById('canvasSignature2');
-                        var ctxs = canvass.getContext('2d');
-                        
-                        var paintings = document.getElementById('canvasDiv2');
-                        var paint_styles = getComputedStyle(paintings);
-                        canvass.width = parseInt(paint_styles.getPropertyValue('width'));
-                        canvass.height = parseInt(paint_styles.getPropertyValue('height'));
-
-                        var mouses = {x: 0, y: 0};
-                        
-                        canvass.addEventListener('mousemove', function(e) {
-                        mouses.x = e.pageX - this.offsetLeft;
-                        mouses.y = e.pageY - this.offsetTop;
-                        }, false);
-
-                        ctxs.lineWidth = 2;
-                        ctxs.lineJoin = 'round';
-                        ctxs.lineCap = 'round';
-                        ctxs.strokeStyle = '#000000';
-                        
-                        canvass.addEventListener('mousedown', function(e) {
-                            ctxs.beginPath();
-                            ctxs.moveTo(mouses.x, mouses.y);
-                        
-                            canvass.addEventListener('mousemove', onPaints, false);
-                        }, false);
-                        
-                        canvass.addEventListener('mouseup', function() {
-                            canvass.removeEventListener('mousemove', onPaints, false);
-                        }, false);
-                        
-                        var onPaints = function() {
-                            ctxs.lineTo(mouses.x, mouses.y);
-                            ctxs.stroke();
-                        };
-
-                        document.getElementById('form').addEventListener("submit",function(e){
-                            var images = canvass.toDataURL(); // data:image/png....
-                            document.getElementById('firma_paciente').value = images;
                         },false);
 
                     </script>

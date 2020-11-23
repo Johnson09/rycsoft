@@ -174,12 +174,13 @@ function modalActualizar(id_orden){
                 </div>
             </div>
 
-            <label id="stl5">Nombre y Firma del consultante o representante legal:</label>
-            <div id="canvasDiv1">
-                <canvas id="canvasSignature1" style="border: 2px solid black;">
-                </canvas>
-                <input type="hidden" name="firma_consultante" value="" id="firma_consultante">
-            </div>
+            <div style="width: 40em">
+                <label id="stl5">Nombre y Firma del consultante o representante legal:</label>
+                <div id="canvasDiv1">
+                    <canvas id="canvasSignature1" height="50" style="border: 2px solid black;">
+                    </canvas>
+                    <input type="hidden" name="firma_consultante" value="" id="firma_consultante">
+                </div>
                     <script>
                         var canvas = document.getElementById('canvasSignature1');
                         var ctx = canvas.getContext('2d');
@@ -223,13 +224,15 @@ function modalActualizar(id_orden){
                         },false);
                         
                     </script>
-
-            <label id="stl6">Nombre y Firma responsable de asesoria:</label>
-            <div id="canvasDiv2">
-                <canvas id="canvasSignature2" style="border: 2px solid black;">
-                </canvas>
-                <input type="hidden" name="firma_responsable" value="" id="firma_responsable">
             </div>
+
+            <div style="width: 40em">
+                <label id="stl6">Nombre y Firma responsable de asesoria:</label>
+                <div id="canvasDiv2">
+                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
+                    </canvas>
+                    <input type="hidden" name="firma_responsable" value="" id="firma_responsable">
+                </div>
                     <script>
                         var canvass = document.getElementById('canvasSignature2');
                         var ctxs = canvass.getContext('2d');
@@ -273,6 +276,7 @@ function modalActualizar(id_orden){
                         },false);
                         
                     </script>
+            </div>
 
             <hr>
             <div class="row">
