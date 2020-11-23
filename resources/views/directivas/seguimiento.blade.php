@@ -234,8 +234,11 @@ function datos_paciente(id_paciente) {
                     <div class="row">
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group">
-                                <select class="selectpicker form-control input-lg" data-style="btn-info" name="id_eps" required="required" id="si3" style="display: none;">
+                                <select class="selectpicker form-control input-lg" data-style="btn-info" name="id_via_egreso" required="required" id="si3" style="display: none;">
                                     <option value="">VIA EGRESO</option>
+                                    @foreach($egreso as $e)
+                                    <option value="{{ $e->id_via_egreso }}">{{ $e->descripcion_via_egreso }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">

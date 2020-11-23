@@ -26,6 +26,7 @@ class SeguimientoController extends Controller
                 $servicio = DB::select("SELECT * FROM tipo_servicio ");
                 $regimen_ips = DB::select("SELECT * FROM entidad_ips ");
                 $municipio_remitente = DB::select("SELECT * FROM municipios ");
+                $egreso = DB::select("SELECT * FROM vias_egreso ");
 
                 date_default_timezone_set('America/Bogota');
                 $date = date("Y-m-d");
@@ -46,6 +47,7 @@ class SeguimientoController extends Controller
                                 'regimen_ips', 
                                 'municipio_remitente',
                                 'date',
+                                'egreso',
                                 'seguimiento'
                             ));
 
