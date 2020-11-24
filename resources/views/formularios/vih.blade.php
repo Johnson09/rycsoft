@@ -175,6 +175,14 @@ function modalActualizar(id_orden){
             </div>
 
             <div style="width: 40em">
+                <label></label>
+                <div>
+                    <canvas height="50">
+                    </canvas>
+                </div>
+            </div>
+
+            <div style="width: 40em">
                 <label id="stl5">Nombre y Firma del consultante o representante legal:</label>
                 <div id="canvasDiv1">
                     <canvas id="canvasSignature1" height="50" style="border: 2px solid black;">

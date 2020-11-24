@@ -203,6 +203,22 @@ function modalActualizar(id_orden){
                 </div>
             </div>
 
+            <div style="width: 40em">
+                <label></label>
+                <div>
+                    <canvas height="50">
+                    </canvas>
+                </div>
+            </div>
+
+            <div style="width: 40em">
+                <label></label>
+                <div>
+                    <canvas height="50">
+                    </canvas>
+                </div>
+            </div>
+
             <div style="width: 40em; text-align: justify;">
                 <label>Firma/Documento del Paciente:</label>
                 <div id="canvasDiv2">
