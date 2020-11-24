@@ -281,11 +281,7 @@ function modalActualizar(id_orden){
             <div style="width: 40em">
                 <label></label>
                 <div>
-                    <canvas height="50">
-                    </canvas>
-                </div>
-                <div>
-                    <canvas height="50">
+                    <canvas height="70">
                     </canvas>
                 </div>
             </div>
