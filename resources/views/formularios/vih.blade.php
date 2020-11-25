@@ -174,7 +174,7 @@ function modalActualizar(id_orden){
                 </div>
             </div>
 
-            <div style="width: 40em">
+            <div style="width: 50em">
                 <label id="stl5">Nombre y Firma del consultante o representante legal:</label>
                 <div id="canvasDiv1">
                     <canvas id="canvasSignature1" height="80" style="border: 2px solid black;">
@@ -226,7 +226,7 @@ function modalActualizar(id_orden){
                     </script>
             </div>
 
-            <div style="width: 40em">
+            <div style="width: 50em">
                 <label id="stl6">Nombre y Firma responsable de asesoria:</label>
                 <div id="canvasDiv2">
                     <canvas id="canvasSignature2" height="80" style="border: 2px solid black;">
@@ -278,7 +278,7 @@ function modalActualizar(id_orden){
                     </script>
             </div>
 
-            <div style="width: 40em">
+            <div style="width: 50em">
                 <label></label>
                 <div>
                     <canvas height="80">
