@@ -206,7 +206,7 @@ function modalActualizar(id_orden){
             <div style="width: 40em; text-align: justify;">
                 <label>Firma/Documento del Paciente:</label>
                 <div id="canvasDiv2">
-                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature2" height="90" style="border: 2px solid black;">
                     </canvas>
                     <input type="hidden" name="firma_paciente" value="" id="firma_paciente">
                 </div>
@@ -258,7 +258,7 @@ function modalActualizar(id_orden){
             <div style="width: 40em">
                 <label></label>
                 <div>
-                    <canvas height="70">
+                    <canvas height="90">
                     </canvas>
                 </div>
             </div>
@@ -266,7 +266,7 @@ function modalActualizar(id_orden){
             <div style="width: 40em">
                 <label></label>
                 <div>
-                    <canvas height="70">
+                    <canvas height="90">
                     </canvas>
                 </div>
             </div>

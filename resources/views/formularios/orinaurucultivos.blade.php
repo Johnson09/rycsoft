@@ -208,7 +208,7 @@ function modalActualizar(id_orden){
             <div style="width: 45em; text-align: justify;">
                 <label>Firma del Paciente:</label>
                 <div id="canvasDiv2">
-                    <canvas id="canvasSignature2" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature2" height="90" style="border: 2px solid black;">
                     </canvas>
                     <input type="hidden" name="firma_paciente" value="" id="firma_paciente">
                 </div>
@@ -261,7 +261,7 @@ function modalActualizar(id_orden){
                 <p>Nombre del testigo: <input type="text" name="nombre_testigo" onkeyup="Textos(this);"> N° Documento Identidad: <input type="number" name="documento_testigo" maxlength="10"></p>
                 <label>Firma del Testigo:</label>
                 <div id="canvasDiv1">
-                    <canvas id="canvasSignature1" height="50" style="border: 2px solid black;">
+                    <canvas id="canvasSignature1" height="90" style="border: 2px solid black;">
                     </canvas>
                     <input type="hidden" name="firma_acudiente" value="" id="firma_acudiente">
                 </div>
@@ -313,7 +313,7 @@ function modalActualizar(id_orden){
             <div style="width: 45em">
                 <label></label>
                 <div>
-                    <canvas height="60">
+                    <canvas height="90">
                     </canvas>
                 </div>
             </div>
