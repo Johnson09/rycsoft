@@ -10,11 +10,11 @@
         <!-- Script -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="{{ secure_asset('./public/js/login.js') }}" defer></script>
+        <script src="{{ asset('./js/login.js') }}" defer></script>
 
         <!-- Style -->
-        <link rel="icon" href="{{ secure_asset('./public/icon/favicon.ico') }}"/>
-        <link rel="stylesheet" href="{{ secure_asset('./public/css/login.css') }}" media="all" rel="stylesheet">
+        <link rel="icon" href="{{ asset('./icon/favicon.ico') }}"/>
+        <link rel="stylesheet" href="{{ asset('./css/login.css') }}" media="all" rel="stylesheet">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
