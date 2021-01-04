@@ -36,7 +36,7 @@
             <thead>
                 <tr>
                     <th style="width: 10%;">
-                        <img src="{{ asset('public/images/escudo.png') }}" style="width: 7em;">
+                        <img src="{{ asset('./images/escudo.png') }}" style="width: 7em;">
                     </th>
                     <th style="">
                         <p>
@@ -50,7 +50,7 @@
                         </p>
                     </th>
                     <th style="width: 10%;">
-                        <img src="{{ asset('public/images/HDN LOGO.png') }}" style="width: 7em;">
+                        <img src="{{ asset('./images/HDN LOGO.png') }}" style="width: 7em;">
                     </th>
                 </tr>
             </thead>

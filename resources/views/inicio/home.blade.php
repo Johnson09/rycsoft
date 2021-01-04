@@ -5,7 +5,7 @@
     <div class="row justify-content-center text-center">
         <div class="container-fluid text-center">
             <h1 style="color: #2c53c5; margin-top: -0.8em;"><b>RYCSOFT</b></h1>
-            <img src="public/images/HDN LOGO.png" id="logo">
+            <img src="{{ asset('./images/HDN LOGO.png') }}" id="logo">
             <h5>REFERENCIA Y CONTRAREFERENCIA</h5>
         </div>
     </div>
