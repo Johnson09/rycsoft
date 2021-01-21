@@ -37,16 +37,16 @@ class FormularioVIHController extends Controller
                 $date = date("Y-m-d");
     
                 return view('formularios.vih', 
-                            [  
-                                'id_usuario' => $id_usuario,
-                                'sw_encuesta' => $sw_encuesta,
-                                'sw_ryc' => $sw_ryc,
-                                'nombre_usuario' => $nombre_usuario,
-                                'tipo_identificacion' => $tipo_identificacion, 
-                                'genero' => $genero, 
-                                'consentimiento' => $consentimiento,
-                                'date' => $date,
-                            ]
+                            compact(
+                                'id_usuario',
+                                'sw_encuesta',
+                                'sw_ryc',
+                                'nombre_usuario',
+                                'tipo_identificacion', 
+                                'genero', 
+                                'consentimiento',
+                                'date'
+                            )
                         );
 
         }

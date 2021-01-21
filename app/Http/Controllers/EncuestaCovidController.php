@@ -58,7 +58,7 @@ class EncuestaCovidController extends Controller
                                 'tipo_usuario',
                                 'preguntas',
                                 'encuesta',
-                                'date',
+                                'date'
                             ));
 
         }

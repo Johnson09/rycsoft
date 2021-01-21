@@ -37,7 +37,7 @@ class FrotisVaginalController extends Controller
                 $date = date("Y-m-d");
     
                 return view('formularios.frotisvaginal', 
-                            [    
+                            compact(
                                 'id_usuario',
                                 'sw_encuesta',
                                 'sw_ryc',
@@ -46,7 +46,7 @@ class FrotisVaginalController extends Controller
                                 'genero', 
                                 'consentimiento',
                                 'date'
-                            ]
+                            )
                             );
 
         }

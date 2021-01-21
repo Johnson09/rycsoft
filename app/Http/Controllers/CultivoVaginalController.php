@@ -47,7 +47,7 @@ class CultivoVaginalController extends Controller
                                 'regimen_eps',
                                 'genero', 
                                 'consentimiento',
-                                'date',
+                                'date'
                             ));
 
         }

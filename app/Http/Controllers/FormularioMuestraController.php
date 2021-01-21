@@ -45,7 +45,7 @@ class FormularioMuestraController extends Controller
                                 'tipo_identificacion', 
                                 'genero', 
                                 'consentimiento',
-                                'date',
+                                'date'
                             ));
 
         }
