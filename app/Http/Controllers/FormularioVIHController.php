@@ -80,13 +80,13 @@ class FormularioVIHController extends Controller
         $fileData1 = base64_decode($img1);
         $fileName1 = uniqid().'.png';
 
-        file_put_contents('../../public/firms_image/'.$fileName1, $fileData1);
+        file_put_contents('../public/firms_image/'.$fileName1, $fileData1);
 
         $img2 = str_replace('data:image/png;base64,', '', $request->firma_responsable);
         $fileData2 = base64_decode($img2);
         $fileName2 = uniqid().'.png';
 
-        file_put_contents('../../public/firms_image/'.$fileName2, $fileData2);
+        file_put_contents('../public/firms_image/'.$fileName2, $fileData2);
         
         $registro_consentimiento = DB::select("SELECT nextval('registro_consentimiento_vih_id_registro_consentimiento_vih_seq'); ");
         $id_registro_consentimiento_vih = $registro_consentimiento[0]->nextval;
